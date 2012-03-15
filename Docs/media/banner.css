@@ -1,0 +1,77 @@
+body
+{
+	background-color: #535e64;
+	margin: 0px;
+	padding: 0px;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+/* Banner (top bar) classes */
+
+.banner { height: 115px; }
+
+.banner-menu
+{
+	height: 31px;
+	background-color: #60676b;
+	padding: 0;
+	margin: 0;
+}
+.banner-menu div
+{
+	float: right;
+}
+.banner-menu .ric_menu
+{
+	float: left;
+	width: auto;
+	height: 31px;
+	padding: 0 21px 0 21px;
+	margin: 0;
+	list-style: none;
+	background-color: #373a3d;
+}
+.banner-menu .ric_menu li
+{
+	float: left;
+	font-size: 11px;
+	font-family: Georgia;
+}
+.banner-menu .ric_menu li a, .banner-menu .ric_menu li a:visited
+{
+	float: left;
+	display: block;
+	height: 13px;
+	padding: 8px 10px 10px 10px;
+	color: #fff;
+	text-decoration: none;
+}
+.banner-menu .ric_menu li a:hover
+{
+	color: #fff;
+	background-color: #c00;
+}
+.banner-title
+{
+	height: 32px;
+	padding: 27px 0 25px 21px;
+	background-image: url(./images/bgd_header.jpg);
+	background-repeat: repeat-x;
+	text-align: left;
+	font-family: Georgia;
+	font-size: 26px;
+	font-style: italic;
+	color: #fff;
+}
+
+.package-selector
+{
+	padding: 1px 2px 1px 2px;
+	margin: 6px 10px 0 0;
+	background-color: #eee;
+	border: 1px solid #8e8e8e;
+	color: #8e8e8e;
+	font-size: 11px;
+}

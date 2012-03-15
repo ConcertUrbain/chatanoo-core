@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TourATour" default="run" basedir=".">
+
+	<property file="project.properties" />
+	<property file="user.properties" />
+
+	<target name="run">
+	</target>
+
+	<target name="phpDoc">
+		<exec executable="php" failonerror="true">
+			<arg line="${phpdoc} -pp on -d ${basedir}/${applicationfolder} -o ${doctemplates} -t ${basedir}/${docsfolder} --title ${doctitle}" />
+		</exec>
+	</target>
+
+	<target name="tests">
+
+		<echo>///////////////////////</echo>
+		<echo>Launch ${phpunittest}</echo>
+		<echo>///////////////////////</echo>
+		<echo> </echo>
+
+		<exec dir="${basedir}/${testsfolder}" executable="${phpunit}" failonerror="true">
+			<arg line="--log-xml ${basedir}/${phplogfile} ${phpunittest}" />
+		</exec>
+	</target>
+
+	<target name="send">
+		<replace file="${basedir}/index.php"
+			token="defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'development');"
+			value="defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'production');"/>
+		<ftp server="${ftpserver}" userid="${ftpuser}" password="${ftppassword}" port="${ftpport}" action="send" remotedir="${ftpdir}" verbose="true" preservelastmodified="${preservelasmodified}">
+			<fileset dir="${basedir}">
+				<patternset>
+					<include name="${applicationfolder}/**"/>
+					<include name="${docsfolder}/**" if="ftpincludedocs"/>
+					<include name="Library/**" if="ftpincludelibs"/>
+					<include name="index.php"/>
+					<include name=".htaccess"/>
+				</patternset>
+			</fileset>
+		</ftp>
+		<replace file="${basedir}/index.php"
+			token="defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'production');"
+			value="defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'development');"/>
+	</target>
+
+</project>
+
+

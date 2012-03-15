@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+		    <!-- designed by nothing -->
+		    <!-- http://www.nothing.ch -->
+			<title>Docs For Class Table_Medias_Video</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+						<script src="../../media/lib/classTree.js"></script>
+												<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "../../media/images/plus.png";
+				imgMinus.src = "../../media/images/minus.png";
+
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<div class="page-body">
+<h2 class="class-name">Class Table_Medias_Video</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">
+		<h2>Description</h2>
+		<div class="nav-bar">
+							<span class="disabled">Description</span> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+												</div>
+	</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../../Table/Datas/Table_Medias_Interface.html">Table_Medias_Interface</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Class for SQL table interface.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_Table---Medias---Video.php.html">/Table/Medias/Video.php</a> (line <span class="field">23</span>)
+		</p>
+
+		
+		<pre>Zend_Db_Table_Abstract
+   |
+   --Table_Medias_Video</pre>
+
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Variable Summary</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+								<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+									|
+											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+																</div>
+		</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																								<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$_name" title="details" class="var-name">$_name</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_primary" title="details" class="var-name">$_primary</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$_referenceMap" title="details" class="var-name">$_referenceMap</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Method Summary</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+																							<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+										|
+								<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+			</div>
+		</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+																																								<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getMediaType" title="details" class="method-name">getMediaType</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getMediaVoClass" title="details" class="method-name">getMediaVoClass</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getTableName" title="details" class="method-name">getTableName</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Variables</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+													<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+				
+													|
+											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+												</div>
+		</div>
+		<div class="info-box-body">
+			<a name="var$_name" id="$_name"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$_name</span>
+			 = <span class="var-default"> 'medias_video'</span>			(line <span class="line-number">36</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Table Name</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_primary" id="$_primary"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_primary</span>
+			 = <span class="var-default"> 'id'</span>			(line <span class="line-number">47</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The primary key column or columns.</p>
+<p class="description"><p>A compound key should be declared as an array.  You may declare a single-column primary key  as a string.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_referenceMap" id="$_referenceMap"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$_referenceMap</span>
+			 = <span class="var-default">array(<br />	    	'auteur' =&gt; array(<br />	    		'columns'		=&gt; 'users_id',<br />	    		'refTableClass'	=&gt; 'Table_Users',<br />	    		'refColumns'	=&gt; 'id'<br />	    	))</span>			(line <span class="line-number">58</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Simple array of class names of tables that are &quot;children&quot; of the current  table, in other words tables that contain a foreign key to this one.</p>
+<p class="description"><p>Array elements are not table names; they are class names of classes that  extend Zend_Db_Table_Abstract.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+					</div>
+	</div>
+
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Methods</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+																			<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																						<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+							</div>
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodgetMediaType" id="getMediaType"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMediaType</span> (line <span class="line-number">73</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retourne le type des datas de la table</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getMediaType
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Table/Datas/Table_Medias_Interface.html#methodgetMediaType">Table_Medias_Interface::getMediaType()</a></dt>
+						<dd>Retourne le type des datas de la table</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetMediaVoClass" id="getMediaVoClass"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMediaVoClass</span> (line <span class="line-number">85</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retourne le type des Value Object de datas de la table</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getMediaVoClass
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Table/Datas/Table_Medias_Interface.html#methodgetMediaVoClass">Table_Medias_Interface::getMediaVoClass()</a></dt>
+						<dd>Retourne le type des Value Object de datas de la table</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetTableName" id="getTableName"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTableName</span> (line <span class="line-number">97</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retourne le nom de la table</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getTableName
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../../Table/Datas/Table_Medias_Interface.html#methodgetTableName">Table_Medias_Interface::getTableName()</a></dt>
+						<dd>Retourne le nom de la table</dd>
+					</dl>
+			
+	</div>
+					</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 12 Sep 2009 10:12:20 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+		    <!-- designed by nothing -->
+		    <!-- http://www.nothing.ch -->
+			<title>Docs For Class Vo_Factory</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+						<script src="../../media/lib/classTree.js"></script>
+												<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "../../media/images/plus.png";
+				imgMinus.src = "../../media/images/minus.png";
+
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<div class="page-body">
+<h2 class="class-name">Class Vo_Factory</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">
+		<h2>Description</h2>
+		<div class="nav-bar">
+							<span class="disabled">Description</span> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+												</div>
+	</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Classe permettant de crŽer des Value Object (patern Factory et Singleton)</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_Vo---Factory.php.html">/Vo/Factory.php</a> (line <span class="field">28</span>)
+		</p>
+
+		
+		<pre><a href="../../Vo/Factory/Vo_Factory_Abstract.html">Vo_Factory_Abstract</a>
+   |
+   --Vo_Factory</pre>
+
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Variable Summary</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+								<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+									|
+											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+																</div>
+		</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+												<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$COMMENT_TYPE" title="details" class="var-name">$COMMENT_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$ITEM_TYPE" title="details" class="var-name">$ITEM_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$META_TYPE" title="details" class="var-name">$META_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$QUERY_TYPE" title="details" class="var-name">$QUERY_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$SESSION_TYPE" title="details" class="var-name">$SESSION_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">string</span>
+					<a href="#$USER_TYPE" title="details" class="var-name">$USER_TYPE</a>
+				</div>
+																<div class="var-title">
+					static <span class="var-type">Factory</span>
+					<a href="#$_instance" title="details" class="var-name">$_instance</a>
+				</div>
+																																																																							</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Method Summary</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+																							<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+										|
+								<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+			</div>
+		</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+																												<div class="method-definition">
+					static 						<span class="method-result"><a href="../../Vo/Media/Vo_Media_Factory.html">Vo_Media_Factory</a></span>
+										<a href="#getInstance" title="details" class="method-name">getInstance</a>
+										()
+									</div>
+																				<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>
+										<a href="#factory" title="details" class="method-name">factory</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$vo</span> = <span class="var-default">array()</span>])
+									</div>
+																			</div>
+		</div>
+	</div>
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Variables</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+													<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+				
+													|
+											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+												</div>
+		</div>
+		<div class="info-box-body">
+			<a name="var$COMMENT_TYPE" id="$COMMENT_TYPE"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$COMMENT_TYPE</span>
+			 = <span class="var-default"> 'Comment'</span>			(line <span class="line-number">73</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'un commentaire</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$ITEM_TYPE" id="$ITEM_TYPE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$ITEM_TYPE</span>
+			 = <span class="var-default"> 'Item'</span>			(line <span class="line-number">65</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'un item</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$META_TYPE" id="$META_TYPE"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$META_TYPE</span>
+			 = <span class="var-default"> 'Meta'</span>			(line <span class="line-number">81</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'une mŽtadonnŽe</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$QUERY_TYPE" id="$QUERY_TYPE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$QUERY_TYPE</span>
+			 = <span class="var-default"> 'Query'</span>			(line <span class="line-number">57</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'une question</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$SESSION_TYPE" id="$SESSION_TYPE"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$SESSION_TYPE</span>
+			 = <span class="var-default"> 'Session'</span>			(line <span class="line-number">49</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'une session</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$USER_TYPE" id="$USER_TYPE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">string</span>
+			<span class="var-name">$USER_TYPE</span>
+			 = <span class="var-default"> 'User'</span>			(line <span class="line-number">89</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constance donnant le type d'un utilisateur</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_instance" id="$_instance"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">Factory</span>
+			<span class="var-name">$_instance</span>
+			 = <span class="var-default"> null</span>			(line <span class="line-number">41</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instance de la classe</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+					</div>
+	</div>
+
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">
+			<h2>Methods</h2>
+			<div class="nav-bar">
+				<a href="#sec-description">Description</a> |
+																			<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																						<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+							</div>
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodgetInstance" id="getInstance"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static getInstance</span> (line <span class="line-number">108</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Permet de rŽccupŽrer la seule instance de la classe</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		static <span class="method-result"><a href="../../Vo/Media/Vo_Media_Factory.html">Vo_Media_Factory</a></span>
+		<span class="method-name">
+			getInstance
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">100</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constructeur de la classe</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodfactory" id="factory"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">factory</span> (line <span class="line-number">125</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">CrŽe et retourne un Value Object</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>
+		<span class="method-name">
+			factory
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$vo</span> = <span class="var-default">array()</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: type</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$vo</span><span class="var-description">: vo</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Vo/Factory/Vo_Factory_Abstract.html#methodfactory">Vo_Factory_Abstract::factory()</a></dt>
+						<dd>CrŽe et retourne un Value Object</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Vo/Factory/Vo_Factory_Abstract.html">Vo_Factory_Abstract</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Vo/Factory/Vo_Factory_Abstract.html#methodfactory">Vo_Factory_Abstract::factory()</a></span><br>
+													<span class="method-name"><a href="../../Vo/Factory/Vo_Factory_Abstract.html#methodrowsetToVoArray">Vo_Factory_Abstract::rowsetToVoArray()</a></span><br>
+													<span class="method-name"><a href="../../Vo/Factory/Vo_Factory_Abstract.html#methodrowsToVoArray">Vo_Factory_Abstract::rowsToVoArray()</a></span><br>
+											</blockquote>
+									</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 12 Sep 2009 10:12:16 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+	</p>
+	</div></body>
+</html>

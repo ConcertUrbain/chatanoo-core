@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+	<production>
+
+		<debug>false</debug>
+
+	    <database>
+	        <adapter>pdo_mysql</adapter>
+	        <params>
+	            <host>localhost</host>
+	            <username>carolann</username>
+	            <password>concert</password>
+	            <dbname>concert_tour_a_tour</dbname>
+	        </params>
+	    </database>
+	    
+	    <cache>
+	    	<frontend>
+	    		<adapter>Core</adapter>
+	    		<options>
+	    			<caching>true</caching>
+	    			<lifetime>1800</lifetime>
+	    			<automatic_serialization>true</automatic_serialization>
+	    		</options>
+	    	</frontend>
+	    	<backend>
+	    		<adapter>Memcached</adapter>
+	    		<options>
+    				<server>
+    					<host>127.0.0.1</host>
+    					<port>11211</port>
+    				</server>
+    				<server>
+    					<host>127.0.0.1</host>
+    					<port>11212</port>
+    				</server>
+	    			<compression>true</compression>
+	    		</options>
+	    	</backend>
+	    </cache>
+			
+	    <datas>
+	    	<data type='Adress' tableClass='Table_Datas_Adress' />
+	    	<data type='Carto' tableClass='Table_Datas_Carto' />
+	    	<data type='Vote' tableClass='Table_Datas_Vote' />
+	    </datas>
+
+	    <medias>
+	    	<media type='Picture' tableClass='Table_Medias_Picture' />
+	    	<media type='Sound' tableClass='Table_Medias_Sound' />
+	    	<media type='Text' tableClass='Table_Medias_Text' />
+	    	<media type='Video' tableClass='Table_Medias_Video' />
+	    </medias>
+
+	    <plugins>
+	    	<plugin name='test' class='Plugin_Test'/>
+	    	<plugin name='GetItemsWithDetailsByQuery' class='Plugin_GetItemsWithDetailsByQuery'/>
+	    </plugins>
+
+	    <searchEngine>
+	    
+	    	<search name='Default'>
+		    	<searchTable id='session' type='Session' voClass='Session' tableClass='Table_Sessions'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='query' type='Query' voClass='Query' tableClass='Table_Queries'>
+		    		<searchField name='content' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='item' type='Item' voClass='Item' tableClass='Table_Items'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='mPicture' type='Media' voClass='Media_Picture' tableClass='Table_Medias_Picture'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='mSound' type='Media' voClass='Media_Sound' tableClass='Table_Medias_Sound'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='mText' type='Media' voClass='Media_Text' tableClass='Table_Medias_Text'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='mVideo' type='Media' voClass='Media_Video' tableClass='Table_Medias_Video'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='comment' type='Comment' voClass='Comment' tableClass='Table_Comments'>
+		    		<searchField name='content' type='%LIKE%' pertinence='1' />
+		    	</searchTable>
+		    	<searchTable id='user' type='User' voClass='User' tableClass='Table_Users'>
+		    		<searchField name='lastName' type='%LIKE%' pertinence='2' />
+		    		<searchField name='firstName' type='%LIKE%' pertinence='1' />
+		    	</searchTable>
+		    	<searchTable id='dAdress' type='Data' voClass='Data_Adress' tableClass='Table_Datas_Adress'>
+		    		<searchField name='zipCode' type='LIKE' pertinence='2' />
+		    		<searchField name='country' type='LIKE' pertinence='1' />
+		    		<searchField name='adress' type='%LIKE%' pertinence='3' />
+		    		<searchField name='city' type='%LIKE%' pertinence='4' />
+		    	</searchTable>
+		    	<searchTable id='meta' type='Meta' tableClass='Table_Metas'>
+		    		<searchField name='name' type='LIKE' val='keyword' pertinence='0' required='true' />
+		    		<searchField name='content' type='%LIKE%' pertinence='5' />
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MetasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+						</assoc>
+						<assoc searchTable='query' assocTableClass='Table_MetasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Query' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    </search>
+		    
+	    	<search name='Custom'>
+		    	<searchTable id='item' type='Item' voClass='Item' tableClass='Table_Items'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    	</searchTable>
+		    	<searchTable id='comment' type='Comment' voClass='Comment' tableClass='Table_Comments'>
+		    		<searchField name='content' type='%LIKE%' pertinence='1' />
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_Comments'>
+							<assocField field='items_id' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    	<searchTable id='mPicture' type='Media' voClass='Media_Picture' tableClass='Table_Medias_Picture'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MediasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+							<assocField field='mediaType' val='Picture' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    	<searchTable id='mSound' type='Media' voClass='Media_Sound' tableClass='Table_Medias_Sound'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MediasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+							<assocField field='mediaType' val='Sound' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    	<searchTable id='mText' type='Media' voClass='Media_Text' tableClass='Table_Medias_Text'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MediasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+							<assocField field='mediaType' val='Text' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    	<searchTable id='mVideo' type='Media' voClass='Media_Video' tableClass='Table_Medias_Video'>
+		    		<searchField name='title' type='%LIKE%' pertinence='2' />
+		    		<searchField name='description' type='%LIKE%' pertinence='1'/>
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MediasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+							<assocField field='mediaType' val='Video' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    	<searchTable id='meta' type='Meta' tableClass='Table_Metas'>
+		    		<searchField name='name' type='LIKE' val='keyword' pertinence='0' required='true' />
+		    		<searchField name='content' type='%LIKE%' pertinence='5' />
+		    		<resultAssoc>
+						<assoc searchTable='item' assocTableClass='Table_MetasAssoc'>
+							<assocField field='assoc_id' />
+							<assocField field='assocType' val='Item' />
+						</assoc>
+		    		</resultAssoc>
+		    	</searchTable>
+		    </search>
+		    
+	    </searchEngine>
+
+	    <amfConfig>
+	    	<mapping as="UserVO" php="Vo_User">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isBan' />
+	    	</mapping>
+	    	<mapping as="CommentVO" php="Vo_Comment">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    		<addField key='item' />
+	    	</mapping>
+	    	<mapping as="ItemVO" php="Vo_Item">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='user' />
+	    		<addField key='isValid' />
+	    	</mapping>
+	    	<mapping as="MetaVO" php="Vo_Meta" />
+	    	<mapping as="QueryVO" php="Vo_Query">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='publishDate' />
+	    		<addField key='endDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="SessionVO" php="Vo_Session">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='publishDate' />
+	    		<addField key='endDate' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="MediaPictureVO" php="Vo_Media_Picture">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="MediaSoundVO" php="Vo_Media_Sound">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="MediaTextVO" php="Vo_Media_Text">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="MediaVideoVO" php="Vo_Media_Video">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    		<addField key='isValid' />
+	    		<addField key='user' />
+	    	</mapping>
+	    	<mapping as="DataAdressVO" php="Vo_Data_Adress">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    	</mapping>
+	    	<mapping as="DataCartoVO" php="Vo_Data_Carto">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    	</mapping>
+	    	<mapping as="DataVoteVO" php="Vo_Data_Vote">
+	    		<addField key='addDate' />
+	    		<addField key='setDate' />
+	    	</mapping>
+	    </amfConfig>
+	</production>
+
+	<development extends="production">
+		<debug>true</debug>
+	    <database>
+	        <adapter>pdo_mysql</adapter>
+	        <params>
+	            <host>localhost</host>
+	            <username>root</username>
+	            <password>root</password>
+	            <dbname>TourATour</dbname>
+	        </params>
+	    </database>
+	</development>
+
+	<test extends="production">
+		<debug>true</debug>
+	    <database>
+	        <adapter>pdo_mysql</adapter>
+	        <params>
+	            <host>localhost</host>
+	            <username>root</username>
+	            <password>root</password>
+	            <dbname>TourATourTest</dbname>
+	        </params>
+	    </database>
+	</test>
+
+</configdata>

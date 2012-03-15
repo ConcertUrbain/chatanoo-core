@@ -1,0 +1,248 @@
+<?php
+
+	class Plugin_GetItemsWithDetailsByQuery extends Plugin_Abstract
+	{
+	    /**
+	     * Tableau contenant les passerelles vers les diffrentes tables de data
+	     *
+	     * @access protected
+	     * @var array
+	     */
+	    protected $_datasTables = array();
+
+	    /**
+	     * @var Zend_Db_Adapter_Abstract
+	     */
+	    protected $_db;
+
+		public function __construct()
+		{
+			$this->_db = Zend_Registry::get('db');
+			foreach(Zend_Registry::get('config')->datas->data as $data)
+			{
+				$className = $data->tableClass;
+				$this->_datasTables[$data->type] = new $className;
+			}
+		}
+
+		public function execute()
+		{
+			$params = $this->getParams();
+			$result = array();
+
+			// Rcupration des items
+			$is = new Service_Items();
+			$items = $is->getItemsByQueryId($params[0]);
+
+			if($items && count($items) > 0)
+			{
+				// Rcupration de leurs auteurs
+				$users = $this->_getUsersByItems($items);
+
+				// Rcupration de leurs mtadonnes
+				$metas = $this->_getMetasByItems($items);
+
+				// Rcupration de leurs datas
+				$datas = $this->_getDatasByItems($items);
+
+				// Rcupration de leurs commentaires
+				$comments = $this->_getCommentsByItems($items);
+
+				// Rcupration des votes des commentaires
+				$commentsVotes = count($comments) > 0 ? $this->_getVotesByComments($comments) : array();
+
+				// Cration de la rponse
+				foreach($items as $key=>$item)
+				{
+					$itemArray = array();
+
+					$itemArray['VO'] = $item;
+					$itemArray['user'] = ($users && count($users) > 0) ? $this->_getUserOfItem($item, $users) : null;
+					$itemArray['datas'] = ($datas && count($datas) > 0) ? $this->_getDatasOfItem($item, $datas) : null;
+					$itemArray['metas'] = ($metas && count($metas) > 0) ? $this->_getMetasOfItem($item, $metas) : null;
+					$itemArray['rate'] = $this->_getRatesOfItem(
+						$item,
+						($datas && count($datas) > 0 && array_key_exists('Vote', $datas)) ? $datas['Vote'] : null,
+						($comments && count($comments) > 0) ? $comments : null,
+						($commentsVotes && count($commentsVotes) > 0) ? $commentsVotes : null
+					);
+
+	                array_push($result, $itemArray);
+				}
+			}
+
+			return $result;
+		}
+
+
+		////////////////////////////////////////////////////
+
+		private function _getUsersByItems($items)
+		{
+			$users = array();
+
+    		$select = $this->_db->select();
+			$select->from('users');
+    		$selectOrWhere = array();
+			foreach($items as $key=>$item)
+				array_push($selectOrWhere, $this->_db->quoteInto("id = ?", $item->user));
+			$select->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere));
+			$usersRows = $this->_db->fetchAll($select);
+			if(count($usersRows))
+				$users = $usersRows;
+
+			return $users;
+		}
+
+		private function _getMetasByItems($items)
+		{
+			$metas = array();
+    		$select = $this->_db->select();
+			$select->from('metas_assoc')
+					->join('metas', 'metas_assoc.metas_id = metas.id');
+    		$selectOrWhere = array();
+			foreach($items as $key=>$item)
+				array_push($selectOrWhere, $this->_db->quoteInto("metas_assoc.assoc_id = ?", $item->id));
+			$select->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere));
+			$select->where("metas_assoc.assocType = ?", Vo_Factory::$ITEM_TYPE);
+			$metasRows = $this->_db->fetchAll($select);
+			if(count($metasRows))
+				$metas = $metasRows;
+			return $metas;
+		}
+
+		private function _getDatasByItems($items)
+		{
+			$datas = array();
+    		$selectOrWhere = array();
+			foreach($items as $key=>$item)
+				array_push($selectOrWhere, $this->_db->quoteInto('datas_assoc.assoc_id = ?', $item->id));
+			foreach($this->_datasTables as $dataTable)
+			{
+	    		$select = $this->_db->select();
+	    		$table = $dataTable->getTableName();
+				$select->from('datas_assoc')
+						->join($table, 'datas_assoc.datas_id = '.$table.'.id')
+						->where('datas_assoc.dataType = ?', $dataTable->getDataType())
+						->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere))
+						->where("datas_assoc.assocType = ?", Vo_Factory::$ITEM_TYPE);
+				$datasRows = $this->_db->fetchAll($select);
+				if(count($datasRows))
+					$datas[$dataTable->getDataType()] = $datasRows;
+			}
+			return $datas;
+		}
+
+		private function _getCommentsByItems($items)
+		{
+			$comments = array();
+    		$selectOrWhere = array();
+			foreach($items as $key=>$item)
+				array_push($selectOrWhere, $this->_db->quoteInto('comments.items_id = ?', $item->id));
+    		$select = $this->_db->select();
+			$select->from('comments')
+					->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere));
+			$commentsRows = $this->_db->fetchAll($select);
+			if(count($commentsRows))
+				$comments = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$COMMENT_TYPE, $commentsRows);
+			return $comments;
+		}
+
+		private function _getVotesByComments($comments)
+		{
+			$commentsVotes = array();
+    		$select = $this->_db->select();
+    		$table = $this->_datasTables['Vote']->getTableName();
+    		$selectOrWhere = array();
+			foreach($comments as $key=>$comment)
+				array_push($selectOrWhere, $this->_db->quoteInto('datas_assoc.assoc_id = ?', $comment->id));
+			$select->from('datas_assoc')
+					->join($table, 'datas_assoc.datas_id = '.$table.'.id')
+					->where('datas_assoc.dataType = ?', $this->_datasTables['Vote']->getDataType())
+					->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere))
+					->where("datas_assoc.assocType = ?", Vo_Factory::$COMMENT_TYPE);
+			$commentsVotesRows = $this->_db->fetchAll($select);
+			if(count($commentsVotesRows))
+				$commentsVotes = $commentsVotesRows;
+
+			return $commentsVotes;
+		}
+
+
+		////////////////////////////////////////////////////
+
+		private function _getUserOfItem($item, $users)
+		{
+			foreach($users as $key=>$user)
+			{
+				if($user['id'] == $item->user)
+				{
+					return Vo_Factory::getInstance()->factory(Vo_Factory::$USER_TYPE, $user);
+				}
+			}
+			return null;
+		}
+
+		private function _getDatasOfItem($item, $datas)
+		{
+			$return = array();
+			foreach($datas as $key=>$ds)
+			{
+				$return[$key] = array();
+				foreach($ds as $data)
+				{
+					if($data['assoc_id'] == $item->id)
+					{
+						unset($data['datas_id']);
+						unset($data['dataType']);
+						unset($data['assoc_id']);
+						unset($data['assocType']);
+						array_push($return[$key], Vo_Data_Factory::getInstance()->factory($this->_datasTables[$key]->getDataVoClass(), $data));
+					}
+				}
+			}
+			return $return;
+		}
+
+		private function _getMetasOfItem($item, $metas)
+		{
+			$return = array();
+			foreach($metas as $key=>$meta)
+			{
+				if($meta['assoc_id'] == $item->id)
+				{
+					unset($meta['metas_id']);
+					unset($meta['assoc_id']);
+					unset($meta['assocType']);
+					array_push($return, Vo_Factory::getInstance()->factory(Vo_Factory::$META_TYPE, $meta));
+				}
+			}
+			return $return;
+		}
+
+		private function _getRatesOfItem($item, $itemsVotes, $comments, $commentsVotes)
+		{
+			$return = 0;
+			if($itemsVotes && count($itemsVotes) > 0)
+			{
+				foreach($itemsVotes as $data)
+				{
+					if($data['assoc_id'] == $item->id)
+						$return += $data['rate'];
+				}
+			}
+			if($comments && count($comments) > 0 && $commentsVotes && count($commentsVotes) > 0)
+			{
+				foreach($comments as $comment)
+				{
+					foreach($commentsVotes as $vote)
+					{
+						if($comment->id == $vote['assoc_id'] && $comment->item == $item->id)
+							$return += $vote['rate'];
+					}
+				}
+			}
+			return $return;
+		}
+
+	}

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+		    <!-- designed by nothing -->
+		    <!-- http://www.nothing.ch -->
+			<title></title>
+			<link rel="stylesheet" href="media/stylesheet.css" />
+						<script src="media/lib/classTree.js"></script>
+									<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+									<script language="javascript" type="text/javascript">
+				var imgPlus = new Image();
+				var imgMinus = new Image();
+				imgPlus.src = "media/images/plus.png";
+				imgMinus.src = "media/images/minus.png";
+
+				function showNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgMinus.src;
+					oTable.style.display = "block";
+				}
+
+				function hideNode(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+							var oImg = document.layers["img" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+							var oImg = document.all["img" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+							var oImg = document.getElementById("img" + Node);
+									break;
+							}
+					oImg.src = imgPlus.src;
+					oTable.style.display = "none";
+				}
+
+				function nodeIsVisible(Node){
+							switch(navigator.family){
+								case 'nn4':
+									// Nav 4.x code fork...
+							var oTable = document.layers["span" + Node];
+									break;
+								case 'ie4':
+									// IE 4/5 code fork...
+							var oTable = document.all["span" + Node];
+									break;
+								case 'gecko':
+									// Standards Compliant code fork...
+							var oTable = document.getElementById("span" + Node);
+									break;
+							}
+					return (oTable && oTable.style.display == "block");
+				}
+
+				function toggleNodeVisibility(Node){
+					if (nodeIsVisible(Node)){
+						hideNode(Node);
+					}else{
+						showNode(Node);
+					}
+				}
+			</script>
+					</head>
+		<body>
+			<style type="text/css">
+  body { margin-left: 0; margin-right: 0; }
+</style>
+<div id="leftframe_wrapper">
+<h3 class="package-title">Service</h3>
+<div class="tree">
+<script language="Javascript">
+if (document.getElementById) {
+			var tree = new WebFXTree('<span class="package">Service</span>');
+		tree.setBehavior('classic');
+
+		
+		var class_trees = new WebFXTreeItem('Class trees', 'classtrees_Service.html');
+		tree.add(class_trees);
+
+		var elements = new WebFXTreeItem('Index of elements', 'elementindex_Service.html');
+		tree.add(elements);
+
+		var parent_node;
+
+				    		    			var tree_classe = new WebFXTreeItem('Interface(s)', '');
+
+    			    			        			    			        			    			        			    			            				var classe = new WebFXTreeItem('Service_Interface', 'Service/Service_Interface.html');
+        				tree_classe.add(classe);
+        			    			    			        			    			        			    			        			    			        			    			        			    			        			
+    			tree.add(tree_classe);
+    						    		    			var tree_classe = new WebFXTreeItem('Class(es)', '');
+
+    			    			            				var classe = new WebFXTreeItem('Service_Abstract', 'Service/Service_Abstract.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Comments', 'Service/Service_Comments.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Datas', 'Service/Service_Datas.html');
+        				tree_classe.add(classe);
+        			    			    			        			    			            				var classe = new WebFXTreeItem('Service_Items', 'Service/Service_Items.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Medias', 'Service/Service_Medias.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Queries', 'Service/Service_Queries.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Search', 'Service/Service_Search.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Sessions', 'Service/Service_Sessions.html');
+        				tree_classe.add(classe);
+        			    			    			            				var classe = new WebFXTreeItem('Service_Users', 'Service/Service_Users.html');
+        				tree_classe.add(classe);
+        			    			
+    			tree.add(tree_classe);
+    				
+		
+					var tree_file = new WebFXTreeItem('File(s)', '');
+
+							var file = new WebFXTreeItem('Abstract.php', 'Service/_Service---Abstract.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Comments.php', 'Service/_Service---Comments.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Datas.php', 'Service/_Service---Datas.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Interface.php', 'Service/_Service---Interface.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Items.php', 'Service/_Service---Items.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Medias.php', 'Service/_Service---Medias.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Queries.php', 'Service/_Service---Queries.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Search.php', 'Service/_Service---Search.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Sessions.php', 'Service/_Service---Sessions.php.html');
+				tree_file.add(file);
+							var file = new WebFXTreeItem('Users.php', 'Service/_Service---Users.php.html');
+				tree_file.add(file);
+			
+			tree.add(tree_file);
+		
+							var subpackagetree = new WebFXTreeItem('<span class="sub-package">Interface</span>', '');
+		
+		
+					var subpackagetree_classe = new WebFXTreeItem('Class(es)', '');
+
+							var classe = new WebFXTreeItem('Service_Interface_Data', 'Service/Interface/Service_Interface_Data.html');
+				subpackagetree_classe.add(classe);
+							var classe = new WebFXTreeItem('Service_Interface_Meta', 'Service/Interface/Service_Interface_Meta.html');
+				subpackagetree_classe.add(classe);
+							var classe = new WebFXTreeItem('Service_Interface_User', 'Service/Interface/Service_Interface_User.html');
+				subpackagetree_classe.add(classe);
+							var classe = new WebFXTreeItem('Service_Interface_Validate', 'Service/Interface/Service_Interface_Validate.html');
+				subpackagetree_classe.add(classe);
+			
+			subpackagetree.add(subpackagetree_classe);
+		
+		
+					var subpackagetree_file = new WebFXTreeItem('File(s)', '');
+
+							var file = new WebFXTreeItem('Data.php', 'Service/Interface/_Service---Interface---Data.php.html');
+				subpackagetree_file.add(file);
+							var file = new WebFXTreeItem('Meta.php', 'Service/Interface/_Service---Interface---Meta.php.html');
+				subpackagetree_file.add(file);
+							var file = new WebFXTreeItem('User.php', 'Service/Interface/_Service---Interface---User.php.html');
+				subpackagetree_file.add(file);
+							var file = new WebFXTreeItem('Validate.php', 'Service/Interface/_Service---Interface---Validate.php.html');
+				subpackagetree_file.add(file);
+			
+			subpackagetree.add(subpackagetree_file);
+		
+	  tree.add(subpackagetree);
+	
+document.write(tree);
+}
+</script>
+</div>
+<p class="notes">
+	Generated by
+	<a href="http://www.phpdoc.org" target="_blank">phpDocumentor <span>1.4.1</span></a>
+</p>
+</div>
+</body>
+</html>

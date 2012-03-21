@@ -136,6 +136,32 @@
 	    }
 
 	    /**
+	     * Retourne un utilisateur de la base de données en fonction de son
+	     *
+	     * @access public
+	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	     * @param  string pseudo pseudo d'un utilisateur
+	     * @param  string pass mot de passe d'un utilisateur
+	     * @return Vo_User
+	     */
+	    public function getUserByLogin($login, $pass)
+	    {
+	    	$user = null;
+	    	
+	    	$select = $this->_usersTable->select();
+	    	$select->where("pseudo = ?", $login)
+	    			->where("password = ?", sha1($pass))
+	    			->limit(1);
+	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
+
+	        $userRow = $this->_usersTable->fetchRow($select);
+	    	if(!is_null($userRow))
+	        	$user = Vo_Factory::getInstance()->factory(Vo_Factory::$USER_TYPE, $userRow);
+	        return $user;
+	    }
+
+
+	    /**
 	     * Ajoute un utilisateur à la base de données
 	     *
 	     * @access public
@@ -146,6 +172,7 @@
 	    public function addUser( Vo_User $user)
 	    {
 	    	$user->password = sha1($user->password);
+			
 			$userRow = $this->_usersTable->createRow($user->toRowArray());
 			$userRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');

@@ -130,7 +130,7 @@
 	     * @param  string dataType Type de la data
 	     * @return Vo_Data_Abstract
 	     */
-	    public function getDataById($dataId, $dataType)
+	    public function getDatasById($dataId, $dataType)
 	    {
 	    	$data = null;
 	    	
@@ -139,7 +139,7 @@
 		    $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
 		    	
 	    	$dataRow = $this->_datasTables[$dataType]->fetchRow($select);
-	    	if(!is_null($dataRow) && $dataRow)
+	    	if(!is_null($dataRow))
 	    		$data =  Vo_Data_Factory::getInstance()->factory($dataType, $dataRow);
 	        return $data;
 	    }

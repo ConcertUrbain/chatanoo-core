@@ -8,9 +8,9 @@
 	        <adapter>pdo_mysql</adapter>
 	        <params>
 	            <host>localhost</host>
-	            <username>carolann</username>
+	            <username>ws_user</username>
 	            <password>concert</password>
-	            <dbname>concert_tour_a_tour</dbname>
+	            <dbname>dring93_tour-a-tour</dbname>
 	        </params>
 	    </database>
 	    

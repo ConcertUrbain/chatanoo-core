@@ -126,7 +126,7 @@
 	    public function __construct($user = array())
 	    {
 	    	parent::__construct($user);
-	    	$this->password = "";
+	    	// DENIS : $this->password = "";
 	    }
 
 	    protected function _getKey($key)

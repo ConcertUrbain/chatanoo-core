@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+   <allow-access-from domain="*.dring93.org" />
+   <allow-access-from domain="*.dring13.org" />
+   <allow-access-from domain="*.tour-a-tour.org" />
+   <allow-http-request-headers-from domain="*.dring93.org" headers="*" secure="false" />
+   <allow-http-request-headers-from domain="*.dring13.org" headers="*" secure="false" />
+   <allow-http-request-headers-from domain="*.tour-a-tour.org" headers="*" secure="false" />
+</cross-domain-policy>

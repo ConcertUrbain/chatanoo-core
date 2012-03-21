@@ -43,6 +43,9 @@
     		Zend_Registry::set('host', $host);
     		
     		$sessionKey = $this->getRequest()->getHeader('Authorization');
+			if(!$sessionKey) // BUG SUR CHROME
+    			$sessionKey = $this->getRequest()->getHeader('authorization');
+
 	    	if($sessionKey)
 	    	{
     			if(Zend_Registry::get('cache')->test($sessionKey))

@@ -39,6 +39,13 @@
 	    
 	    protected function _isLogged()
 	    {
+			if($this->getRequest()->isOptions())
+			{	
+		    	header("HTTP/1.0 200 OK"); 
+				exit;
+		    	return false;
+			}
+		
     		$host = $this->getRequest()->getHttpHost();
     		Zend_Registry::set('host', $host);
     		

@@ -234,7 +234,7 @@
 					$sessionRow->$key = $value;
 			}
 			$sessionRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$sessionRow->save();
+			return $sessionRow->save();
 	    }
 
 	    /**
@@ -257,6 +257,7 @@
 				"assocType = 'Session'"
 			);
 			$this->_metasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -302,6 +303,7 @@
 				"queries_id = " . $queryId
 			);
 	        $this->_sessionsAssocQueriesTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -339,7 +341,7 @@
 	    		
 			$sessionRow = $this->_sessionsTable->find($voId)->current();
 			$sessionRow->users_id = $userId;
-			$sessionRow->save();
+			return $sessionRow->save();
 	    }
 
 	    /**
@@ -408,6 +410,7 @@
 	    		"assocType = 'Session'"
 	    	);
 	        $this->_metasAssocTable->delete($where);
+			return true;
 	    }
 
 	} /* end of class Service_Sessions */

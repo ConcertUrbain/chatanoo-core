@@ -43,22 +43,23 @@
 	    }
 	    
 	    public function login($login, $pass, $apiKey)
-	    {
-	    	$select = $this->_usersTable->select();
+	    {    		
+	    	$select = $this->_apiKeysTable->select();
+	    	$select->where("api_key = ?", $apiKey)
+	    			->where("host LIKE ?", "%" . Zend_Registry::get('host') . "%")
+	    			->limit(1);
+	    	if(!($row = $this->_apiKeysTable->fetchRow($select))) 
+	    		return false;
+	
+			$select = $this->_usersTable->select();
 	    	$select->where("pseudo = ?", $login)
 	    			->where("password = ?", sha1($pass))
+			    	->where("sessions_id = ?", $row->sessions_id)
 	    			->limit(1);
 	    	if(!($row = $this->_usersTable->fetchRow($select)))
 	    		return false;
 	    		
 	    	$user = Vo_Factory::factory(Vo_Factory::$USER_TYPE, $row);
-	    		
-	    	$select = $this->_apiKeysTable->select();
-	    	$select->where("api_key = ?", $apiKey)
-	    			->where("host = ?", Zend_Registry::get('host'))
-	    			->limit(1);
-	    	if(!($row = $this->_apiKeysTable->fetchRow($select)))
-	    		return false;
 	    		
 			$str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 			$caracs = str_split($str);
@@ -74,6 +75,22 @@
 	    	), $sessionKey);
 	    	return $sessionKey;
 	    }
+
+		public function getCurrentUser()
+		{
+			$userId = Zend_Registry::get('userID');
+			
+			$user = null;
+	    	
+	    	$select = $this->_usersTable->select();
+	    	$select->where('id = ?', $userId);
+	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
+	
+	        $userRow = $this->_usersTable->fetchRow($select);
+	    	if(!is_null($userRow))
+	        	$user = Vo_Factory::getInstance()->factory(Vo_Factory::$USER_TYPE, $userRow);
+	        return $user;
+		}
 	    
 	    public function logout()
 	    {

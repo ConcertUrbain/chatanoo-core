@@ -45,8 +45,11 @@
 				exit;
 		    	return false;
 			}
-		
-    		$host = $this->getRequest()->getHttpHost();
+			
+			if( strpos($this->getRequest()->getServer('HTTP_ORIGIN'), 'file://') === false )
+    			$host = Zend_Uri::factory( $this->getRequest()->getServer('HTTP_ORIGIN') )->getHost();
+			else
+				$host = "application";
     		Zend_Registry::set('host', $host);
     		
     		$sessionKey = $this->getRequest()->getHeader('Authorization');
@@ -62,6 +65,7 @@
     				{
 	    				Zend_Registry::set('sessionKey', $sessionKey);
 	    				Zend_Registry::set('sessionID', $apiConf['sessionID']);
+	    				Zend_Registry::set('userID', $apiConf['userID']);
 	    				Zend_Registry::get('cache')->touch($sessionKey, Zend_Registry::get('config')->cache->frontend->options->lifetime);
 	    				return true;
     				}

@@ -187,6 +187,7 @@
 			$commentRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$commentRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$commentRow->sessions_id = Zend_Registry::get('sessionID');
+			$commentRow->users_id = Zend_Registry::get('userID');
 			return $commentRow->save();
 	    }
 
@@ -208,7 +209,7 @@
 					$commentRow->$key = $value;
 			}
 			$commentRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$commentRow->save();
+			return $commentRow->save();
 			//$comment = new Vo_Comment($commentRow);
 	    }
 
@@ -226,7 +227,7 @@
 			$commentRow = $this->_commentsTable->find($comment->id)->current();
 			$commentRow->items_id = $itemId;
 			$commentRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$commentRow->save();
+			return $commentRow->save();
 	    }
 
 	    /**
@@ -240,8 +241,9 @@
 	    public function deleteComment($commentId)
 	    {
 			if($this->_commentsTable->delete(array('id = ' . $commentId, 'sessions_id = ' . Zend_Registry::get('sessionID'))) == 0)
-				return;
+				return true;
 			$this->_datasAssocTable->delete("assoc_id = " . $commentId . " AND assocType = 'Comment'");
+			return true;
 	    }
 
 	    /**
@@ -281,7 +283,7 @@
 	    	
 	        $commentRow = $this->_commentsTable->fetchRow($select);
 			$commentRow->users_id = $userId;
-			$commentRow->save();
+			return $commentRow->save();
 	    }
 
 	    /**
@@ -322,7 +324,7 @@
 	    	
 	        $commentRow = $this->_commentsTable->fetchRow($select);
 			$commentRow->isValid = $trueOrFalse;
-			$commentRow->save();
+			return $commentRow->save();
 	    }
 
 	    /**
@@ -365,6 +367,7 @@
 
 	    	$vote->id = $this->_datasService->addData($vote);
 	    	$this->addDataIntoVo($vote, $commentId);
+			return true;
 	    }
 
 	    /**
@@ -386,6 +389,7 @@
 				"assocType = 'Comment'"
 			);
 			$this->_datasAssocTable->delete($wheres);
+			return true;
 	    }
 
 	} /* end of class Service_Comments */

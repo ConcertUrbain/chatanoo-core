@@ -306,6 +306,7 @@
 			$queryRow = $this->_queriesTable->createRow($query->toRowArray());
 			$queryRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
+			$queryRow->users_id = Zend_Registry::get('userID');
 			
 			$id = $queryRow->save();
 			
@@ -350,7 +351,7 @@
 					$queryRow->$key = $value;
 			}
 			$queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$queryRow->save();
+			return $queryRow->save();
 	    }
 
 	    /**
@@ -365,7 +366,7 @@
 	    {
 	        $queryRow = $this->_queriesTable->find($queryId)->current();
 	        if(is_null($queryRow) || !$queryRow)
-	        	return;
+	        	return true;
 	        
 	        $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
 	        if($sessionsRowset->count())
@@ -377,10 +378,10 @@
 	        			$flag = true;
 	        	}
 	        	if(!$flag)
-	        		return;
+	        		return true;
 	        } 	
 	        else
-	        	return;
+	        	return true;
 	        
 			if($queryRow->delete())
 			{
@@ -394,6 +395,7 @@
 				$this->_metasAssocTable->delete($where);
 				$this->_mediasAssocTable->delete($where);
 			}
+			return true;
 	    }
 
 	    /**
@@ -433,6 +435,7 @@
 	    		'items_id = ' . $itemId,
 	    	);
 	        $this->_queriesAssocItemsTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -477,6 +480,7 @@
 	    		"assocType = 'Query'"
 	    	);
 	        $this->_mediasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -518,6 +522,7 @@
 	    		"assocType = 'Query'"
 	    	);
 	        $this->_metasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -549,7 +554,7 @@
 	    {
 			$queryRow = $this->_queriesTable->find($voId)->current();
 			$queryRow->users_id = $userId;
-			$queryRow->save();
+			return $queryRow->save();
 	    }
 
 	    /**
@@ -586,7 +591,7 @@
 	    {
 			$queryRow = $this->_queriesTable->find($voId)->current();
 			$queryRow->isValid = $trueOrFalse;
-			$queryRow->save();
+			return $queryRow->save();
 	    }
 
 	    /**
@@ -624,6 +629,7 @@
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
 			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'Query'");
+			return true;
 	    }
 
 	} /* end of class Service_Queries */

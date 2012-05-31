@@ -5,6 +5,7 @@ build.xml
 /Application/logs
 index.php
 rsync.sh
+rsync-preprod.sh
 rsync.exclude
 /Tests
 /temp

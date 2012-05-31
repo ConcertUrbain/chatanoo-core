@@ -274,6 +274,19 @@
 	        </params>
 	    </database>
 	</development>
+	
+	<preproduction extends="production">
+		<debug>true</debug>
+	    <database>
+	        <adapter>pdo_mysql</adapter>
+	        <params>
+	            <host>localhost</host>
+	            <username>ws_users_preprod</username>
+	            <password>tat-preprod</password>
+	            <dbname>admin_tour-a-tour_preprod</dbname>
+	        </params>
+	    </database>
+	</preproduction>
 
 	<test extends="production">
 		<debug>true</debug>

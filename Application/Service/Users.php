@@ -128,7 +128,7 @@
 	    	$select = $this->_usersTable->select();
 	    	$select->where('id = ?', $userId);
 	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-	    	
+	
 	        $userRow = $this->_usersTable->fetchRow($select);
 	    	if(!is_null($userRow))
 	        	$user = Vo_Factory::getInstance()->factory(Vo_Factory::$USER_TYPE, $userRow);

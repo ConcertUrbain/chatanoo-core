@@ -158,6 +158,14 @@
 	     */
 	    protected $_mediasAssocTable = null;
 
+	    /**
+	     * Tableau contenant les passerelles vers les différentes tables de médias
+	     *
+	     * @access protected
+	     * @var array
+	     */
+	    protected $_mediasTables = array();
+
 	    // --- OPERATIONS ---
 
 	    /**
@@ -274,6 +282,33 @@
 	        	$items = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRowset);
 	        return $items;
 	    }
+	
+		/**
+	     * Retourne tous les items contenant un média
+	     *
+	     * @access public
+	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	     * @param  int mediaId Identifiant du média
+	     * @param  string mediaType Type du média (Picture, Sound, Video, Text)
+	     * @return array
+	     */
+	    public function getItemsByMediaId($mediaId, $mediaType)
+	    {		
+	    	$items = array();
+	    	
+	        $select = Zend_Registry::get('db')->select();
+    		$table = 'items';
+			$select->from('medias_assoc', null)
+					->join($table, 'medias_assoc.assoc_id = '.$table.'.id')
+					->where('medias_assoc.mediaType = ?', $mediaType)
+					->where('medias_assoc.medias_id = ?', $mediaId)
+					->where("medias_assoc.assocType = ?", 'Item')
+					->where($table . ".sessions_id = ?", Zend_Registry::get('sessionID'));
+			$itemsRows = Zend_Registry::get('db')->fetchAll($select);
+			if(count($itemsRows))
+	        	$items = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRows);
+	        return $items;
+	    }
 
 	    /**
 	     * Ajoute un item à la base de données
@@ -289,6 +324,7 @@
 			$itemRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$itemRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$itemRow->sessions_id = Zend_Registry::get('sessionID');
+			$itemRow->users_id = Zend_Registry::get('userID');
 			return $itemRow->save();
 	    }
 
@@ -314,7 +350,7 @@
 					$itemRow->$key = $value;
 			}
 			$itemRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$itemRow->save();
+			return $itemRow->save();
 	    }
 
 	    /**
@@ -339,6 +375,7 @@
 				$this->_metasAssocTable->delete($where);
 				$this->_mediasAssocTable->delete($where);
 			}
+			return true;
 	    }
 
 	    /**
@@ -393,6 +430,7 @@
 	    public function removeCommentFromItem($commentId, $itemId)
 	    {
 	    	$this->_commentsService->deleteComment($commentId);
+			return true;
 	    }
 
 	    /**
@@ -437,6 +475,7 @@
 	    		"assocType = 'Item'"
 	    	);
 	        $this->_mediasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -453,7 +492,7 @@
 	    {
 			$itemRow = $this->_itemsTable->find($voId)->current();
 			$itemRow->isValid = $trueOrFalse;
-			$itemRow->save();
+			return $itemRow->save();
 	    }
 
 	    /**
@@ -495,6 +534,7 @@
 	    		"assocType = 'Item'"
 	    	);
 	        $this->_metasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -528,7 +568,7 @@
 	    {
 			$itemRow = $this->_itemsTable->find($voId)->current();
 			$itemRow->users_id = $userId;
-			$itemRow->save();
+			return $itemRow->save();
 	    }
 
 	    /**
@@ -586,6 +626,7 @@
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
 			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'Item'");
+			return true;
 	    }
 
 	    /**

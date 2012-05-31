@@ -219,7 +219,7 @@
 				if($metaRowArray[$key] != $metaRow->$key)
 					$metaRow->$key = $value;
 			}
-			$metaRow->save();
+			return $metaRow->save();
 	    }
 
 	    /**
@@ -234,6 +234,7 @@
 	    {
 	        if($this->_metasTable->delete(array('id = ' . $metaId, 'sessions_id = ' . Zend_Registry::get('sessionID'))))
 	        	$this->_metasAssocTable->delete('metas_id = ' . $metaId);
+			return true;
 	    }
 
 	    //////////////////////////////////////////////////////////////////////////////////

@@ -254,6 +254,7 @@
 			$mediaRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$mediaRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$mediaRow->sessions_id = Zend_Registry::get('sessionID');
+			$mediaRow->users_id = Zend_Registry::get('userID');
 			return $mediaRow->save();
 	    }
 
@@ -279,7 +280,7 @@
 					$mediaRow->$key = $value;
 			}
 			$mediaRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$mediaRow->save();
+			return $mediaRow->save();
 	    }
 
 	    /**
@@ -306,6 +307,7 @@
 				);
 				$this->_datasAssocTable->delete($where);
 			}
+			return true;
 	    }
 
 	    /**
@@ -347,7 +349,7 @@
 		    	
 	    	$mediaRow = $this->_mediasTables[$mediaType]->fetchRow($select);
 			$mediaRow->users_id = $userId;
-			$mediaRow->save();
+			return $mediaRow->save();
 	    }
 
 	    /**
@@ -415,6 +417,7 @@
 	    		"assocType = 'Media_" . $mediaType . "'"
 	    	);
 	        $this->_metasAssocTable->delete($where);
+			return true;
 	    }
 
 	    /**
@@ -435,7 +438,7 @@
 		    	
 	    	$mediaRow = $this->_mediasTables[$mediaType]->fetchRow($select);
 			$mediaRow->isValid = $trueOrFalse;
-			$mediaRow->save();
+			return $mediaRow->save();
 	    }
 
 	    /**
@@ -475,6 +478,7 @@
 	    public function removeDataFromMedia($dataId, $dataType, $mediaId, $mediaType)
 	    {
 			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $mediaId . " AND assocType = 'Media_" . $mediaType . "'");
+			return true;
 	    }
 
 	} /* end of class Service_Medias */

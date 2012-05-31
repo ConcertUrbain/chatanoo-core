@@ -269,7 +269,7 @@
 					$dataRow->$key = $value;
 			}
 			$dataRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$dataRow->save();
+			return $dataRow->save();
 	    }
 
 	    /**
@@ -285,6 +285,7 @@
 	    {
 			if($this->_datasTables[$dataType]->delete(array('id = ' . $dataId, 'sessions_id = ' . Zend_Registry::get('sessionID'))))
 				$this->_datasAssocTable->delete(array("datas_id = " . $dataId, "dataType = '" . $dataType . "'"));
+			return true;
 	    }
 
 	} /* end of class Service_Datas */

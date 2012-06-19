@@ -38,6 +38,10 @@
 	    		</options>
 	    	</backend>
 	    </cache>
+	
+		<notify>
+			<url>http://notify.dring93.org:3131/emit</url>
+		</notify>
 			
 	    <datas>
 	    	<data type='Adress' tableClass='Table_Datas_Adress' />

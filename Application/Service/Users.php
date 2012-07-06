@@ -198,12 +198,33 @@
 	    	$userRowArray = $user->toRowArray();
 			foreach($userRowArray as $key=>$value)
 			{
-				if($userRowArray[$key] != $userRow->$key)
+				if($userRowArray[$key] != $userRow->$key && $key != "password")
 					$userRow->$key = $value;
 			}
-			$userRow->password = sha1($userRow->password);
+			//$userRow->password = sha1($userRow->password);
 			$userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$userRow->save();
+			return $userRow->save();
+	    }
+	
+		/**
+	     * Modifie le mot de passe de l'utilisateur dans la base de données
+	     *
+	     * @access public
+	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	     * @param  int userId L'indentifiant d'un utilisateur
+	     * @param  string password Le nouveau mot de passe de l'utilisateur
+	     * @return void
+	     */
+	    public function setUserPassword($userId, $password)
+	    {
+	    	$select = $this->_usersTable->select();
+	    	$select->where('id = ?', $userId);
+	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
+	    	
+	        $userRow = $this->_usersTable->fetchRow($select);
+			$userRow->password = sha1($password);
+			$userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
+			return $userRow->save();
 	    }
 
 	    /**
@@ -218,6 +239,7 @@
 	    {
 			if($this->_usersTable->delete(array('id = ' . $userId, 'sessions_id = ' . Zend_Registry::get('sessionID'))))
 				$this->_datasAssocTable->delete("assoc_id = " . $userId . " AND assocType = 'User'");
+			return true;
 	    }
 
 	    /**
@@ -237,8 +259,7 @@
 	    	
 	        $userRow = $this->_usersTable->fetchRow($select);
 			$userRow->isBan = $trueOrFalse;
-			$userRow->save();
-			$userRow = $this->_usersTable->find($userId)->current();
+			return $userRow->save();
 	    }
 
 	    /**
@@ -276,6 +297,7 @@
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
 			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'User'");
+			return true;
 	    }
 
 	} /* end of class Service_Users */

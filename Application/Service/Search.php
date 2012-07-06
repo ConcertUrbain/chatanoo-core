@@ -193,6 +193,18 @@
 	     */
 	    public function addMeta( Vo_Meta $meta)
 	    {
+			// On vrife que le tag n'hsite pas djˆ
+	    	$select = $this->_metasTable->select();
+	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
+	    	$select->where('name = ?', $meta->name);
+	    	$select->where('content = ?', $meta->content);
+	        $metaRow = $this->_metasTable->fetchRow($select);
+	    	if(!is_null($metaRow)) {
+				// Si oui, on retourne son id
+	        	$meta = Vo_Factory::getInstance()->factory(Vo_Factory::$META_TYPE, $metaRow);
+				return $meta->id;
+			}
+		
 			$metaRow = $this->_metasTable->createRow($meta->toRowArray());
 			$metaRow->sessions_id = Zend_Registry::get('sessionID');
 			return $metaRow->save();

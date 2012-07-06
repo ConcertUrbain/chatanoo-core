@@ -277,6 +277,9 @@
 	            <dbname>TourATour</dbname>
 	        </params>
 	    </database>
+		<notify>
+			<url>http://localhost:3001/emit</url>
+		</notify>
 	</development>
 	
 	<preproduction extends="production">

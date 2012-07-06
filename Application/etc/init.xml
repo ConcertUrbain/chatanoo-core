@@ -9,7 +9,7 @@
 
 			<!-- Time -->
 			<date>
-				<timezone></timezone>
+				<timezone>Europe/Berlin</timezone>
 			</date>
 		</phpSettings>
 
@@ -52,8 +52,8 @@
 	<development extends="production">
 		<phpSettings>
 			<!-- Error -->
-			<display_startup_errors>1</display_startup_errors>
-			<display_errors>1</display_errors>
+			<display_startup_errors>0</display_startup_errors>
+			<display_errors>0</display_errors>
 		</phpSettings>
 
 		<!-- Resources -->

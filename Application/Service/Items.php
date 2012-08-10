@@ -625,7 +625,7 @@
 	     */
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
-			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'Item'");
+			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "' AND assoc_id = " . $voId . " AND assocType = 'Item'");
 			return true;
 	    }
 

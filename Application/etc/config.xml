@@ -8,9 +8,9 @@
 	        <adapter>pdo_mysql</adapter>
 	        <params>
 	            <host>localhost</host>
-	            <username>ws_user</username>
-	            <password>concert</password>
-	            <dbname>dring93_tour-a-tour</dbname>
+	            <username>user_chatanoo</username>
+	            <password>pass_chatanoo</password>
+	            <dbname>chatanoo_chatanoo</dbname>
 	        </params>
 	    </database>
 	    
@@ -288,9 +288,9 @@
 	        <adapter>pdo_mysql</adapter>
 	        <params>
 	            <host>localhost</host>
-	            <username>ws_users_preprod</username>
-	            <password>tat-preprod</password>
-	            <dbname>admin_tour-a-tour_preprod</dbname>
+	            <username>user_chatanoo_pr</username>
+	            <password>pass_chatanoo_pr</password>
+	            <dbname>chatanoo_chatanoo_preprod</dbname>
 	        </params>
 	    </database>
 	</preproduction>

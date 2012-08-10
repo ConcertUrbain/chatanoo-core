@@ -388,7 +388,7 @@
 				$this->_queriesAssocItemsTable->delete('queries_id = ' . $queryId);
 				$this->_sessionsAssocQueriesTable->delete('queries_id = ' . $queryId);
 				$where = array(
-					"assoc_id = " . $queryId,
+					"assoc_id = '" . $queryId . "'",
 					"assocType = 'Query'"
 				);
 				$this->_datasAssocTable->delete($where);
@@ -431,8 +431,8 @@
 	    public function removeItemFromQuery($itemId, $queryId)
 	    {
 	    	$where = array(
-	    		'queries_id = ' . $queryId,
-	    		'items_id = ' . $itemId,
+	    		"queries_id = '" . $queryId . "'",
+	    		"items_id = '" . $itemId . "'",
 	    	);
 	        $this->_queriesAssocItemsTable->delete($where);
 			return true;
@@ -474,9 +474,9 @@
 	    public function removeMediaFromQuery($mediaId, $mediaType, $queryId)
 	    {
 	    	$where = array(
-	    		'medias_id = ' . $mediaId,
-	    		'mediaType = ' . $mediaType,
-	    		'assoc_id = ' . $queryId,
+	    		"medias_id = '" . $mediaId . "'",
+	    		"mediaType = '" . $mediaType. "'",
+	    		"assoc_id = '" . $queryId. "'",
 	    		"assocType = 'Query'"
 	    	);
 	        $this->_mediasAssocTable->delete($where);
@@ -517,8 +517,8 @@
 	    public function removeMetaFromVo($metaId, $voId)
 	    {
 	    	$where = array(
-	    		'metas_id = ' . $metaId,
-	    		'assoc_id = ' . $voId,
+	    		"metas_id = '" . $metaId . "'",
+	    		"assoc_id = '" . $voId . "'",
 	    		"assocType = 'Query'"
 	    	);
 	        $this->_metasAssocTable->delete($where);
@@ -628,7 +628,7 @@
 	     */
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
-			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'Query'");
+			$this->_datasAssocTable->delete("datas_id = '" . $dataId . "' AND dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "' AND assoc_id = '" . $voId . "' AND assocType = 'Query'");
 			return true;
 	    }
 

@@ -477,7 +477,7 @@
 	     */
 	    public function removeDataFromMedia($dataId, $dataType, $mediaId, $mediaType)
 	    {
-			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $mediaId . " AND assocType = 'Media_" . $mediaType . "'");
+			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "' AND assoc_id = " . $mediaId . " AND assocType = 'Media_" . $mediaType . "'");
 			return true;
 	    }
 

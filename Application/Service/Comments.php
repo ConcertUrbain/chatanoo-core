@@ -383,9 +383,9 @@
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
 			$wheres = array(
-				'datas_id = ' . $dataId,
-				'dataType = ' . $this->_datasAssocTable->getAdapter()->quote($dataType),
-				'assoc_id = ' . $voId,
+				"datas_id = '" . $dataId . "'",
+				"dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "'",
+				"assoc_id = '" . $voId . "'",
 				"assocType = 'Comment'"
 			);
 			$this->_datasAssocTable->delete($wheres);

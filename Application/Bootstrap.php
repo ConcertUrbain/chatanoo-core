@@ -41,20 +41,20 @@
 		
 		protected function _initLog()
 		{
-			if(APPLICATION_ENV == 'development')
+			/*if(APPLICATION_ENV == 'development')
 			{
 				$writer = new Zend_Log_Writer_Firebug();
 			}
 			else 
-			{
-				$writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/logs/log.txt');
-			}
-			$logger = new Zend_Log($writer);
-			Zend_Registry::set('logger', $logger);
+			{*/
+				//$writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/Logs/log.txt');
+			//}
+			//$logger = new Zend_Log($writer);
+			//Zend_Registry::set('logger', $logger);
 			
-			$logger->info('Log engine start');
+			//$logger->info('Log engine start');
 			
-			include 'FirePHPCore/fb.php';
-			FB::info("test");
+			/*include 'FirePHPCore/fb.php';
+			FB::info("test");*/
 		}
 	}

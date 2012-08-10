@@ -284,7 +284,7 @@
 	    public function deleteData($dataId, $dataType)
 	    {
 			if($this->_datasTables[$dataType]->delete(array('id = ' . $dataId, 'sessions_id = ' . Zend_Registry::get('sessionID'))))
-				$this->_datasAssocTable->delete(array("datas_id = " . $dataId, "dataType = '" . $dataType . "'"));
+				$this->_datasAssocTable->delete(array("datas_id = " . $dataId, " dataType = '" . $dataType . "'"));
 			return true;
 	    }
 

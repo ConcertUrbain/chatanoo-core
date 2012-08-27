@@ -5,7 +5,9 @@
    <allow-access-from domain="*.dring93.org" />
    <allow-access-from domain="*.dring13.org" />
    <allow-access-from domain="*.tour-a-tour.org" />
+   <allow-access-from domain="*.chatanoo.org" />
    <allow-http-request-headers-from domain="*.dring93.org" headers="*" secure="false" />
    <allow-http-request-headers-from domain="*.dring13.org" headers="*" secure="false" />
    <allow-http-request-headers-from domain="*.tour-a-tour.org" headers="*" secure="false" />
+   <allow-http-request-headers-from domain="*.chatanoo.org" headers="*" secure="false" />
 </cross-domain-policy>

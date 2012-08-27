@@ -15,6 +15,13 @@
 	require_once(dirname(__FILE__) . '/Interface/Data.php');
 
 	/**
+	 * Interface de service ayant des métadonnées
+	 *
+	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	 */
+	require_once(dirname(__FILE__) . '/Interface/Meta.php');
+
+	/**
 	 * Classes d'abstraction des services
 	 *
 	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
@@ -63,6 +70,22 @@
 	     */
 	    protected $_datasService = null;
 
+	    /**
+	     * Passerelles vers la table de liaison des metas
+	     *
+	     * @access protected
+	     * @var Table_MetasAssoc
+	     */
+	    protected $_metasAssocTable = null;
+
+	    /**
+	     * Service de recherche
+	     *
+	     * @access protected
+	     * @var Service_Search
+	     */
+	    protected $_searchService = null;
+
 	    // --- OPERATIONS ---
 
 	    /**
@@ -75,6 +98,8 @@
 	    public function __construct()
 	    {
 	        $this->_usersTable = new Table_Users();
+	        $this->_metasAssocTable = new Table_MetasAssoc();
+	        $this->_searchService = new Service_Search();
 	        $this->_datasAssocTable = new Table_Datas_Assoc();
 	        $this->_datasService = new Service_Datas();
 	    }
@@ -261,6 +286,48 @@
 			$userRow->isBan = $trueOrFalse;
 			return $userRow->save();
 	    }
+
+		/**
+		 * Ajoute une métadonnées dans le Value Object
+		 *
+		 * @access public
+		 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+		 * @param  Vo_Meta meta Un métadonnée
+		 * @param  int voId Identifiant du Value Object
+		 * @return int Identifiant de la nouvelle métadonnée
+		 */
+		public function addMetaIntoVo( Vo_Meta $meta, $voId)
+		{
+		    if(!$meta->id)
+		    	$meta->id = $this->_searchService->addMeta($meta);
+        
+	    	$linkRow = $this->_metasAssocTable->createRow();
+	    	$linkRow->metas_id = $meta->id;
+	    	$linkRow->assoc_id = $voId;
+	    	$linkRow->assocType = 'User';
+	    	$linkRow->save();
+	    	return $meta->id;
+		}
+        
+		/**
+		 * Retire une métadonnée du Value Object
+		 *
+		 * @access public
+		 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+		 * @param  int metaId Identifiant d'une métadonnée
+		 * @param  int voId Identifiant du Value Object
+		 * @return void
+		 */
+		public function removeMetaFromVo($metaId, $voId)
+		{
+			$where = array(
+				'metas_id = ' . $metaId,
+				'assoc_id = ' . $voId,
+				"assocType = 'User'"
+			);
+		    $this->_metasAssocTable->delete($where);
+			return true;
+		}
 
 	    /**
 	     * Ajoute une data dans le Value Object

@@ -46,7 +46,7 @@
 	    {    		
 	    	$select = $this->_apiKeysTable->select();
 	    	$select->where("api_key = ?", $apiKey)
-	    			->where("host LIKE ?", "%" . Zend_Registry::get('host') . "%")
+	    			//->where("host LIKE ?", "%" . Zend_Registry::get('host') . "%") //BUG sur flash pas de http_origin
 	    			->limit(1);
 	    	if(!($row = $this->_apiKeysTable->fetchRow($select))) 
 	    		return false;

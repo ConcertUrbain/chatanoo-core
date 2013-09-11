@@ -1,4 +1,5 @@
 <?php
+	require "Library/predis/autoload.php";
 
 	class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
@@ -37,6 +38,12 @@
 				Zend_Registry::get('config')->cache->backend->options->toArray()
 			);
 			Zend_Registry::set('cache', $cache);
+		}
+
+		protected function _initRedis()
+		{
+			$redis = new Predis\Client();
+			Zend_Registry::set('redis', $redis);
 		}
 		
 		protected function _initLog()

@@ -610,6 +610,14 @@
 			$linkRow->assoc_id = $voId;
 			$linkRow->assocType = 'Item';
 			$linkRow->save();
+
+			if($data->getType() == 'Vote')
+			{
+		    	$redis = Zend_Registry::get('redis');
+		    	$key = 'item-'.$voId.'-rate';
+		    	$redis->del($key);
+			}
+
 			return $data->id;
 	    }
 
@@ -639,6 +647,14 @@
 	     */
 	    public function getRateOfItem($itemId)
 	    {
+	    	$redis = Zend_Registry::get('redis');
+	    	$key = 'item-'.$itemId.'-rate';
+	    	$value = $redis->get($key);
+	    	if($value) 
+	    	{
+	    		return $value;
+	    	}
+
 	    	$votes = array();
 	    	$datas = $this->_datasService->getDatasByItemId($itemId);
 	    	if(isset($datas['Vote']))
@@ -657,6 +673,8 @@
 	    	{
 	    		$rate += $vote->rate;
 	    	}
+
+	    	$redis->set($key, $rate);
 	    	return $rate;
 	    }
 

@@ -111,6 +111,14 @@
 	     */
 	    protected $_isValid = false;
 
+	    /**
+	     * Service des items
+	     *
+	     * @access protected
+	     * @var Service_Items
+	     */
+	    protected $_itemsService = null;
+
 	    // --- OPERATIONS ---
 
 		/**
@@ -124,6 +132,7 @@
 	    public function __construct($item = array())
 	    {
 	    	parent::__construct($item);
+	        $this->_itemsService = new Service_Items();
 	    }
 
 	    protected function _getKey($key)
@@ -148,6 +157,11 @@
 	    			return $key;
 	    	}
 	    	return $key;
+	    }
+
+	    public function getRate() 
+	    {
+	    	return $this->_itemsService->getRateOfItem($this->id);
 	    }
 
 	    /**
@@ -254,6 +268,7 @@
 
 	    	$returnValue['_isValid'] = $this->_isValid;
 	    	$returnValue['_user'] = $this->_user;
+	    	$returnValue['rate'] = $this->getRate();
 	    	$returnValue['addDate'] = is_null($this->addDate)?null:$this->addDate->toString('YYYY.MM.dd HH:mm:ss');
 	    	$returnValue['setDate'] = is_null($this->setDate)?null:$this->setDate->toString('YYYY.MM.dd HH:mm:ss');
 

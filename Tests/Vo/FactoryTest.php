@@ -1,6 +1,6 @@
 <?php
 
-	require('PHPUnit/Framework/TestCase.php');
+	require_once('PHPUnit/Framework/TestCase.php');
 
 	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
 
@@ -29,7 +29,7 @@
 				'firstName' => 'DesvŽ',
 				'lastName' => 'Mathieu',
 				'pseudo' => 'mŠzrtŽ',
-				'password' => 'desperados',
+				//'password' => 'desperados',
 				'email' => 'mathieu.desve@unflux.fr',
 				'role' => 'admin',
 				'addDate' => '2007.03.10 00:00:00',

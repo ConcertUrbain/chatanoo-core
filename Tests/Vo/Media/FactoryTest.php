@@ -1,6 +1,6 @@
 <?php
 
-	require('PHPUnit/Framework/TestCase.php');
+	require_once('PHPUnit/Framework/TestCase.php');
 
 	set_include_path(dirname(__FILE__) . '/../../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../../Application' . PATH_SEPARATOR . get_include_path());
 

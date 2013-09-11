@@ -346,6 +346,9 @@
 			$linkRow->assoc_id = $voId;
 			$linkRow->assocType = 'Comment';
 			$linkRow->save();
+
+	    	$this->_reset_vote_cache($voId);
+
 			return $data->id;
 	    }
 
@@ -367,7 +370,19 @@
 
 	    	$vote->id = $this->_datasService->addData($vote);
 	    	$this->addDataIntoVo($vote, $commentId);
+
+	    	$this->_reset_vote_cache($commentId);
+	    	
 			return true;
+	    }
+
+	    protected function _reset_vote_cache($commentId) {
+	    	$redis = Zend_Registry::get('redis');
+	    	$comment = $this->getCommentById($commentId);
+	    	if($comment) {
+		    	$key = 'item-'.$comment->items_id.'-rate';
+		    	$redis->del($key);
+	    	}
 	    }
 
 	    /**

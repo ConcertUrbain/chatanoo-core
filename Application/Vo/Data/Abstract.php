@@ -122,9 +122,21 @@
 						return;
 					}
 
-					if(Zend_Date::isDate($value, 'YYYY.MM.dd HH:mm:ss'))
-					{
-						$this->$variableName = new Zend_Date($value, 'YYYY.MM.dd HH:mm:ss');
+					if($value && strlen($value) == 19 /*&& Zend_Date::isDate($value, 'YYYY.MM.dd HH:mm:ss')*/)
+					{	
+						$pattern = '/([0-9]{4}).([0-9]{2}).([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/';
+						$matches = array();
+						preg_match($pattern, $value, $matches);
+
+						$date = new Zend_Date();
+						$date->setYear($matches[1]);
+						$date->setMonth($matches[2]);
+						$date->setDay($matches[3]);
+						$date->setHour($matches[4]);
+						$date->setMinute($matches[5]);
+						$date->setSecond($matches[6]);
+
+						$this->$variableName = $date;
 						return;
 					}
 

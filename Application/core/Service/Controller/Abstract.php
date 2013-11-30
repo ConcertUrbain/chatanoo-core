@@ -59,7 +59,7 @@
 		    	return false;
 			}
 			
-			if( strpos($this->getRequest()->getServer('HTTP_ORIGIN'), 'file://') === false )
+			if( $this->getRequest()->getServer('HTTP_ORIGIN') && strpos($this->getRequest()->getServer('HTTP_ORIGIN'), 'file://') === false )
     			$host = Zend_Uri::factory( $this->getRequest()->getServer('HTTP_ORIGIN') )->getHost();
 			else
 				$host = "application";

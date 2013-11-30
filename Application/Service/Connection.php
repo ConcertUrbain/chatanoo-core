@@ -49,6 +49,7 @@
 	    			//->where("host LIKE ?", "%" . Zend_Registry::get('host') . "%") //BUG sur flash pas de http_origin
 	    			->limit(1);
 	    	if(!($row = $this->_apiKeysTable->fetchRow($select))) 
+	    		//exit("no api_key");
 	    		return false;
 	
 			$select = $this->_usersTable->select();
@@ -57,6 +58,7 @@
 			    	->where("sessions_id = ?", $row->sessions_id)
 	    			->limit(1);
 	    	if(!($row = $this->_usersTable->fetchRow($select)))
+	    		//exit("no user");
 	    		return false;
 	    		
 	    	$user = Vo_Factory::factory(Vo_Factory::$USER_TYPE, $row);

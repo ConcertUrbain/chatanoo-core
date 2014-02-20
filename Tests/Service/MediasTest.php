@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
+	
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -89,6 +93,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -294,6 +299,7 @@
 
 		public function testAddMedia()
 		{
+			$date = Zend_Date::now();
 			$pictureArray = array(
 				'title' => 'Title 2',
 				'description' => 'Description 2',
@@ -315,10 +321,11 @@
 			$this->assertEquals($picture->width, $pictureArray['width']);
 			$this->assertEquals($picture->height, $pictureArray['height']);
 			$this->assertEquals($picture->preview, $pictureArray['preview']);
-			//$this->assertEquals($picture->addDate, Zend_Date::now());
-			$this->assertEquals($picture->setDate, Zend_Date::now());
+			$this->assertEquals($picture->addDate, $date);
+			$this->assertEquals($picture->setDate, $date);
 			$this->assertTrue($picture->isValid());
 
+			$date = Zend_Date::now();
 			$soundArray = array(
 				'title' => 'Title 2',
 				'description' => 'Description 2',
@@ -337,10 +344,11 @@
 			$this->assertEquals($sound->description, $soundArray['description']);
 			$this->assertEquals($sound->url, $soundArray['url']);
 			$this->assertEquals($sound->totalTime, $soundArray['totalTime']);
-			$this->assertEquals($sound->addDate, Zend_Date::now());
-			$this->assertEquals($sound->setDate, Zend_Date::now());
+			$this->assertEquals($sound->addDate, $date);
+			$this->assertEquals($sound->setDate, $date);
 			$this->assertFalse($sound->isValid());
 
+			$date = Zend_Date::now();
 			$textArray = array(
 				'title' => 'Title 2',
 				'description' => 'Description 2',
@@ -358,10 +366,11 @@
 			$this->assertEquals($text->description, $textArray['description']);
 			$this->assertEquals($text->content, $textArray['content']);
 			$this->assertEquals($text->preview, $textArray['preview']);
-			$this->assertEquals($text->addDate, Zend_Date::now());
-			$this->assertEquals($text->setDate, Zend_Date::now());
+			$this->assertEquals($text->addDate, $date);
+			$this->assertEquals($text->setDate, $date);
 			$this->assertTrue($text->isValid());
 
+			$date = Zend_Date::now();
 			$videoArray = array(
 				'title' => 'Title 2',
 				'description' => 'Description 2',
@@ -385,8 +394,8 @@
 			$this->assertEquals($video->height, $videoArray['height']);
 			$this->assertEquals($video->totalTime, $videoArray['totalTime']);
 			$this->assertEquals($video->preview, $videoArray['preview']);
-			$this->assertEquals($video->addDate, Zend_Date::now());
-			$this->assertEquals($video->setDate, Zend_Date::now());
+			$this->assertEquals($video->addDate, $date);
+			$this->assertEquals($video->setDate, $date);
 			$this->assertTrue($video->isValid());
 		}
 
@@ -394,6 +403,7 @@
 		{
 			$mediaPicture = $this->_mediasService->getMediaById(1, 'Picture');
 			$mediaPicture->title = 'bou';
+			$date = Zend_Date::now();
 			$this->_mediasService->setMedia($mediaPicture);
 			$picture = $this->_mediasService->getMediaById(1, 'Picture');
 			$this->assertTrue($picture instanceof Vo_Media_Picture);
@@ -402,11 +412,12 @@
 			$this->assertEquals($picture->description, $mediaPicture->description);
 			$this->assertEquals($picture->preview, $mediaPicture->preview);
 			$this->assertEquals($picture->addDate, new Zend_Date($mediaPicture->addDate, 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($picture->setDate, Zend_Date::now());
+			$this->assertEquals($picture->setDate, $date);
 			$this->assertTrue($picture->isValid());
 
 			$mediaSound = $this->_mediasService->getMediaById(1, 'Sound');
 			$mediaSound->title = 'bou';
+			$date = Zend_Date::now();
 			$this->_mediasService->setMedia($mediaSound);
 			$sound = $this->_mediasService->getMediaById(1, 'Sound');
 			$this->assertTrue($sound instanceof Vo_Media_Sound);
@@ -415,11 +426,12 @@
 			$this->assertEquals($sound->description, $mediaSound->description);
 			$this->assertEquals($sound->preview, $mediaSound->preview);
 			$this->assertEquals($sound->addDate, new Zend_Date($mediaSound->addDate, 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($sound->setDate, Zend_Date::now());
+			$this->assertEquals($sound->setDate, $date);
 			$this->assertTrue($sound->isValid());
 
 			$mediaText = $this->_mediasService->getMediaById(1, 'Text');
 			$mediaText->title = 'bou';
+			$date = Zend_Date::now();
 			$this->_mediasService->setMedia($mediaText);
 			$text = $this->_mediasService->getMediaById(1, 'Text');
 			$this->assertTrue($text instanceof Vo_Media_Text);
@@ -428,11 +440,12 @@
 			$this->assertEquals($text->description, $mediaText->description);
 			$this->assertEquals($text->preview, $mediaText->preview);
 			$this->assertEquals($text->addDate, new Zend_Date($mediaText->addDate, 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($text->setDate, Zend_Date::now());
+			$this->assertEquals($text->setDate, $date);
 			$this->assertTrue($text->isValid());
 
 			$mediaVideo = $this->_mediasService->getMediaById(1, 'Video');
 			$mediaVideo->title = 'bou';
+			$date = Zend_Date::now();
 			$this->_mediasService->setMedia($mediaVideo);
 			$video = $this->_mediasService->getMediaById(1, 'Video');
 			$this->assertTrue($video instanceof Vo_Media_Video);
@@ -441,7 +454,7 @@
 			$this->assertEquals($video->description, $mediaVideo->description);
 			$this->assertEquals($video->preview, $mediaVideo->preview);
 			$this->assertEquals($video->addDate, new Zend_Date($mediaVideo->addDate, 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($video->setDate, Zend_Date::now());
+			$this->assertEquals($video->setDate, $date);
 			$this->assertTrue($video->isValid());
 		}
 
@@ -514,6 +527,7 @@
 
 		public function testAddDataIntoMedia()
 		{
+			$date = Zend_Date::now();
 			$voteArray = array(
 				'rate' => 1,
 				'users_id' => 1
@@ -530,8 +544,8 @@
 			$data = $datas['Vote'][0];
 			$this->assertEquals($data->id, 2);
 			$this->assertEquals($data->rate, 1);
-			$this->assertEquals($data->addDate, Zend_Date::now());
-			$this->assertEquals($data->setDate, Zend_Date::now());
+			$this->assertEquals($data->addDate, $date);
+			$this->assertEquals($data->setDate, $date);
 		}
 
 		public function testRemoveDataFromMedia()

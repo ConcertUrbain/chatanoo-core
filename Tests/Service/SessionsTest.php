@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
+	
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -73,6 +77,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -169,10 +174,11 @@
 
 		public function testAddSession()
 		{
+			$date = Zend_Date::now();
 			$sessionArray = array(
 				'title' => 'Ma session 2',
 				'description' => 'Ma description 2',
-				'publishDate' => Zend_Date::now(),
+				'publishDate' => $date,
 				'users_id' => 1
 			);
 			$s = new Vo_Session($sessionArray);
@@ -186,9 +192,9 @@
 			$this->assertEquals($session->id, 2);
 			$this->assertEquals($session->title, $sessionArray['title']);
 			$this->assertEquals($session->description, $sessionArray['description']);
-			$this->assertEquals($session->addDate, Zend_Date::now());
-			$this->assertEquals($session->setDate, Zend_Date::now());
-			$this->assertEquals($session->publishDate, Zend_Date::now());
+			$this->assertEquals($session->addDate, $date);
+			$this->assertEquals($session->setDate, $date);
+			$this->assertEquals($session->publishDate, $date);
 			$this->assertNull($session->endDate);*/
 		}
 
@@ -218,10 +224,11 @@
 
 		public function testAddQueryIntoSession()
 		{
+			$date = Zend_Date::now();
 			$queryArray = array(
 				'content' => 'Ma question 2',
 				'description' => 'Ma description 2',
-				'publishDate' => Zend_Date::now(),
+				'publishDate' => $date,
 				'isValid' => true
 			);
 			$q = new Vo_Query($queryArray);
@@ -232,9 +239,9 @@
 			$this->assertEquals($query->id, 2);
 			$this->assertEquals($query->content, $queryArray['content']);
 			$this->assertEquals($query->description, $queryArray['description']);
-			$this->assertEquals($query->addDate, Zend_Date::now());
-			$this->assertEquals($query->setDate, Zend_Date::now());
-			$this->assertEquals($query->publishDate, Zend_Date::now());
+			$this->assertEquals($query->addDate, $date);
+			$this->assertEquals($query->setDate, $date);
+			$this->assertEquals($query->publishDate, $date);
 			$this->assertNull($query->endDate);
 			$this->assertTrue($query->isValid());
 		}

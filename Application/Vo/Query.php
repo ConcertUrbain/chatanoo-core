@@ -300,7 +300,7 @@
 	    	$returnValue = parent::toRowArray();
 
 	    	$returnValue['users_id'] = $this->_user;
-	    	$returnValue['isValid'] = $this->_isValid;
+	    	$returnValue['isValid'] = $this->_isValid ? 1 : 0;
 	    	$returnValue['addDate'] = is_null($this->addDate)?null:$this->addDate->toString('YYYY.MM.dd HH:mm:ss');
 	    	$returnValue['setDate'] = is_null($this->setDate)?null:$this->setDate->toString('YYYY.MM.dd HH:mm:ss');
 	    	$returnValue['publishDate'] = is_null($this->publishDate)?null:$this->publishDate->toString('YYYY.MM.dd HH:mm:ss');

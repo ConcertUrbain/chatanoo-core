@@ -1,8 +1,12 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../Library',
+	    dirname(__FILE__) . '/core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
 
 	require_once "Zend/Loader/Autoloader.php";
 	$autoloader = Zend_Loader_Autoloader::getInstance();
@@ -43,6 +47,11 @@
 				$db = Zend_Registry::get('db');
 				$this->_pdo = $db->getConnection();
 			}
+
+			$redis = new Predis\Client();
+			Zend_Registry::set('redis', $redis);
+			
+			Zend_Registry::set('sessionID', 1);
 		}
 
 	    /**
@@ -197,6 +206,7 @@
 			$itemArray = array(
 				'id' => 1,
 				'_user' => 1,
+				'rate' => 2,
 				'title' => 'Mon titre',
 				'description' => 'Une description',
 				'addDate' => '2007.03.10 00:00:00',

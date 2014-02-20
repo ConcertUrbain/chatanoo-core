@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
 
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -94,6 +98,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -194,18 +199,21 @@
 				'isValid' => true,
 				'users_id' => 1
 			);
-			$this->_itemsService->addItem(new Vo_Item($itemArray));
-			$item = $this->_itemsService->getItemById(2);
-			$this->assertEquals($item->id, 2);
+			$date = Zend_Date::now();
+
+			$id = $this->_itemsService->addItem(new Vo_Item($itemArray));
+			$item = $this->_itemsService->getItemById($id);
+			$this->assertEquals($item->id, $id);
 			$this->assertEquals($item->title, $itemArray['title']);
 			$this->assertEquals($item->description, $itemArray['description']);
-			$this->assertEquals($item->addDate, Zend_Date::now());
-			$this->assertEquals($item->setDate, Zend_Date::now());
+			$this->assertEquals($item->addDate, $date);
+			$this->assertEquals($item->setDate, $date);
 			$this->assertTrue($item->isValid());
 		}
 
 		public function testSetItem()
 		{
+			$date = Zend_Date::now();
 			$item = $this->_itemsService->getItemById(1);
 			$item->title = 'Mon Item modif';
 			$this->_itemsService->setItem($item);
@@ -214,7 +222,7 @@
 			$this->assertEquals($itemModif->title, $item->title);
 			$this->assertEquals($itemModif->description, $item->description);
 			$this->assertEquals($itemModif->addDate, $item->addDate);
-			$this->assertEquals($itemModif->setDate, Zend_Date::now());
+			$this->assertEquals($itemModif->setDate, $date);
 			$this->assertEquals($itemModif->isValid(), $item->isValid());
 		}
 
@@ -363,6 +371,7 @@
 
 		public function testAddDataIntoVo()
 		{
+			$date = Zend_Date::now();
 			$cartoArray = array(
 				'x' => 94500,
 				'y' => 94100
@@ -380,8 +389,8 @@
 			$this->assertEquals($carto->id, 2);
 			$this->assertEquals($carto->x, 94500);
 			$this->assertEquals($carto->y, 94100);
-			$this->assertEquals($carto->addDate, Zend_Date::now());
-			$this->assertEquals($carto->setDate, Zend_Date::now());
+			$this->assertEquals($carto->addDate, $date);
+			$this->assertEquals($carto->setDate, $date);
 		}
 
 		public function testRemoveDataFromVo()

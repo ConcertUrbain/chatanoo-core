@@ -301,8 +301,8 @@
 	        <adapter>pdo_mysql</adapter>
 	        <params>
 	            <host>localhost</host>
-	            <username>root</username>
-	            <password>root</password>
+	            <username>travis</username>
+	            <password></password>
 	            <dbname>TourATourTest</dbname>
 	        </params>
 	    </database>

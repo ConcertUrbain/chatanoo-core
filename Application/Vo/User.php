@@ -254,7 +254,7 @@
 	    {
 	    	$returnValue = parent::toRowArray();
 
-	    	$returnValue['isBan'] = $this->_isBan;
+	    	$returnValue['isBan'] = $this->_isBan ? 1 : 0;
 	    	$returnValue['addDate'] = is_null($this->addDate)?null:$this->addDate->toString('YYYY.MM.dd HH:mm:ss');
 	    	$returnValue['setDate'] = is_null($this->setDate)?null:$this->setDate->toString('YYYY.MM.dd HH:mm:ss');
 

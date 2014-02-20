@@ -13,6 +13,7 @@
 	    APPLICATION_PATH . '/core',
 	    get_include_path(),
 	)));
+	require 'vendor/autoload.php';
 
 	/** Zend_Application */
 	require_once 'Zend/Application.php';

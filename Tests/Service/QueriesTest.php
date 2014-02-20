@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
+	
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -101,6 +105,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -224,10 +229,11 @@
 
 		public function testAddQuery()
 		{
+			$date = Zend_Date::now();
 			$queryArray = array(
 				'content' => 'Ma question 2',
 				'description' => 'Ma description 2',
-				'publishDate' => Zend_Date::now(),
+				'publishDate' => $date,
 				'isValid' => true
 			);
 			$this->_queriesService->addQuery(new Vo_Query($queryArray));
@@ -235,9 +241,9 @@
 			$this->assertEquals($query->id, 2);
 			$this->assertEquals($query->content, $queryArray['content']);
 			$this->assertEquals($query->description, $queryArray['description']);
-			$this->assertEquals($query->addDate, Zend_Date::now());
-			$this->assertEquals($query->setDate, Zend_Date::now());
-			$this->assertEquals($query->publishDate, Zend_Date::now());
+			$this->assertEquals($query->addDate, $date);
+			$this->assertEquals($query->setDate, $date);
+			$this->assertEquals($query->publishDate, $date);
 			$this->assertNull($query->endDate);
 			$this->assertTrue($query->isValid());
 		}
@@ -277,6 +283,7 @@
 			$items = $this->_itemsService->getItemsByQueryId(1);
 			$this->assertEquals(count($items), 2);
 
+			$date = Zend_Date::now();
 			$itemArray = array(
 				'title' => 'Mon Item 2',
 				'description' => 'Ma description 2',
@@ -293,8 +300,8 @@
 			$this->assertEquals($item->id, 3);
 			$this->assertEquals($item->title, $itemArray['title']);
 			$this->assertEquals($item->description, $itemArray['description']);
-			$this->assertEquals($item->addDate, Zend_Date::now());
-			$this->assertEquals($item->setDate, Zend_Date::now());
+			$this->assertEquals($item->addDate, $date);
+			$this->assertEquals($item->setDate, $date);
 			$this->assertTrue($item->isValid());
 		}
 
@@ -317,6 +324,7 @@
 			$medias = $this->_mediasService->getMediasByQueryId(1);
 			$this->assertEquals(count($medias), 1);
 
+			$date = Zend_Date::now();
 			$pictureArray = array(
 				'title' => 'Title 2',
 				'description' => 'Description 2',
@@ -342,8 +350,8 @@
 			$this->assertEquals($picture->width, $pictureArray['width']);
 			$this->assertEquals($picture->height, $pictureArray['height']);
 			$this->assertEquals($picture->preview, $pictureArray['preview']);
-			//$this->assertEquals($picture->addDate, Zend_Date::now());
-			$this->assertEquals($picture->setDate, Zend_Date::now());
+			$this->assertEquals($picture->addDate, $date);
+			$this->assertEquals($picture->setDate, $date);
 			$this->assertTrue($picture->isValid());
 		}
 
@@ -406,6 +414,7 @@
 
 		public function testAddDataIntoVo()
 		{
+			$date = Zend_Date::now();
 			$cartoArray = array(
 				'x' => 94500,
 				'y' => 94100
@@ -422,8 +431,8 @@
 			$this->assertEquals($carto->id, 2);
 			$this->assertEquals($carto->x, 94500);
 			$this->assertEquals($carto->y, 94100);
-			$this->assertEquals($carto->addDate, Zend_Date::now());
-			$this->assertEquals($carto->setDate, Zend_Date::now());
+			$this->assertEquals($carto->addDate, $date);
+			$this->assertEquals($carto->setDate, $date);
 		}
 
 		public function testRemoveDataFromVo()

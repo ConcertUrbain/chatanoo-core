@@ -590,7 +590,7 @@
 	    public function validateVo($voId, $trueOrFalse, $all = false)
 	    {
 			$queryRow = $this->_queriesTable->find($voId)->current();
-			$queryRow->isValid = $trueOrFalse;
+			$queryRow->isValid = $trueOrFalse ? 1 : 0;
 			return $queryRow->save();
 	    }
 
@@ -628,7 +628,7 @@
 	     */
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
-			$this->_datasAssocTable->delete("datas_id = '" . $dataId . "' AND dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "' AND assoc_id = '" . $voId . "' AND assocType = 'Query'");
+			$this->_datasAssocTable->delete("datas_id = '" . $dataId . "' AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = '" . $voId . "' AND assocType = 'Query'");
 			return true;
 	    }
 

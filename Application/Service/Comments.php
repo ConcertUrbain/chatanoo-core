@@ -323,7 +323,7 @@
 	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
 	    	
 	        $commentRow = $this->_commentsTable->fetchRow($select);
-			$commentRow->isValid = $trueOrFalse;
+			$commentRow->isValid = $trueOrFalse ? 1 : 0;
 			return $commentRow->save();
 	    }
 
@@ -399,7 +399,7 @@
 	    {
 			$wheres = array(
 				"datas_id = '" . $dataId . "'",
-				"dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "'",
+				"dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType),
 				"assoc_id = '" . $voId . "'",
 				"assocType = 'Comment'"
 			);

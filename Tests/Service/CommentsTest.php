@@ -2,11 +2,15 @@
 	defined('APPLICATION_ENVIRONMENT')
 	    or define('APPLICATION_ENVIRONMENT', 'test');
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
 
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -65,7 +69,11 @@
 				$db = Zend_Registry::get('db');
 				$this->_pdo = $db->getConnection();
 			}
+
+			$redis = new Predis\Client();
+			Zend_Registry::set('redis', $redis);
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -164,6 +172,7 @@
 
 		public function testAddComment()
 		{
+			$date = Zend_Date::now();
 			$commentArray = array(
 				'content' => 'Un commentaire 2',
 				'isValid' => 1,
@@ -174,13 +183,14 @@
 			// $comment = $this->_commentsService->getCommentById(2);
 			// $this->assertEquals($comment->id, 2);
 			// $this->assertEquals($comment->content, 'Un commentaire 2');
-			// $this->assertEquals($comment->addDate, Zend_Date::now());
-			// $this->assertEquals($comment->setDate, Zend_Date::now());
+			// $this->assertEquals($comment->addDate, $date);
+			// $this->assertEquals($comment->setDate, $date);
 			// $this->assertTrue($comment->isValid());
 		}
 
 		public function testSetComment()
 		{
+			$date = Zend_Date::now();
 			$comment = $this->_commentsService->getCommentById(1);
 			$comment->content = 'Un commentaire mais modifie!';
 			$this->_commentsService->setComment($comment);
@@ -189,7 +199,7 @@
 			$this->assertEquals($settedComment->id, $comment->id);
 			$this->assertEquals($settedComment->content, $comment->content);
 			$this->assertEquals($settedComment->addDate, $comment->addDate);
-			$this->assertEquals($settedComment->setDate, Zend_Date::now());
+			$this->assertEquals($settedComment->setDate, $date);
 			$this->assertEquals($settedComment->isValid(), $comment->isValid());
 		}
 
@@ -300,7 +310,7 @@
 
 		public function testAddDataIntoVo()
 		{
-			$data = $this->_datasService->getDataById(1, 'Adress');
+			$data = $this->_datasService->getDatasById(1, 'Adress');
 			$data->id = $this->_commentsService->addDataIntoVo($data, 1);
 
 			$insertXml = dirname(__FILE__) . '/Flats/comments-insert2-data.xml';

@@ -1,0 +1,17 @@
+language: php
+php:
+  - 5.4
+
+install: 
+  - composer install
+
+services:
+  - redis-server
+  - memcached
+
+before_script:
+  - mysql -e 'create database TourATourTest;'
+  - mysql TourATourTest < Database/structure.sql
+
+script: 
+  - phpunit Tests/AllTests.php

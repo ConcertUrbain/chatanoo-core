@@ -5,6 +5,9 @@ php:
 install: 
   - composer install
 
+services:
+  - redis-server
+
 before_script:
   - mysql -e 'create database TourATourTest;'
   - mysql TourATourTest < Database/structure.sql

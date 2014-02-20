@@ -5,5 +5,8 @@ php:
 install: 
   - composer install
 
+before_script:
+  - mysql -e 'create database TourATourTest;'
+
 script: 
   - phpunit Tests/AllTests.php

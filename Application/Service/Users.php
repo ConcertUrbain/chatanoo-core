@@ -197,7 +197,7 @@
 	    public function addUser( Vo_User $user)
 	    {
 	    	$user->password = sha1($user->password);
-			
+
 			$userRow = $this->_usersTable->createRow($user->toRowArray());
 			$userRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
 			$userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
@@ -283,7 +283,7 @@
 	    	$select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
 	    	
 	        $userRow = $this->_usersTable->fetchRow($select);
-			$userRow->isBan = $trueOrFalse;
+			$userRow->isBan = $trueOrFalse ? 1 : 0;
 			return $userRow->save();
 	    }
 
@@ -363,7 +363,7 @@
 	     */
 	    public function removeDataFromVo($dataId, $dataType, $voId)
 	    {
-			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = '" . $this->_datasAssocTable->getAdapter()->quote($dataType) . "' AND assoc_id = " . $voId . " AND assocType = 'User'");
+			$this->_datasAssocTable->delete("datas_id = " . $dataId . " AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = " . $voId . " AND assocType = 'User'");
 			return true;
 	    }
 

@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
+	
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -58,6 +62,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -137,6 +142,7 @@
 
 		public function testAddUser()
 		{
+			$date = Zend_Date::now();
 			$userArray = array(
 				'firstName' => 'Tsolova',
 				'lastName' => 'Irina',
@@ -156,8 +162,8 @@
 			//$this->assertEquals($user->password, $userArray['password']);
 			$this->assertEquals($user->email, $userArray['email']);
 			$this->assertEquals($user->role, $userArray['role']);
-			$this->assertEquals($user->addDate, Zend_Date::now());
-			$this->assertEquals($user->setDate, Zend_Date::now());
+			$this->assertEquals($user->addDate, $date);
+			$this->assertEquals($user->setDate, $date);
 		}
 
 		public function testSetUser()
@@ -198,6 +204,7 @@
 
 		public function testAddDataIntoVo()
 		{
+			$date = Zend_Date::now();
 			$voteArray = array(
 				'rate' => 1,
 				'users_id' => 1
@@ -214,8 +221,8 @@
 			$vote = $datas['Vote'][0];
 			$this->assertEquals($vote->id, 2);
 			$this->assertEquals($vote->rate, 1);
-			$this->assertEquals($vote->addDate, Zend_Date::now());
-			$this->assertEquals($vote->setDate, Zend_Date::now());
+			$this->assertEquals($vote->addDate, $date);
+			$this->assertEquals($vote->setDate, $date);
 		}
 
 		public function testRemoveDataFromVo()

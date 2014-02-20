@@ -1,5 +1,4 @@
 <?php
-	require "Library/predis/autoload.php";
 
 	class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{

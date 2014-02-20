@@ -1,8 +1,12 @@
 <?php
 
-	require_once('PHPUnit/Framework/TestCase.php');
-
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../Library',
+	    dirname(__FILE__) . '/core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
 
 	require_once "Zend/Loader/Autoloader.php";
 	$autoloader = Zend_Loader_Autoloader::getInstance();

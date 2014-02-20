@@ -113,15 +113,16 @@
 
 	        foreach($this as $key=>$value)
 	        {
-	        	if($key != 'id')
+	        	switch($key) 
 	        	{
-	        		if(preg_match('/^_(.*)$/', $key) == 0) // exclut toutes les variables commencant par un '_', par convention toutes les variables privées
-	        			$returnValue[$key] = $value;
-	        	}
-	        	else
-	        	{
-	        		if($value != 0)
-	        			$returnValue[$key] = $value;
+	        		case 'id':
+		        		if($value != 0)
+		        			$returnValue[$key] = $value;
+	        			break;
+	        		default:
+		        		if(preg_match('/^_(.*)$/', $key) == 0) // exclut toutes les variables commencant par un '_', par convention toutes les variables privées
+		        			$returnValue[$key] = $value;
+	        			break;
 	        	}
 	        }
 

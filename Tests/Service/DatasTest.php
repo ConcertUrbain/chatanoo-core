@@ -1,10 +1,14 @@
 <?php
 
-	require_once('PHPUnit/Extensions/Database/TestCase.php');
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    dirname(__FILE__) . '/../../Library',
+	    dirname(__FILE__) . '/../../Application',
+	    dirname(__FILE__) . '/../core',
+	    dirname(__FILE__),
+	    get_include_path(),
+	)));
+	require 'vendor/autoload.php';
 
-	set_include_path(dirname(__FILE__) . '/../../Library' . PATH_SEPARATOR . dirname(__FILE__) . '/../../Application' . PATH_SEPARATOR . get_include_path());
-
-	require_once "Zend/Loader/Autoloader.php";
 	$autoloader = Zend_Loader_Autoloader::getInstance();
 	$autoloader->setFallbackAutoloader(true);
 
@@ -59,6 +63,7 @@
 				$this->_pdo = $db->getConnection();
 			}
 			
+			Zend_Registry::set('userID', 1);
 			Zend_Registry::set('sessionID', 1);
 		}
 
@@ -138,7 +143,7 @@
 
 		public function testGetDataById()
 		{
-			$dataAdress = $this->_datasService->getDataById(1, 'Adress');
+			$dataAdress = $this->_datasService->getDatasById(1, 'Adress');
 
 			$this->assertTrue($dataAdress instanceof Vo_Data_Adress);
 			$this->assertEquals($dataAdress->id, 1);
@@ -149,7 +154,7 @@
 			$this->assertEquals($dataAdress->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 			$this->assertEquals($dataAdress->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 
-			$dataCarto = $this->_datasService->getDataById(1, 'Carto');
+			$dataCarto = $this->_datasService->getDatasById(1, 'Carto');
 
 			$this->assertTrue($dataCarto instanceof Vo_Data_Carto);
 			$this->assertEquals($dataCarto->id, 1);
@@ -158,7 +163,7 @@
 			$this->assertEquals($dataCarto->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 			$this->assertEquals($dataCarto->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 
-			$dataVote = $this->_datasService->getDataById(1, 'Vote');
+			$dataVote = $this->_datasService->getDatasById(1, 'Vote');
 
 			$this->assertTrue($dataVote instanceof Vo_Data_Vote);
 			$this->assertEquals($dataVote->id, 1);
@@ -166,7 +171,7 @@
 			$this->assertEquals($dataVote->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 			$this->assertEquals($dataVote->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 
-			$dataNotExist = $this->_datasService->getDataById(2, 'Vote');
+			$dataNotExist = $this->_datasService->getDatasById(2, 'Vote');
 			$this->assertNull($dataNotExist);
 		}
 
@@ -306,6 +311,7 @@
 
 		public function testAddData()
 		{
+			$date = Zend_Date::now();
 			$adressArray = array(
 				'adress' => '75, avenue de Lattre de Tassigny',
 				'zipCode' => 94100,
@@ -315,16 +321,17 @@
 			$adress = new Vo_Data_Adress($adressArray);
 			$adress->id = $this->_datasService->addData($adress);
 			$this->assertEquals($adress->id, 2);
-			$dataAdress = $this->_datasService->getDataById(2, 'Adress');
+			$dataAdress = $this->_datasService->getDatasById(2, 'Adress');
 			$this->assertTrue($dataAdress instanceof Vo_Data_Adress);
 			$this->assertEquals($dataAdress->id, 2);
 			$this->assertEquals($dataAdress->adress, $adressArray['adress']);
 			$this->assertEquals($dataAdress->zipCode, $adressArray['zipCode']);
 			$this->assertEquals($dataAdress->city, $adressArray['city']);
 			$this->assertEquals($dataAdress->country, $adressArray['country']);
-			$this->assertEquals($dataAdress->addDate, Zend_Date::now());
-			$this->assertEquals($dataAdress->setDate, Zend_Date::now());
+			$this->assertEquals($dataAdress->addDate, $date);
+			$this->assertEquals($dataAdress->setDate, $date);
 
+			$date = Zend_Date::now();
 			$cartoArray = array(
 				'x' => 94500,
 				'y' => 94100
@@ -332,14 +339,15 @@
 			$carto = new Vo_Data_Carto($cartoArray);
 			$carto->id = $this->_datasService->addData($carto);
 			$this->assertEquals($carto->id, 2);
-			$dataCarto = $this->_datasService->getDataById(2, 'Carto');
+			$dataCarto = $this->_datasService->getDatasById(2, 'Carto');
 			$this->assertTrue($dataCarto instanceof Vo_Data_Carto);
 			$this->assertEquals($dataCarto->id, 2);
 			$this->assertEquals($dataCarto->x, $cartoArray['x']);
 			$this->assertEquals($dataCarto->y, $cartoArray['y']);
-			$this->assertEquals($dataCarto->addDate, Zend_Date::now());
-			$this->assertEquals($dataCarto->setDate, Zend_Date::now());
+			$this->assertEquals($dataCarto->addDate, $date);
+			$this->assertEquals($dataCarto->setDate, $date);
 
+			$date = Zend_Date::now();
 			$voteArray = array(
 				'rate' => -1,
 				'users_id' => 1
@@ -347,20 +355,21 @@
 			$vote = new Vo_Data_Vote($voteArray);
 			$vote->id = $this->_datasService->addData($vote);
 			$this->assertEquals($vote->id, 2);
-			$dataVote = $this->_datasService->getDataById(2, 'Vote');
+			$dataVote = $this->_datasService->getDatasById(2, 'Vote');
 			$this->assertTrue($dataVote instanceof Vo_Data_Vote);
 			$this->assertEquals($dataVote->id, 2);
 			$this->assertEquals($dataVote->rate, $voteArray['rate']);
-			$this->assertEquals($dataVote->addDate, Zend_Date::now());
-			$this->assertEquals($dataVote->setDate, Zend_Date::now());
+			$this->assertEquals($dataVote->addDate, $date);
+			$this->assertEquals($dataVote->setDate, $date);
 		}
 
 		public function testSetData()
 		{
-			$dataAdress = $this->_datasService->getDataById(1, 'Adress');
+			$dataAdress = $this->_datasService->getDatasById(1, 'Adress');
 			$dataAdress->adress = 'bou';
+			$date = Zend_Date::now();
 			$this->_datasService->setData($dataAdress);
-			$dataA = $this->_datasService->getDataById(1, 'Adress');
+			$dataA = $this->_datasService->getDatasById(1, 'Adress');
 			$this->assertTrue($dataA instanceof Vo_Data_Adress);
 			$this->assertEquals($dataA->id, 1);
 			$this->assertEquals($dataA->adress, 'bou');
@@ -368,28 +377,30 @@
 			$this->assertEquals($dataA->city, $dataAdress->city);
 			$this->assertEquals($dataA->country, $dataAdress->country);
 			$this->assertEquals($dataA->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($dataA->setDate, Zend_Date::now());
+			$this->assertEquals($dataA->setDate, $date);
 
-			$dataCarto = $this->_datasService->getDataById(1, 'Carto');
+			$dataCarto = $this->_datasService->getDatasById(1, 'Carto');
 			$dataCarto->x = 94500;
+			$date = Zend_Date::now();
 			$this->_datasService->setData($dataCarto);
-			$dataC = $this->_datasService->getDataById(1, 'Carto');
+			$dataC = $this->_datasService->getDatasById(1, 'Carto');
 			$this->assertTrue($dataC instanceof Vo_Data_Carto);
 			$this->assertEquals($dataC->id, 1);
 			$this->assertEquals($dataC->x, 94500);
 			$this->assertEquals($dataC->y, $dataCarto->y);
 			$this->assertEquals($dataC->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
-			//$this->assertEquals($dataC->setDate, Zend_Date::now());
+			$this->assertEquals($dataC->setDate, $date);
 
-			$dataVote = $this->_datasService->getDataById(1, 'Vote');
+			$dataVote = $this->_datasService->getDatasById(1, 'Vote');
 			$dataVote->rate = -1;
+			$date = Zend_Date::now();
 			$this->_datasService->setData($dataVote);
-			$dataV = $this->_datasService->getDataById(1, 'Vote');
+			$dataV = $this->_datasService->getDatasById(1, 'Vote');
 			$this->assertTrue($dataV instanceof Vo_Data_Vote);
 			$this->assertEquals($dataV->id, 1);
 			$this->assertEquals($dataV->rate, -1);
 			$this->assertEquals($dataV->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
-			$this->assertEquals($dataV->setDate, Zend_Date::now());
+			$this->assertEquals($dataV->setDate, $date);
 		}
 
 		public function testDeleteData()
@@ -409,13 +420,13 @@
 			$datas = $this->_datasService->getDatas();
 			$this->assertEquals(count($datas), 0);
 
-			$datas = $this->_datasService->getDataById(1, 'Adress');
+			$datas = $this->_datasService->getDatasById(1, 'Adress');
 			$this->assertEquals(count($datas), 0);
 
-			$datas = $this->_datasService->getDataById(1, 'Carto');
+			$datas = $this->_datasService->getDatasById(1, 'Carto');
 			$this->assertEquals(count($datas), 0);
 
-			$datas = $this->_datasService->getDataById(1, 'Vote');
+			$datas = $this->_datasService->getDatasById(1, 'Vote');
 			$this->assertEquals(count($datas), 0);
 
 			$datas = $this->_datasService->getDatasByCommentId(1);

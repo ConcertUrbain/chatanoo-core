@@ -2,7 +2,7 @@
 <configdata>
 	<production>
 
-		<debug>false</debug>
+		<debug>true</debug>
 
 	    <database>
 	        <adapter>pdo_mysql</adapter>

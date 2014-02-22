@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config>
+<config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
 
 	<production>
 		<phpSettings>
 			<!-- Error -->
-			<display_startup_errors>0</display_startup_errors>
-			<display_errors>0</display_errors>
+			<display_startup_errors>1</display_startup_errors>
+			<display_errors>1</display_errors>
 
 			<!-- Time -->
 			<date>
@@ -15,13 +15,13 @@
 
 		<!-- Include Path -->
 		<includePaths>
-			<library>APPLICATION_PATH/../Library</library>
-			<application>APPLICATION_PATH</application>
+			<library><zf:const zf:name="APPLICATION_PATH"/>/../Library</library>
+			<application><zf:const zf:name="APPLICATION_PATH"/></application>
 		</includePaths>
 
 		<!-- Bootstap -->
 		<bootstrap>
-			<path>APPLICATION_PATH/Bootstrap.php</path>
+			<path><zf:const zf:name="APPLICATION_PATH"/>/Bootstrap.php</path>
 			<class>Bootstrap</class>
 		</bootstrap>
 
@@ -43,7 +43,7 @@
 				<defaultAction>index</defaultAction>
 
 				<!-- Modules -->
-				<moduleDirectory>APPLICATION_PATH/modules</moduleDirectory>
+				<moduleDirectory><zf:const zf:name="APPLICATION_PATH"/>/modules</moduleDirectory>
 				<moduleControllerDirectoryName>controllers</moduleControllerDirectoryName>
 			</frontController>
 		</resources>

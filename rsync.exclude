@@ -1,4 +1,7 @@
 .svn
+.git
+.gitignore
+.travis.yml
 build.xml
 /Docs
 /Logs

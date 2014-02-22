@@ -240,6 +240,33 @@
 	    }
 
 	    /**
+	     * Retourne toutes les médias pour une metadonnée
+	     *
+	     * @access public
+	     * @author Mathieu Desv, <mathieu.desve@unflux.fr>
+	     * @param  int metaId Identifiant d'une métadonnée
+	     * @return array
+	     */
+	    public function getMediasByMetaId($metaId)
+	    {
+	        $medias = array();
+			foreach($this->_mediasTables as $mediaTable)
+			{
+	    		$select = Zend_Registry::get('db')->select();
+	    		$table = $mediaTable->getTableName();
+				$select->from('metas_assoc', null)
+						->join($table, 'metas_assoc.assoc_id = '.$table.'.id')
+						->where('metas_assoc.metas_id = ?', $metaId)
+						->where("metas_assoc.assocType = ?", 'Media_' . $mediaTable->getMediaType())
+						->where($table . ".sessions_id = ?", Zend_Registry::get('sessionID'));
+				$mediasRows = Zend_Registry::get('db')->fetchAll($select);
+				if(count($mediasRows))
+					$medias[$mediaTable->getMediaType()] = Vo_Media_Factory::getInstance()->rowsToVoArray($mediaTable->getMediaVoClass(), $mediasRows);
+			}
+	        return (array) $medias;
+	    }
+
+	    /**
 	     * Ajoute un mdia ˆ la base de donnes
 	     *
 	     * @access public

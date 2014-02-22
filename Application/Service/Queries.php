@@ -294,6 +294,32 @@
 	    }
 
 	    /**
+	     * Retourne toutes les questions pour une metadonnÈe
+	     *
+	     * @access public
+	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	     * @param  int metaId Identifiant d'une mÈtadonnÈe
+	     * @return array
+	     */
+	    public function getQueriesByMetaId($metaId)
+	    {
+	    	$queries = array();
+	    	
+	        $select = Zend_Registry::get('db')->select();
+    		$table = 'queries';
+			$select->from('metas_assoc', null)
+					->join($table, 'metas_assoc.assoc_id = '.$table.'.id')
+					->join('sessions_assoc_queries', 'sessions_assoc_queries.queries_id = '.$table.'.id')
+					->where('metas_assoc.metas_id = ?', $metaId)
+					->where("metas_assoc.assocType = ?", 'Item')
+					->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
+			$queriesRows = Zend_Registry::get('db')->fetchAll($select);
+			if(count($queriesRows))
+	        	$queries = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRows);
+	        return $queries;
+	    }
+
+	    /**
 	     * Ajoute une question à la base de données
 	     *
 	     * @access public

@@ -275,6 +275,64 @@
 			$this->assertTrue($mediaVideo->isValid());
 		}
 
+		public function testGetMediasByMetaId()
+		{
+			$medias = $this->_mediasService->getMediasByMetaId(1);
+
+			$this->assertTrue(is_array($medias));
+			$this->assertEquals(count($medias), 4);
+
+			$mediaPicture = $medias['Picture'][0];
+			$this->assertTrue($mediaPicture instanceof Vo_Media_Picture);
+			$this->assertEquals($mediaPicture->id, 1);
+			$this->assertEquals($mediaPicture->title, 'Une image');
+			$this->assertEquals($mediaPicture->description, 'Elle se regarde');
+			$this->assertEquals($mediaPicture->url, 'http://www.unsite.fr/picture.jpg');
+			$this->assertEquals($mediaPicture->width, 400);
+			$this->assertEquals($mediaPicture->height, 300);
+			$this->assertEquals($mediaPicture->preview, 'http://www.unsite.fr/preview.jpg');
+			$this->assertEquals($mediaPicture->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($mediaPicture->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertTrue($mediaPicture->isValid());
+
+			$mediaSound = $medias['Sound'][0];
+			$this->assertTrue($mediaSound instanceof Vo_Media_Sound);
+			$this->assertEquals($mediaSound->id, 1);
+			$this->assertEquals($mediaSound->title, 'Un son');
+			$this->assertEquals($mediaSound->description, 'il s ecoute');
+			$this->assertEquals($mediaSound->url, 'http://www.unsite.fr/sound.mp3');
+			$this->assertEquals($mediaSound->totalTime, 180);
+			$this->assertEquals($mediaSound->preview, 'http://www.unsite.fr/preview.jpg');
+			$this->assertEquals($mediaSound->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($mediaSound->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertTrue($mediaSound->isValid());
+
+			$mediaText = $medias['Text'][0];
+			$this->assertTrue($mediaText instanceof Vo_Media_Text);
+			$this->assertEquals($mediaText->id, 1);
+			$this->assertEquals($mediaText->title, 'Un texte');
+			$this->assertEquals($mediaText->description, 'il se lit');
+			$this->assertEquals($mediaText->content, 'Un texte');
+			$this->assertEquals($mediaText->preview, 'http://www.unsite.fr/preview.jpg');
+			$this->assertEquals($mediaText->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($mediaText->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertTrue($mediaText->isValid());
+
+			$mediaVideo = $medias['Video'][0];
+			$this->assertTrue($mediaVideo instanceof Vo_Media_Video);
+			$this->assertEquals($mediaVideo->id, 1);
+			$this->assertEquals($mediaVideo->title, 'Une video');
+			$this->assertEquals($mediaVideo->description, 'il s ecoute et se regarde');
+			$this->assertEquals($mediaVideo->url, 'http://www.unsite.fr/video.flv');
+			$this->assertEquals($mediaVideo->width, 400);
+			$this->assertEquals($mediaVideo->height, 300);
+			$this->assertEquals($mediaVideo->totalTime, 180);
+			$this->assertEquals($mediaVideo->preview, 'http://www.unsite.fr/preview.jpg');
+			$this->assertEquals($mediaVideo->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($mediaVideo->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertTrue($mediaVideo->isValid());
+		}
+
 		public function testGetMediasByQueryId()
 		{
 			$medias = $this->_mediasService->getMediasByQueryId(1);

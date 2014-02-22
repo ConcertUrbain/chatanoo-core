@@ -227,6 +227,26 @@
 			$this->assertTrue($query->isValid());
 		}
 
+		public function testGetQueriesByMetaId()
+		{
+			$queries = $this->_queriesService->getQueriesByMetaId(1);
+
+			$this->assertTrue(is_array($queries));
+			$this->assertEquals(count($queries), 1);
+
+			$query = $queries[0];
+			$this->assertTrue($query instanceof Vo_Query);
+
+			$this->assertEquals($query->id, 1);
+			$this->assertEquals($query->content, 'Une question ?');
+			$this->assertEquals($query->description, 'bah une question');
+			$this->assertEquals($query->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($query->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($query->publishDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($query->endDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertTrue($query->isValid());
+		}
+
 		public function testAddQuery()
 		{
 			$date = Zend_Date::now();

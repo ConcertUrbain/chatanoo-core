@@ -191,6 +191,23 @@
 			$this->assertEquals($item->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
 		}
 
+		public function testGetItemsByMetaId()
+		{
+			$items = $this->_itemsService->getItemsByMetaId(1);
+
+			$this->assertTrue(is_array($items));
+			$this->assertEquals(count($items), 2);
+
+			$item = $items[0];
+			$this->assertTrue($item instanceof Vo_Item);
+
+			$this->assertEquals($item->id, 1);
+			$this->assertEquals($item->title, 'Mon Item');
+			$this->assertEquals($item->description, 'Ma description');
+			$this->assertEquals($item->addDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+			$this->assertEquals($item->setDate, new Zend_Date('2009-04-15 23:55:36', 'YYYY.MM.dd HH:mm:ss'));
+		}
+
 		public function testAddItem()
 		{
 			$itemArray = array(

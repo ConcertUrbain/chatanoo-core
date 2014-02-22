@@ -282,6 +282,31 @@
 	        	$items = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRowset);
 	        return $items;
 	    }
+
+	    /**
+	     * Retourne tous les items pour une metadonnÈe
+	     *
+	     * @access public
+	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
+	     * @param  int metaId Identifiant d'une mÈtadonnÈe
+	     * @return array
+	     */
+	    public function getItemsByMetaId($metaId)
+	    {
+	    	$items = array();
+	    	
+	        $select = Zend_Registry::get('db')->select();
+    		$table = 'items';
+			$select->from('metas_assoc', null)
+					->join($table, 'metas_assoc.assoc_id = '.$table.'.id')
+					->where('metas_assoc.metas_id = ?', $metaId)
+					->where("metas_assoc.assocType = ?", 'Item')
+					->where($table . ".sessions_id = ?", Zend_Registry::get('sessionID'));
+			$itemsRows = Zend_Registry::get('db')->fetchAll($select);
+			if(count($itemsRows))
+	        	$items = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRows);
+	        return $items;
+	    }
 	
 		/**
 	     * Retourne tous les items contenant un média

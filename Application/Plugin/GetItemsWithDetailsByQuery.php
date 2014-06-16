@@ -11,6 +11,14 @@
 	    protected $_datasTables = array();
 
 	    /**
+	     * Tableau contenant les passerelles vers les diffŽrentes tables de media
+	     *
+	     * @access protected
+	     * @var array
+	     */
+	    protected $_mediasTables = array();
+
+	    /**
 	     * @var Zend_Db_Adapter_Abstract
 	     */
 	    protected $_db;
@@ -22,6 +30,11 @@
 			{
 				$className = $data->tableClass;
 				$this->_datasTables[$data->type] = new $className;
+			}
+			foreach(Zend_Registry::get('config')->medias->media as $media)
+			{
+				$className = $media->tableClass;
+				$this->_mediasTables[$media->type] = new $className;
 			}
 		}
 
@@ -45,6 +58,9 @@
 				// RŽcupŽration de leurs datas
 				$datas = $this->_getDatasByItems($items);
 
+				// RŽcupŽration de leurs medias
+				$medias = $this->_getMediasByItems($items);
+
 				// RŽcupŽration de leurs commentaires
 				$comments = $this->_getCommentsByItems($items);
 
@@ -59,6 +75,8 @@
 					$itemArray['VO'] = $item;
 					$itemArray['user'] = ($users && count($users) > 0) ? $this->_getUserOfItem($item, $users) : null;
 					$itemArray['datas'] = ($datas && count($datas) > 0) ? $this->_getDatasOfItem($item, $datas) : null;
+					$itemArray['comments'] = ($comments && count($comments) > 0) ? $this->_getCommentsOfItem($item, $comments) : null;
+					$itemArray['medias'] = ($medias && count($medias) > 0) ? $this->_getMediasOfItem($item, $medias) : null;
 					$itemArray['metas'] = ($metas && count($metas) > 0) ? $this->_getMetasOfItem($item, $metas) : null;
 					$itemArray['rate'] = $this->_getRatesOfItem(
 						$item,
@@ -133,6 +151,28 @@
 			return $datas;
 		}
 
+		private function _getMediasByItems($items)
+		{
+			$medias = array();
+    		$selectOrWhere = array();
+			foreach($items as $key=>$item)
+				array_push($selectOrWhere, $this->_db->quoteInto('medias_assoc.assoc_id = ?', $item->id));
+			foreach($this->_mediasTables as $mediaTable)
+			{
+	    		$select = $this->_db->select();
+	    		$table = $mediaTable->getTableName();
+				$select->from('medias_assoc')
+						->join($table, 'medias_assoc.medias_id = '.$table.'.id')
+						->where('medias_assoc.mediaType = ?', $mediaTable->getMediaType())
+						->where(implode(' '.Zend_Db_Select::SQL_OR.' ', $selectOrWhere))
+						->where("medias_assoc.assocType = ?", Vo_Factory::$ITEM_TYPE);
+				$mediasRows = $this->_db->fetchAll($select);
+				if(count($mediasRows))
+					$medias[$mediaTable->getMediaType()] = $mediasRows;
+			}
+			return $medias;
+		}
+
 		private function _getCommentsByItems($items)
 		{
 			$comments = array();
@@ -183,6 +223,19 @@
 			return null;
 		}
 
+		private function _getCommentsOfItem($item, $comments)
+		{
+			$return = array();
+			foreach($comments as $key=>$comment)
+			{
+				if($comment->item == $item->id)
+				{
+					array_push($return, $comment);
+				}
+			}
+			return $return;
+		}
+
 		private function _getDatasOfItem($item, $datas)
 		{
 			$return = array();
@@ -198,6 +251,27 @@
 						unset($data['assoc_id']);
 						unset($data['assocType']);
 						array_push($return[$key], Vo_Data_Factory::getInstance()->factory($this->_datasTables[$key]->getDataVoClass(), $data));
+					}
+				}
+			}
+			return $return;
+		}
+
+		private function _getMediasOfItem($item, $medias)
+		{
+			$return = array();
+			foreach($medias as $key=>$ms)
+			{
+				$return[$key] = array();
+				foreach($ms as $media)
+				{
+					if($media['assoc_id'] == $item->id)
+					{
+						unset($media['medias_id']);
+						unset($media['mediaType']);
+						unset($media['assoc_id']);
+						unset($media['assocType']);
+						array_push($return[$key], Vo_Media_Factory::getInstance()->factory($this->_mediasTables[$key]->getMediaVoClass(), $media));
 					}
 				}
 			}

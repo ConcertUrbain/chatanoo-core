@@ -59,6 +59,7 @@
 	    <plugins>
 	    	<plugin name='test' class='Plugin_Test'/>
 	    	<plugin name='GetItemsWithDetailsByQuery' class='Plugin_GetItemsWithDetailsByQuery'/>
+	    	<plugin name='GetItemsWithDetailsByTag' class='Plugin_GetItemsWithDetailsByTag'/>
 	    </plugins>
 
 	    <searchEngine>

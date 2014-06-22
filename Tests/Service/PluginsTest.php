@@ -82,5 +82,10 @@
 			$this->_pluginsService->call('GetItemsWithDetailsByQuery', array('1'));
 		}
 
+		public function testCallGetItemsWithDetailsByMeta()
+		{
+			$this->_pluginsService->call('GetItemsWithDetailsByTag', array('1'));
+		}
+
 	}
 

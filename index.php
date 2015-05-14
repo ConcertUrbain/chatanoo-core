@@ -6,6 +6,15 @@
 	// Define application environment
 	defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'development');
 
+	// Define environment vars
+	defined('DATABASE_HOST') || define('DATABASE_HOST', getenv('DATABASE_HOST'));
+	defined('DATABASE_USER') || define('DATABASE_USER', getenv('DATABASE_USER'));
+	defined('DATABASE_PASS') || define('DATABASE_PASS', getenv('DATABASE_PASS'));
+	defined('DATABASE_NAME') || define('DATABASE_NAME', getenv('DATABASE_NAME'));
+
+	defined('MEMCACHED_HOST') || define('MEMCACHED_HOST', getenv('MEMCACHED_HOST'));
+	defined('MEMCACHED_PORT') || define('MEMCACHED_PORT', getenv('MEMCACHED_PORT'));
+
 	// Typically, you will also want to add your library/ directory
 	// to the include_path, particularly if it contains your ZF install
 	set_include_path(implode(PATH_SEPARATOR, array(

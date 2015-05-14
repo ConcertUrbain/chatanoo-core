@@ -5,3 +5,7 @@ Application/etc/config.xml
 rsync-preprod.sh
 rsync-exclude
 rsync.sh
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

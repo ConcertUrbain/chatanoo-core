@@ -38,12 +38,6 @@
 			);
 			Zend_Registry::set('cache', $cache);
 		}
-
-		protected function _initRedis()
-		{
-			$redis = new Predis\Client();
-			Zend_Registry::set('redis', $redis);
-		}
 		
 		protected function _initLog()
 		{

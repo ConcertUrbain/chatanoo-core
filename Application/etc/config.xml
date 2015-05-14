@@ -26,10 +26,12 @@
 	    	<backend>
 	    		<adapter>Memcached</adapter>
 	    		<options>
-    				<server>
-    					<host><zf:const zf:name="MEMCACHED_HOST"/></host>
-    					<port><zf:const zf:name="MEMCACHED_PORT"/></port>
-    				</server>
+    				<servers>
+    					<one>
+	    					<host><zf:const zf:name="MEMCACHED_HOST"/></host>
+	    					<port><zf:const zf:name="MEMCACHED_PORT"/></port>
+	    				</one>
+    				</servers>
 	    			<compression>true</compression>
 	    		</options>
 	    	</backend>

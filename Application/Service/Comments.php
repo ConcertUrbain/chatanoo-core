@@ -377,11 +377,11 @@
 	    }
 
 	    protected function _reset_vote_cache($commentId) {
-	    	$redis = Zend_Registry::get('redis');
+	    	$cache = Zend_Registry::get('cache');
 	    	$comment = $this->getCommentById($commentId);
 	    	if($comment) {
-		    	$key = 'item-'.$comment->items_id.'-rate';
-		    	$redis->del($key);
+		    	$key = 'item_'.$comment->items_id.'_rate';
+		    	$cache->remove($key);
 	    	}
 	    }
 

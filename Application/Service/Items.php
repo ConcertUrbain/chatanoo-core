@@ -638,9 +638,9 @@
 
 			if($data->getType() == 'Vote')
 			{
-		    	$redis = Zend_Registry::get('redis');
-		    	$key = 'item-'.$voId.'-rate';
-		    	$redis->del($key);
+		    	$cache = Zend_Registry::get('cache');
+		    	$key = 'item_'.$voId.'_rate';
+		    	$cache->remove($key);
 			}
 
 			return $data->id;
@@ -672,9 +672,9 @@
 	     */
 	    public function getRateOfItem($itemId)
 	    {
-	    	$redis = Zend_Registry::get('redis');
-	    	$key = 'item-'.$itemId.'-rate';
-	    	$value = $redis->get($key);
+	    	$cache = Zend_Registry::get('cache');
+	    	$key = 'item_'.$itemId.'_rate';
+	    	$value = $cache->load($key);
 	    	if($value) 
 	    	{
 	    		return $value;
@@ -699,7 +699,7 @@
 	    		$rate += $vote->rate;
 	    	}
 
-	    	$redis->set($key, $rate);
+	    	$cache->save($rate, $key);
 	    	return $rate;
 	    }
 

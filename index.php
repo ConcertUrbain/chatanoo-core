@@ -4,7 +4,7 @@
 	defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/Application'));
 
 	// Define application environment
-	defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'development');
+	defined('APPLICATION_ENV') || define('APPLICATION_ENV', getenv('APPLICATION_ENV'));
 
 	// Define environment vars
 	defined('DATABASE_HOST') || define('DATABASE_HOST', getenv('DATABASE_HOST'));

@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 3.4.11.1deb2+deb7u1
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 20 Février 2014 à 11:11
--- Version du serveur: 5.6.14
--- Version de PHP: 5.4.17
+-- Généré le: Jeu 14 Mai 2015 à 15:48
+-- Version du serveur: 5.5.40
+-- Version de PHP: 5.4.35-0+deb7u2
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,8 +17,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `TourATourTest`
+-- Base de données: `chatanoo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `api_keys`
+--
+
+CREATE TABLE IF NOT EXISTS `api_keys` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `api_key` varchar(32) NOT NULL,
+  `host` text NOT NULL,
+  `sessions_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `site` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -28,7 +44,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sessions_id` int(11) NOT NULL DEFAULT '0',
+  `sessions_id` int(11) NOT NULL,
   `content` text,
   `addDate` datetime DEFAULT NULL,
   `setDate` datetime DEFAULT NULL,
@@ -38,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`id`),
   KEY `fk_comments_items` (`items_id`),
   KEY `fk_comments_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -98,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `datas_carto` (
   `addDate` datetime DEFAULT NULL,
   `setDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -115,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `datas_vote` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_datas_vote_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -134,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_items_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -178,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `medias_picture` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_medias_picture_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -200,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `medias_sound` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_medias_sound_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -221,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `medias_text` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_medias_text_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -245,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `medias_video` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_medias_video_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -256,10 +272,10 @@ CREATE TABLE IF NOT EXISTS `medias_video` (
 CREATE TABLE IF NOT EXISTS `metas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sessions_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT 'keyword',
   `content` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -300,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `queries` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_queries_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -333,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `users_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_sessions_users` (`users_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -368,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `setDate` datetime DEFAULT NULL,
   `isBan` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

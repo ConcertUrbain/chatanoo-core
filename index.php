@@ -14,6 +14,8 @@
 
 	defined('MEMCACHED_HOST') || define('MEMCACHED_HOST', getenv('MEMCACHED_HOST'));
 	defined('MEMCACHED_PORT') || define('MEMCACHED_PORT', getenv('MEMCACHED_PORT'));
+	
+	defined('NOTIFY_TOPIC') || define('NOTIFY_TOPIC', getenv('NOTIFY_TOPIC'));
 
 	// Typically, you will also want to add your library/ directory
 	// to the include_path, particularly if it contains your ZF install

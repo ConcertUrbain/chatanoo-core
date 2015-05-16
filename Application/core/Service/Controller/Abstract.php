@@ -1,4 +1,5 @@
 <?php
+	use Aws\Sns\SnsClient;
 
 	abstract class Service_Controller_Abstract extends Zend_Controller_Action
 	{
@@ -6,6 +7,8 @@
 		
 		protected $_notifyName;
 		protected $_notifyActions = array();
+
+		protected $_sns;
 
 	    public function indexAction()
 	    {
@@ -120,36 +123,31 @@
 		 * Notify the Chatanoo Notify Server
 		 */
 		protected function _notify($method, $params, $content) {
-			$url = Zend_Registry::get('config')->notify->url;
-			$fields = array(
-				'name' => urlencode($this->_notifyName),
-				'data' => urlencode(
-					"{" .
-						"\"method\": \"" . $method . "\"," .
-						"\"params\": " . $params . "," .
-						"\"byUser\": \"" . Zend_Registry::get('userID') . "\"," .
-						"\"result\": \"" . $content . "\"" .
-					"}"
-				)
+			if (!$this->_sns) {
+				$this->_sns = SnsClient::factory(array(
+					'region' => 'eu-west-1'
+				));
+			}
+
+			$topic = Zend_Registry::get('config')->notify->topic;
+			$message = array(
+				'default' => json_encode(array(
+					'name' => $this->_notifyName,
+					'session' => Zend_Registry::get('sessionID'),
+					'data' => array(
+						'method' => $method,
+						'params' => $params,
+						'byUser' => Zend_Registry::get('userID'),
+						'result' => $content
+					)
+				))
 			);
 
-			//url-ify the data for the POST
-			foreach($fields as $key=>$value) 
-				$fields_string .= $key.'='.$value.'&';
-			rtrim($fields_string, '&');
-
-			//open connection
-			$ch = curl_init();
-
-			//set the url, number of POST vars, POST data
-			curl_setopt($ch,CURLOPT_URL, $url);
-			curl_setopt($ch,CURLOPT_POST, count($fields));
-			curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-			//execute post
-			$result = curl_exec($ch);
-			curl_close($ch);
+			$this->_sns->publish(array(
+				'TopicArn' => $topic,
+				'MessageStructure' => 'json',
+				'Message' => json_encode($message)
+			));
 		}
 		
 		

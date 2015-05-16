@@ -38,7 +38,7 @@
 	    </cache>
 	
 		<notify>
-			<url>http://notify.dring93.org:3131/emit</url>
+			<topic><zf:const zf:name="NOTIFY_TOPIC"/></topic>
 		</notify>
 			
 	    <datas>

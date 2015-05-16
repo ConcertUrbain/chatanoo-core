@@ -2,7 +2,8 @@
 	"name": "concerturbain/core",
     "require": {
     	"predis/predis": "0.8.4",
-        "zendframework/zendframework1": "1.12"
+        "zendframework/zendframework1": "1.12",
+        "aws/aws-sdk-php": "~2.8"
     },
     "require-dev": {
     	"phpunit/phpunit": "3.7.*",

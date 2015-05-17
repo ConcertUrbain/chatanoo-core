@@ -1,1365 +1,1365 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		    <!-- designed by nothing -->
-		    <!-- http://www.nothing.ch -->
-			<title>Docs For Class Vo_Item</title>
-			<link rel="stylesheet" href="../../media/stylesheet.css" />
-						<script src="../../media/lib/classTree.js"></script>
-												<script language="javascript" type="text/javascript">
-				var imgPlus = new Image();
-				var imgMinus = new Image();
-				imgPlus.src = "../../media/images/plus.png";
-				imgMinus.src = "../../media/images/minus.png";
+    <head>
+        <!-- designed by nothing -->
+        <!-- http://www.nothing.ch -->
+      <title>Docs For Class Vo_Item</title>
+      <link rel="stylesheet" href="../../media/stylesheet.css" />
+            <script src="../../media/lib/classTree.js"></script>
+                        <script language="javascript" type="text/javascript">
+        var imgPlus = new Image();
+        var imgMinus = new Image();
+        imgPlus.src = "../../media/images/plus.png";
+        imgMinus.src = "../../media/images/minus.png";
 
-				function showNode(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-							var oImg = document.layers["img" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-							var oImg = document.all["img" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-							var oImg = document.getElementById("img" + Node);
-									break;
-							}
-					oImg.src = imgMinus.src;
-					oTable.style.display = "block";
-				}
+        function showNode(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+              var oImg = document.layers["img" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+              var oImg = document.all["img" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+              var oImg = document.getElementById("img" + Node);
+                  break;
+              }
+          oImg.src = imgMinus.src;
+          oTable.style.display = "block";
+        }
 
-				function hideNode(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-							var oImg = document.layers["img" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-							var oImg = document.all["img" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-							var oImg = document.getElementById("img" + Node);
-									break;
-							}
-					oImg.src = imgPlus.src;
-					oTable.style.display = "none";
-				}
+        function hideNode(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+              var oImg = document.layers["img" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+              var oImg = document.all["img" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+              var oImg = document.getElementById("img" + Node);
+                  break;
+              }
+          oImg.src = imgPlus.src;
+          oTable.style.display = "none";
+        }
 
-				function nodeIsVisible(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-									break;
-							}
-					return (oTable && oTable.style.display == "block");
-				}
+        function nodeIsVisible(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+                  break;
+              }
+          return (oTable && oTable.style.display == "block");
+        }
 
-				function toggleNodeVisibility(Node){
-					if (nodeIsVisible(Node)){
-						hideNode(Node);
-					}else{
-						showNode(Node);
-					}
-				}
-			</script>
-					</head>
-		<body>
-			<div class="page-body">
+        function toggleNodeVisibility(Node){
+          if (nodeIsVisible(Node)){
+            hideNode(Node);
+          }else{
+            showNode(Node);
+          }
+        }
+      </script>
+          </head>
+    <body>
+      <div class="page-body">
 <h2 class="class-name">Class Vo_Item</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
-	<div class="info-box-title">
-		<h2>Description</h2>
-		<div class="nav-bar">
-							<span class="disabled">Description</span> |
-																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-												</div>
-	</div>
-	<div class="info-box-body">
+  <div class="info-box-title">
+    <h2>Description</h2>
+    <div class="nav-bar">
+              <span class="disabled">Description</span> |
+                                    <a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+                |                              <a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+                        </div>
+  </div>
+  <div class="info-box-body">
                 <p class="implements">
             Implements interfaces:
             <ul>
                 <li><a href="../../Vo/Interface/Vo_Interface_User.html">Vo_Interface_User</a></li><li><a href="../../Vo/Interface/Vo_Interface_Data.html">Vo_Interface_Data</a></li><li><a href="../../Vo/Interface/Vo_Interface_Validate.html">Vo_Interface_Validate</a></li>            </ul>
         </p>
-        		<!-- ========== Info from phpDoc block ========= -->
+            <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">ValueObject d'un item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Vo---Item.php.html">/Vo/Item.php</a> (line <span class="field">49</span>)
-		</p>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+    <p class="notes">
+      Located in <a class="field" href="_Vo---Item.php.html">/Vo/Item.php</a> (line <span class="field">49</span>)
+    </p>
 
-		
-		<pre><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a>
+    
+    <pre><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a>
    |
    --<a href="../../Vo/Abstract/Vo_Abstract_Tagged.html">Vo_Abstract_Tagged</a>
       |
       --Vo_Item</pre>
 
-			</div>
+      </div>
 </div>
 
 
 
-	<a name="sec-var-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">
-			<h2>Variable Summary</h2>
-			<div class="nav-bar">
-				<a href="#sec-description">Description</a> |
-								<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
-									|
-											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-																</div>
-		</div>
-		<div class="info-box-body">
-			<div class="var-summary">
-																																																																																																																<div class="var-title">
-					<span class="var-type">string</span>
-					<a href="#$description" title="details" class="var-name">$description</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">int</span>
-					<a href="#$id" title="details" class="var-name">$id</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">string</span>
-					<a href="#$title" title="details" class="var-name">$title</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">Zend_Date</span>
-					<a href="#$_addDate" title="details" class="var-name">$_addDate</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$_comments" title="details" class="var-name">$_comments</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$_datas" title="details" class="var-name">$_datas</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">bool</span>
-					<a href="#$_isValid" title="details" class="var-name">$_isValid</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$_medias" title="details" class="var-name">$_medias</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$_queries" title="details" class="var-name">$_queries</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">int</span>
-					<a href="#$_rate" title="details" class="var-name">$_rate</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">Zend_Date</span>
-					<a href="#$_setDate" title="details" class="var-name">$_setDate</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">int</span>
-					<a href="#$_user" title="details" class="var-name">$_user</a>
-				</div>
-											</div>
-		</div>
-	</div>
+  <a name="sec-var-summary"></a>
+  <div class="info-box">
+    <div class="info-box-title">
+      <h2>Variable Summary</h2>
+      <div class="nav-bar">
+        <a href="#sec-description">Description</a> |
+                <span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+                  |
+                      <a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+                                </div>
+    </div>
+    <div class="info-box-body">
+      <div class="var-summary">
+                                                                                                                                                                                                                                <div class="var-title">
+          <span class="var-type">string</span>
+          <a href="#$description" title="details" class="var-name">$description</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">int</span>
+          <a href="#$id" title="details" class="var-name">$id</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">string</span>
+          <a href="#$title" title="details" class="var-name">$title</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">Zend_Date</span>
+          <a href="#$_addDate" title="details" class="var-name">$_addDate</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">array</span>
+          <a href="#$_comments" title="details" class="var-name">$_comments</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">array</span>
+          <a href="#$_datas" title="details" class="var-name">$_datas</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">bool</span>
+          <a href="#$_isValid" title="details" class="var-name">$_isValid</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">array</span>
+          <a href="#$_medias" title="details" class="var-name">$_medias</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">array</span>
+          <a href="#$_queries" title="details" class="var-name">$_queries</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">int</span>
+          <a href="#$_rate" title="details" class="var-name">$_rate</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">Zend_Date</span>
+          <a href="#$_setDate" title="details" class="var-name">$_setDate</a>
+        </div>
+                                <div class="var-title">
+          <span class="var-type">int</span>
+          <a href="#$_user" title="details" class="var-name">$_user</a>
+        </div>
+                      </div>
+    </div>
+  </div>
 
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">
-			<h2>Method Summary</h2>
-			<div class="nav-bar">
-				<a href="#sec-description">Description</a> |
-																							<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-										|
-								<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-			</div>
-		</div>
-		<div class="info-box-body">
-			<div class="method-summary">
-																																																																																																																																																																																																								<div class="method-definition">
-											<span class="method-result">mixed</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$item</span> = <span class="var-default">array()</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#addComment" title="details" class="method-name">addComment</a>
-											(<span class="var-type"><a href="../../Vo/Abstract/Vo_Comment.html">Vo_Comment</a></span>&nbsp;<span class="var-name">$comment</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#addData" title="details" class="method-name">addData</a>
-											(<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$data</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#addMedia" title="details" class="method-name">addMedia</a>
-											(<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$media</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#getOwnComments" title="details" class="method-name">getOwnComments</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#getOwnDatas" title="details" class="method-name">getOwnDatas</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#getOwnDatasByType" title="details" class="method-name">getOwnDatasByType</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#getOwnMedias" title="details" class="method-name">getOwnMedias</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#getParentsQueries" title="details" class="method-name">getParentsQueries</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">int</span>
-										<a href="#getRate" title="details" class="method-name">getRate</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#getType" title="details" class="method-name">getType</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result"><a href="../../Vo/Vo_User.html">Vo_User</a></span>
-										<a href="#getUser" title="details" class="method-name">getUser</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isValid" title="details" class="method-name">isValid</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#removeComment" title="details" class="method-name">removeComment</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$commentId</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#removeData" title="details" class="method-name">removeData</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$dataId</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#removeMedia" title="details" class="method-name">removeMedia</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$mediaId</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#setUser" title="details" class="method-name">setUser</a>
-											(<span class="var-type"><a href="../../Vo/Vo_User.html">Vo_User</a></span>&nbsp;<span class="var-name">$user</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#toArray" title="details" class="method-name">toArray</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">array</span>
-										<a href="#toRowArray" title="details" class="method-name">toRowArray</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#validate" title="details" class="method-name">validate</a>
-											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$trueOrFalse</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#_getKey" title="details" class="method-name">_getKey</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#__get" title="details" class="method-name">__get</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#__set" title="details" class="method-name">__set</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
-									</div>
-											</div>
-		</div>
-	</div>
+  <a name="sec-method-summary"></a>
+  <div class="info-box">
+    <div class="info-box-title">
+      <h2>Method Summary</h2>
+      <div class="nav-bar">
+        <a href="#sec-description">Description</a> |
+                                              <a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+                    |
+                <span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+      </div>
+    </div>
+    <div class="info-box-body">
+      <div class="method-summary">
+                                                                                                                                                                                                                                                                                                                                                                                                                <div class="method-definition">
+                      <span class="method-result">mixed</span>
+                    <a href="#__construct" title="details" class="method-name">__construct</a>
+                      ([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$item</span> = <span class="var-default">array()</span>])
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#addComment" title="details" class="method-name">addComment</a>
+                      (<span class="var-type"><a href="../../Vo/Abstract/Vo_Comment.html">Vo_Comment</a></span>&nbsp;<span class="var-name">$comment</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#addData" title="details" class="method-name">addData</a>
+                      (<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$data</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#addMedia" title="details" class="method-name">addMedia</a>
+                      (<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$media</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#getOwnComments" title="details" class="method-name">getOwnComments</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#getOwnDatas" title="details" class="method-name">getOwnDatas</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#getOwnDatasByType" title="details" class="method-name">getOwnDatasByType</a>
+                      (<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#getOwnMedias" title="details" class="method-name">getOwnMedias</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#getParentsQueries" title="details" class="method-name">getParentsQueries</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">int</span>
+                    <a href="#getRate" title="details" class="method-name">getRate</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#getType" title="details" class="method-name">getType</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result"><a href="../../Vo/Vo_User.html">Vo_User</a></span>
+                    <a href="#getUser" title="details" class="method-name">getUser</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">bool</span>
+                    <a href="#isValid" title="details" class="method-name">isValid</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#removeComment" title="details" class="method-name">removeComment</a>
+                      (<span class="var-type">int</span>&nbsp;<span class="var-name">$commentId</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#removeData" title="details" class="method-name">removeData</a>
+                      (<span class="var-type">int</span>&nbsp;<span class="var-name">$dataId</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#removeMedia" title="details" class="method-name">removeMedia</a>
+                      (<span class="var-type">int</span>&nbsp;<span class="var-name">$mediaId</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#setUser" title="details" class="method-name">setUser</a>
+                      (<span class="var-type"><a href="../../Vo/Vo_User.html">Vo_User</a></span>&nbsp;<span class="var-name">$user</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#toArray" title="details" class="method-name">toArray</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">array</span>
+                    <a href="#toRowArray" title="details" class="method-name">toRowArray</a>
+                    ()
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#validate" title="details" class="method-name">validate</a>
+                      (<span class="var-type">bool</span>&nbsp;<span class="var-name">$trueOrFalse</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#_getKey" title="details" class="method-name">_getKey</a>
+                      (<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#__get" title="details" class="method-name">__get</a>
+                      (<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>)
+                  </div>
+                                <div class="method-definition">
+                      <span class="method-result">void</span>
+                    <a href="#__set" title="details" class="method-name">__set</a>
+                      (<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+                  </div>
+                      </div>
+    </div>
+  </div>
 
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">
-			<h2>Variables</h2>
-			<div class="nav-bar">
-				<a href="#sec-description">Description</a> |
-													<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
-				
-													|
-											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-												</div>
-		</div>
-		<div class="info-box-body">
-			<a name="var$description" id="$description"><!-- --></A>
+  <a name="sec-vars"></a>
+  <div class="info-box">
+    <div class="info-box-title">
+      <h2>Variables</h2>
+      <div class="nav-bar">
+        <a href="#sec-description">Description</a> |
+                          <a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+        
+                          |
+                      <a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+                        </div>
+    </div>
+    <div class="info-box-body">
+      <a name="var$description" id="$description"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">string</span>
-			<span class="var-name">$description</span>
-			 = <span class="var-default"> ''</span>			(line <span class="line-number">96</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">string</span>
+      <span class="var-name">$description</span>
+       = <span class="var-default"> ''</span>      (line <span class="line-number">96</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Description de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$id" id="$id"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">int</span>
-			<span class="var-name">$id</span>
-			 = <span class="var-default"> 0</span>			(line <span class="line-number">64</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">int</span>
+      <span class="var-name">$id</span>
+       = <span class="var-default"> 0</span>      (line <span class="line-number">64</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Identifiant de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$title" id="$title"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">string</span>
-			<span class="var-name">$title</span>
-			 = <span class="var-default"> ''</span>			(line <span class="line-number">88</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">string</span>
+      <span class="var-name">$title</span>
+       = <span class="var-default"> ''</span>      (line <span class="line-number">88</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Titre de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_addDate" id="$_addDate"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">Zend_Date</span>
-			<span class="var-name">$_addDate</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">104</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">Zend_Date</span>
+      <span class="var-name">$_addDate</span>
+       = <span class="var-default"> null</span>      (line <span class="line-number">104</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Date d'ajout de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> protected</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_comments" id="$_comments"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$_comments</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">152</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">array</span>
+      <span class="var-name">$_comments</span>
+       = <span class="var-default">array()</span>      (line <span class="line-number">152</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Tableau des identifiants des commentaires contenu de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_datas" id="$_datas"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$_datas</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">136</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">array</span>
+      <span class="var-name">$_datas</span>
+       = <span class="var-default">array()</span>      (line <span class="line-number">136</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Tableau des identifiants des datas contenu de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_isValid" id="$_isValid"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">bool</span>
-			<span class="var-name">$_isValid</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number">128</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">bool</span>
+      <span class="var-name">$_isValid</span>
+       = <span class="var-default"> false</span>      (line <span class="line-number">128</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">BoolŽen permettant la modŽration</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">BoolÅ½en permettant la modÅ½ration</p>
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_medias" id="$_medias"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$_medias</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">144</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">array</span>
+      <span class="var-name">$_medias</span>
+       = <span class="var-default">array()</span>      (line <span class="line-number">144</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Tableau des identifiants des medias contenu dans l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_queries" id="$_queries"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$_queries</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">72</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">array</span>
+      <span class="var-name">$_queries</span>
+       = <span class="var-default">array()</span>      (line <span class="line-number">72</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Tableau des identifiant toutes les questions contenant l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_rate" id="$_rate"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">int</span>
-			<span class="var-name">$_rate</span>
-			 = <span class="var-default"> 0</span>			(line <span class="line-number">120</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">int</span>
+      <span class="var-name">$_rate</span>
+       = <span class="var-default"> 0</span>      (line <span class="line-number">120</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Note de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_setDate" id="$_setDate"><!-- --></A>
 <div class="evenrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">Zend_Date</span>
-			<span class="var-name">$_setDate</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">112</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">Zend_Date</span>
+      <span class="var-name">$_setDate</span>
+       = <span class="var-default"> null</span>      (line <span class="line-number">112</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Date de modification de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> protected</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
 <a name="var$_user" id="$_user"><!-- --></A>
 <div class="oddrow">
 
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">int</span>
-			<span class="var-name">$_user</span>
-			 = <span class="var-default"> 0</span>			(line <span class="line-number">80</span>)
-		</span>
-	</div>
+  <div class="var-header">
+    <span class="var-title">
+      <span class="var-type">int</span>
+      <span class="var-name">$_user</span>
+       = <span class="var-default"> 0</span>      (line <span class="line-number">80</span>)
+    </span>
+  </div>
 
-	<!-- ========== Info from phpDoc block ========= -->
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Identifiant de auteur de l'item</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> private</li>
-			</ul>
-	
-	
-		
-		
+  <ul class="tags">
+        <li><span class="field">access:</span> private</li>
+      </ul>
+  
+  
+    
+    
 
 </div>
-							<h4>Inherited Variables</h4>
-				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html">Vo_Abstract_Tagged</a></span></p>
-					<blockquote>
-													<span class="var-title">
-								<span class="var-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#var$_metas">Vo_Abstract_Tagged::$_metas</a></span><br>
-							</span>
-											</blockquote>
-									</div>
-	</div>
+              <h4>Inherited Variables</h4>
+        <A NAME='inherited_vars'><!-- --></A>
+                  <p>Inherited from <span class="classname"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html">Vo_Abstract_Tagged</a></span></p>
+          <blockquote>
+                          <span class="var-title">
+                <span class="var-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#var$_metas">Vo_Abstract_Tagged::$_metas</a></span><br>
+              </span>
+                      </blockquote>
+                  </div>
+  </div>
 
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">
-			<h2>Methods</h2>
-			<div class="nav-bar">
-				<a href="#sec-description">Description</a> |
-																			<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-																						<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-							</div>
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
+  <a name="sec-methods"></a>
+  <div class="info-box">
+    <div class="info-box-title">
+      <h2>Methods</h2>
+      <div class="nav-bar">
+        <a href="#sec-description">Description</a> |
+                                      <a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+                                            <a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+              </div>
+    </div>
+    <div class="info-box-body">
+      <A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">164</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">Constructor __construct</span> (line <span class="line-number">164</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Constructeur de la classe</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">mixed</span>
-		<span class="method-name">
-			__construct
-		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$item</span> = <span class="var-default">array()</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$item</span><span class="var-description">: item array|object|Zend_Db_Table_Row_Abstract object permettant de remplire l'instance</span>			</li>
-				</ul>
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">mixed</span>
+    <span class="method-name">
+      __construct
+    </span>
+          ([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$item</span> = <span class="var-default">array()</span>])
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">mixed</span>
+        <span class="var-name">$item</span><span class="var-description">: item array|object|Zend_Db_Table_Row_Abstract object permettant de remplire l'instance</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="methodaddComment" id="addComment"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">addComment</span> (line <span class="line-number">407</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">addComment</span> (line <span class="line-number">407</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Ajoute un commentaire dans l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			addComment
-		</span>
-					(<span class="var-type"><a href="../../Vo/Abstract/Vo_Comment.html">Vo_Comment</a></span>&nbsp;<span class="var-name">$comment</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Comment</span>
-				<span class="var-name">$comment</span><span class="var-description">: comment Un commentaire</span>			</li>
-				</ul>
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      addComment
+    </span>
+          (<span class="var-type"><a href="../../Vo/Abstract/Vo_Comment.html">Vo_Comment</a></span>&nbsp;<span class="var-name">$comment</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">Comment</span>
+        <span class="var-name">$comment</span><span class="var-description">: comment Un commentaire</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="methodaddData" id="addData"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">addData</span> (line <span class="line-number">300</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">addData</span> (line <span class="line-number">300</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Ajoute une data au Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			addData
-		</span>
-					(<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$data</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Abstract</span>
-				<span class="var-name">$data</span><span class="var-description">: data Une Data</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodaddData">Vo_Interface_Data::addData()</a></dt>
-						<dd>Ajoute une data au Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      addData
+    </span>
+          (<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$data</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">Abstract</span>
+        <span class="var-name">$data</span><span class="var-description">: data Une Data</span>      </li>
+        </ul>
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodaddData">Vo_Interface_Data::addData()</a></dt>
+            <dd>Ajoute une data au Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodaddMedia" id="addMedia"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">addMedia</span> (line <span class="line-number">362</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Ajoute un mŽdia dans l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			addMedia
-		</span>
-					(<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$media</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Abstract</span>
-				<span class="var-name">$media</span><span class="var-description">: media Un mŽdia</span>			</li>
-				</ul>
-		
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">addMedia</span> (line <span class="line-number">362</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Ajoute un mÅ½dia dans l'item</p>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      addMedia
+    </span>
+          (<span class="var-type"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span>&nbsp;<span class="var-name">$media</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">Abstract</span>
+        <span class="var-name">$media</span><span class="var-description">: media Un mÅ½dia</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="methodgetOwnComments" id="getOwnComments"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getOwnComments</span> (line <span class="line-number">389</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getOwnComments</span> (line <span class="line-number">389</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retourne tous les commentaires contenu dans l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			getOwnComments
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      getOwnComments
+    </span>
+        ()
+      </div>
+  
+    
+      
+  </div>
 <a name="methodgetOwnDatas" id="getOwnDatas"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getOwnDatas</span> (line <span class="line-number">264</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getOwnDatas</span> (line <span class="line-number">264</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retourne les datas contenu dans le Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			getOwnDatas
-		</span>
-				()
-			</div>
-	
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodgetOwnDatas">Vo_Interface_Data::getOwnDatas()</a></dt>
-						<dd>Retourne les datas contenu dans le Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      getOwnDatas
+    </span>
+        ()
+      </div>
+  
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodgetOwnDatas">Vo_Interface_Data::getOwnDatas()</a></dt>
+            <dd>Retourne les datas contenu dans le Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodgetOwnDatasByType" id="getOwnDatasByType"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getOwnDatasByType</span> (line <span class="line-number">282</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getOwnDatasByType</span> (line <span class="line-number">282</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retourne les datas, du type choisi, contenu dans le Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			getOwnDatasByType
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$type</span><span class="var-description">: type Type de la data</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodgetOwnDatasByType">Vo_Interface_Data::getOwnDatasByType()</a></dt>
-						<dd>Retourne les datas, du type choisi, contenu dans le Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      getOwnDatasByType
+    </span>
+          (<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">string</span>
+        <span class="var-name">$type</span><span class="var-description">: type Type de la data</span>      </li>
+        </ul>
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodgetOwnDatasByType">Vo_Interface_Data::getOwnDatasByType()</a></dt>
+            <dd>Retourne les datas, du type choisi, contenu dans le Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodgetOwnMedias" id="getOwnMedias"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getOwnMedias</span> (line <span class="line-number">327</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getOwnMedias</span> (line <span class="line-number">327</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retourne tous les medias contenu dans l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			getOwnMedias
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      getOwnMedias
+    </span>
+        ()
+      </div>
+  
+    
+      
+  </div>
 <a name="methodgetParentsQueries" id="getParentsQueries"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getParentsQueries</span> (line <span class="line-number">344</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getParentsQueries</span> (line <span class="line-number">344</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retourne les questions contenant l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			getParentsQueries
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      getParentsQueries
+    </span>
+        ()
+      </div>
+  
+    
+      
+  </div>
 <a name="methodgetRate" id="getRate"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRate</span> (line <span class="line-number">221</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">getRate</span> (line <span class="line-number">221</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retour le ratio des votes de cette item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">int</span>
-		<span class="method-name">
-			getRate
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">int</span>
+    <span class="method-name">
+      getRate
+    </span>
+        ()
+      </div>
+  
+    
+      
+  </div>
 <a name="methodgetType" id="getType"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getType</span> (line <span class="line-number">560</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			getType
-		</span>
-				()
-			</div>
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Vo/Vo_Abstract.html#methodgetType">Vo_Abstract::getType()</a></dt>
-						<dd>Retourne le type du Value Object</dd>
-					</dl>
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">getType</span> (line <span class="line-number">560</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      getType
+    </span>
+        ()
+      </div>
+  
+    
+      <hr class="separator" />
+    <div class="notes">Redefinition of:</div>
+    <dl>
+      <dt><a href="../../Vo/Vo_Abstract.html#methodgetType">Vo_Abstract::getType()</a></dt>
+            <dd>Retourne le type du Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodgetUser" id="getUser"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getUser</span> (line <span class="line-number">233</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retour l'utilisateur Žtant auteur du Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result"><a href="../../Vo/Vo_User.html">Vo_User</a></span>
-		<span class="method-name">
-			getUser
-		</span>
-				()
-			</div>
-	
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_User.html#methodgetUser">Vo_Interface_User::getUser()</a></dt>
-						<dd>Retour l'utilisateur Žtant auteur du Value Object</dd>
-					</dl>
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">getUser</span> (line <span class="line-number">233</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retour l'utilisateur Å½tant auteur du Value Object</p>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result"><a href="../../Vo/Vo_User.html">Vo_User</a></span>
+    <span class="method-name">
+      getUser
+    </span>
+        ()
+      </div>
+  
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_User.html#methodgetUser">Vo_Interface_User::getUser()</a></dt>
+            <dd>Retour l'utilisateur Å½tant auteur du Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodisValid" id="isValid"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isValid</span> (line <span class="line-number">447</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retourne un boolŽan indiquant l'Žtat de validation du Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isValid
-		</span>
-				()
-			</div>
-	
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Validate.html#methodisValid">Vo_Interface_Validate::isValid()</a></dt>
-						<dd>Retourne un boolŽan indiquant l'Žtat de validation du Value Object</dd>
-					</dl>
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">isValid</span> (line <span class="line-number">447</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retourne un boolÅ½an indiquant l'Å½tat de validation du Value Object</p>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">bool</span>
+    <span class="method-name">
+      isValid
+    </span>
+        ()
+      </div>
+  
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Validate.html#methodisValid">Vo_Interface_Validate::isValid()</a></dt>
+            <dd>Retourne un boolÅ½an indiquant l'Å½tat de validation du Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodremoveComment" id="removeComment"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">removeComment</span> (line <span class="line-number">421</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">removeComment</span> (line <span class="line-number">421</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retire un commentaire de l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			removeComment
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$commentId</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$commentId</span><span class="var-description">: commentId Identifiant d'un commentaire</span>			</li>
-				</ul>
-		
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      removeComment
+    </span>
+          (<span class="var-type">int</span>&nbsp;<span class="var-name">$commentId</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">int</span>
+        <span class="var-name">$commentId</span><span class="var-description">: commentId Identifiant d'un commentaire</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="methodremoveData" id="removeData"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">removeData</span> (line <span class="line-number">314</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">removeData</span> (line <span class="line-number">314</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Retire une data du Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			removeData
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$dataId</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$dataId</span><span class="var-description">: dataId Identifiant d'une data</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodremoveData">Vo_Interface_Data::removeData()</a></dt>
-						<dd>Retire une data du Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      removeData
+    </span>
+          (<span class="var-type">int</span>&nbsp;<span class="var-name">$dataId</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">int</span>
+        <span class="var-name">$dataId</span><span class="var-description">: dataId Identifiant d'une data</span>      </li>
+        </ul>
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Data.html#methodremoveData">Vo_Interface_Data::removeData()</a></dt>
+            <dd>Retire une data du Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodremoveMedia" id="removeMedia"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">removeMedia</span> (line <span class="line-number">376</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Retire un mŽdia de l'item</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			removeMedia
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$mediaId</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$mediaId</span><span class="var-description">: mediaId Identifiant d'un mŽdia</span>			</li>
-				</ul>
-		
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">removeMedia</span> (line <span class="line-number">376</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retire un mÅ½dia de l'item</p>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      removeMedia
+    </span>
+          (<span class="var-type">int</span>&nbsp;<span class="var-name">$mediaId</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">int</span>
+        <span class="var-name">$mediaId</span><span class="var-description">: mediaId Identifiant d'un mÅ½dia</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="methodsetUser" id="setUser"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setUser</span> (line <span class="line-number">251</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">setUser</span> (line <span class="line-number">251</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Change l'auteur du Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			setUser
-		</span>
-					(<span class="var-type"><a href="../../Vo/Vo_User.html">Vo_User</a></span>&nbsp;<span class="var-name">$user</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">User</span>
-				<span class="var-name">$user</span><span class="var-description">: user Un utilisateur</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_User.html#methodsetUser">Vo_Interface_User::setUser()</a></dt>
-						<dd>Change l'auteur du Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      setUser
+    </span>
+          (<span class="var-type"><a href="../../Vo/Vo_User.html">Vo_User</a></span>&nbsp;<span class="var-name">$user</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">User</span>
+        <span class="var-name">$user</span><span class="var-description">: user Un utilisateur</span>      </li>
+        </ul>
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_User.html#methodsetUser">Vo_Interface_User::setUser()</a></dt>
+            <dd>Change l'auteur du Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="methodtoArray" id="toArray"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">toArray</span> (line <span class="line-number">525</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			toArray
-		</span>
-				()
-			</div>
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodtoArray">Vo_Abstract_Tagged::toArray()</a></dt>
-					</dl>
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">toArray</span> (line <span class="line-number">525</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      toArray
+    </span>
+        ()
+      </div>
+  
+    
+      <hr class="separator" />
+    <div class="notes">Redefinition of:</div>
+    <dl>
+      <dt><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodtoArray">Vo_Abstract_Tagged::toArray()</a></dt>
+          </dl>
+      
+  </div>
 <a name="methodtoRowArray" id="toRowArray"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">toRowArray</span> (line <span class="line-number">548</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">toRowArray</span> (line <span class="line-number">548</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Converti le Value Object en tableau compatible avec Zend_Db_Table_Row_Abstract</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">array</span>
-		<span class="method-name">
-			toRowArray
-		</span>
-				()
-			</div>
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Vo/Vo_Abstract.html#methodtoRowArray">Vo_Abstract::toRowArray()</a></dt>
-						<dd>Converti le Value Object en tableau compatible avec Zend_Db_Table_Row_Abstract</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">array</span>
+    <span class="method-name">
+      toRowArray
+    </span>
+        ()
+      </div>
+  
+    
+      <hr class="separator" />
+    <div class="notes">Redefinition of:</div>
+    <dl>
+      <dt><a href="../../Vo/Vo_Abstract.html#methodtoRowArray">Vo_Abstract::toRowArray()</a></dt>
+            <dd>Converti le Value Object en tableau compatible avec Zend_Db_Table_Row_Abstract</dd>
+          </dl>
+      
+  </div>
 <a name="methodvalidate" id="validate"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">validate</span> (line <span class="line-number">435</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
+  
+  <div class="method-header">
+    <span class="method-title">validate</span> (line <span class="line-number">435</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Permet de valider et d'invalider le Value Object</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mathieu DesvŽ, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			validate
-		</span>
-					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$trueOrFalse</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$trueOrFalse</span><span class="var-description">: trueOrFalse True pour valide et false pour invalide</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
-		<div class="notes">Implementation of:</div>
-			<dl>
-			<dt><a href="../../Vo/Interface/Vo_Interface_Validate.html#methodvalidate">Vo_Interface_Validate::validate()</a></dt>
-						<dd>Permet de valider et d'invalider le Value Object</dd>
-					</dl>
-			
-	</div>
+  <ul class="tags">
+        <li><span class="field">author:</span> Mathieu DesvÅ½, &lt;<a href="mailto:mathieu.desve@unflux.fr">mathieu.desve@unflux.fr</a>&gt;</li>
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      validate
+    </span>
+          (<span class="var-type">bool</span>&nbsp;<span class="var-name">$trueOrFalse</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type">bool</span>
+        <span class="var-name">$trueOrFalse</span><span class="var-description">: trueOrFalse True pour valide et false pour invalide</span>      </li>
+        </ul>
+    
+        <hr class="separator" />
+    <div class="notes">Implementation of:</div>
+      <dl>
+      <dt><a href="../../Vo/Interface/Vo_Interface_Validate.html#methodvalidate">Vo_Interface_Validate::validate()</a></dt>
+            <dd>Permet de valider et d'invalider le Value Object</dd>
+          </dl>
+      
+  </div>
 <a name="method_getKey" id="_getKey"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">_getKey</span> (line <span class="line-number">195</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_getKey
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$key</span>			</li>
-				</ul>
-		
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">_getKey</span> (line <span class="line-number">195</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+  <ul class="tags">
+        <li><span class="field">access:</span> protected</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      _getKey
+    </span>
+          (<span class="var-type"></span>&nbsp;<span class="var-name">$key</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type"></span>
+        <span class="var-name">$key</span>      </li>
+        </ul>
+    
+      
+  </div>
 <a name="method__get" id="__get"><!-- --></a>
 <div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">__get</span> (line <span class="line-number">506</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			__get
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$variableName</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Vo/Vo_Abstract.html#method__get">Vo_Abstract::__get()</a></dt>
-						<dd>Short description of method __get</dd>
-					</dl>
-			
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">__get</span> (line <span class="line-number">506</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      __get
+    </span>
+          (<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type"></span>
+        <span class="var-name">$variableName</span>      </li>
+        </ul>
+    
+      <hr class="separator" />
+    <div class="notes">Redefinition of:</div>
+    <dl>
+      <dt><a href="../../Vo/Vo_Abstract.html#method__get">Vo_Abstract::__get()</a></dt>
+            <dd>Short description of method __get</dd>
+          </dl>
+      
+  </div>
 <a name="method__set" id="__set"><!-- --></a>
 <div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">__set</span> (line <span class="line-number">452</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			__set
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$variableName</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$value</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Vo/Vo_Abstract.html#method__set">Vo_Abstract::__set()</a></dt>
-						<dd>Short description of method __set</dd>
-					</dl>
-			
-	</div>
-							<h4>Inherited Methods</h4>
-				<a name='inherited_methods'><!-- --></a>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html">Vo_Abstract_Tagged</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodaddMeta">Vo_Abstract_Tagged::addMeta()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodgetOwnMetas">Vo_Abstract_Tagged::getOwnMetas()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodremoveMeta">Vo_Abstract_Tagged::removeMeta()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodtoArray">Vo_Abstract_Tagged::toArray()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodgetType">Vo_Abstract::getType()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodrefresh">Vo_Abstract::refresh()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodsave">Vo_Abstract::save()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodtoArray">Vo_Abstract::toArray()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodtoRowArray">Vo_Abstract::toRowArray()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#method__get">Vo_Abstract::__get()</a></span><br>
-													<span class="method-name"><a href="../../Vo/Vo_Abstract.html#method__set">Vo_Abstract::__set()</a></span><br>
-											</blockquote>
-									</div>
-	</div>
+  
+  <div class="method-header">
+    <span class="method-title">__set</span> (line <span class="line-number">452</span>)
+  </div> 
+  
+  <!-- ========== Info from phpDoc block ========= -->
+  <ul class="tags">
+        <li><span class="field">access:</span> public</li>
+      </ul>
+  
+  <div class="method-signature">
+    <span class="method-result">void</span>
+    <span class="method-name">
+      __set
+    </span>
+          (<span class="var-type"></span>&nbsp;<span class="var-name">$variableName</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$value</span>)
+      </div>
+  
+      <ul class="parameters">
+          <li>
+        <span class="var-type"></span>
+        <span class="var-name">$variableName</span>      </li>
+          <li>
+        <span class="var-type"></span>
+        <span class="var-name">$value</span>      </li>
+        </ul>
+    
+      <hr class="separator" />
+    <div class="notes">Redefinition of:</div>
+    <dl>
+      <dt><a href="../../Vo/Vo_Abstract.html#method__set">Vo_Abstract::__set()</a></dt>
+            <dd>Short description of method __set</dd>
+          </dl>
+      
+  </div>
+              <h4>Inherited Methods</h4>
+        <a name='inherited_methods'><!-- --></a>
+                  <!-- =========== Summary =========== -->
+          <p>Inherited From <span class="classname"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html">Vo_Abstract_Tagged</a></span></p>
+          <blockquote>
+                          <span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodaddMeta">Vo_Abstract_Tagged::addMeta()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodgetOwnMetas">Vo_Abstract_Tagged::getOwnMetas()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodremoveMeta">Vo_Abstract_Tagged::removeMeta()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Abstract/Vo_Abstract_Tagged.html#methodtoArray">Vo_Abstract_Tagged::toArray()</a></span><br>
+                      </blockquote>
+                  <!-- =========== Summary =========== -->
+          <p>Inherited From <span class="classname"><a href="../../Vo/Vo_Abstract.html">Vo_Abstract</a></span></p>
+          <blockquote>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodgetType">Vo_Abstract::getType()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodrefresh">Vo_Abstract::refresh()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodsave">Vo_Abstract::save()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodtoArray">Vo_Abstract::toArray()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#methodtoRowArray">Vo_Abstract::toRowArray()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#method__get">Vo_Abstract::__get()</a></span><br>
+                          <span class="method-name"><a href="../../Vo/Vo_Abstract.html#method__set">Vo_Abstract::__set()</a></span><br>
+                      </blockquote>
+                  </div>
+  </div>
 
 
-	<p class="notes" id="credit">
-		Documentation generated on Sat, 06 Jun 2009 22:38:56 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
-	</p>
-	</div></body>
+  <p class="notes" id="credit">
+    Documentation generated on Sat, 06 Jun 2009 22:38:56 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+  </p>
+  </div></body>
 </html>

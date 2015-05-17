@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		    <!-- designed by nothing -->
-		    <!-- http://www.nothing.ch -->
-			<title></title>
-			<link rel="stylesheet" href="media/stylesheet.css" />
-						<script src="media/lib/classTree.js"></script>
-									<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-									<script language="javascript" type="text/javascript">
-				var imgPlus = new Image();
-				var imgMinus = new Image();
-				imgPlus.src = "media/images/plus.png";
-				imgMinus.src = "media/images/minus.png";
+    <head>
+        <!-- designed by nothing -->
+        <!-- http://www.nothing.ch -->
+      <title></title>
+      <link rel="stylesheet" href="media/stylesheet.css" />
+            <script src="media/lib/classTree.js"></script>
+                  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+                  <script language="javascript" type="text/javascript">
+        var imgPlus = new Image();
+        var imgMinus = new Image();
+        imgPlus.src = "media/images/plus.png";
+        imgMinus.src = "media/images/minus.png";
 
-				function showNode(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-							var oImg = document.layers["img" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-							var oImg = document.all["img" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-							var oImg = document.getElementById("img" + Node);
-									break;
-							}
-					oImg.src = imgMinus.src;
-					oTable.style.display = "block";
-				}
+        function showNode(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+              var oImg = document.layers["img" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+              var oImg = document.all["img" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+              var oImg = document.getElementById("img" + Node);
+                  break;
+              }
+          oImg.src = imgMinus.src;
+          oTable.style.display = "block";
+        }
 
-				function hideNode(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-							var oImg = document.layers["img" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-							var oImg = document.all["img" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-							var oImg = document.getElementById("img" + Node);
-									break;
-							}
-					oImg.src = imgPlus.src;
-					oTable.style.display = "none";
-				}
+        function hideNode(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+              var oImg = document.layers["img" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+              var oImg = document.all["img" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+              var oImg = document.getElementById("img" + Node);
+                  break;
+              }
+          oImg.src = imgPlus.src;
+          oTable.style.display = "none";
+        }
 
-				function nodeIsVisible(Node){
-							switch(navigator.family){
-								case 'nn4':
-									// Nav 4.x code fork...
-							var oTable = document.layers["span" + Node];
-									break;
-								case 'ie4':
-									// IE 4/5 code fork...
-							var oTable = document.all["span" + Node];
-									break;
-								case 'gecko':
-									// Standards Compliant code fork...
-							var oTable = document.getElementById("span" + Node);
-									break;
-							}
-					return (oTable && oTable.style.display == "block");
-				}
+        function nodeIsVisible(Node){
+              switch(navigator.family){
+                case 'nn4':
+                  // Nav 4.x code fork...
+              var oTable = document.layers["span" + Node];
+                  break;
+                case 'ie4':
+                  // IE 4/5 code fork...
+              var oTable = document.all["span" + Node];
+                  break;
+                case 'gecko':
+                  // Standards Compliant code fork...
+              var oTable = document.getElementById("span" + Node);
+                  break;
+              }
+          return (oTable && oTable.style.display == "block");
+        }
 
-				function toggleNodeVisibility(Node){
-					if (nodeIsVisible(Node)){
-						hideNode(Node);
-					}else{
-						showNode(Node);
-					}
-				}
-			</script>
-					</head>
-		<body>
-			<style type="text/css">
+        function toggleNodeVisibility(Node){
+          if (nodeIsVisible(Node)){
+            hideNode(Node);
+          }else{
+            showNode(Node);
+          }
+        }
+      </script>
+          </head>
+    <body>
+      <style type="text/css">
   body { margin-left: 0; margin-right: 0; }
 </style>
 <div id="leftframe_wrapper">
@@ -94,151 +94,151 @@
 <div class="tree">
 <script language="Javascript">
 if (document.getElementById) {
-			var tree = new WebFXTree('<span class="package">Table</span>');
-		tree.setBehavior('classic');
+      var tree = new WebFXTree('<span class="package">Table</span>');
+    tree.setBehavior('classic');
 
-		
-		var class_trees = new WebFXTreeItem('Class trees', 'classtrees_Table.html');
-		tree.add(class_trees);
+    
+    var class_trees = new WebFXTreeItem('Class trees', 'classtrees_Table.html');
+    tree.add(class_trees);
 
-		var elements = new WebFXTreeItem('Index of elements', 'elementindex_Table.html');
-		tree.add(elements);
+    var elements = new WebFXTreeItem('Index of elements', 'elementindex_Table.html');
+    tree.add(elements);
 
-		var parent_node;
+    var parent_node;
 
-				    		    			var tree_classe = new WebFXTreeItem('Interface(s)', '');
+                          var tree_classe = new WebFXTreeItem('Interface(s)', '');
 
-    			    			        			    			        			    			        			    			        			    			        			    			        			    			        			    			        			    			        			
-    			tree.add(tree_classe);
-    						    		    			var tree_classe = new WebFXTreeItem('Class(es)', '');
+                                                                                                                                                                                                                                  
+          tree.add(tree_classe);
+                                  var tree_classe = new WebFXTreeItem('Class(es)', '');
 
-    			    			            				var classe = new WebFXTreeItem('Table_Comments', 'Table/Table_Comments.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_Items', 'Table/Table_Items.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_Metas', 'Table/Table_Metas.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_MetasAssoc', 'Table/Table_MetasAssoc.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_Queries', 'Table/Table_Queries.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_QueriesAssocItems', 'Table/Table_QueriesAssocItems.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_Sessions', 'Table/Table_Sessions.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_SessionsAssocQueries', 'Table/Table_SessionsAssocQueries.html');
-        				tree_classe.add(classe);
-        			    			    			            				var classe = new WebFXTreeItem('Table_Users', 'Table/Table_Users.html');
-        				tree_classe.add(classe);
-        			    			
-    			tree.add(tree_classe);
-    				
-		
-					var tree_file = new WebFXTreeItem('File(s)', '');
+                                        var classe = new WebFXTreeItem('Table_Comments', 'Table/Table_Comments.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_Items', 'Table/Table_Items.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_Metas', 'Table/Table_Metas.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_MetasAssoc', 'Table/Table_MetasAssoc.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_Queries', 'Table/Table_Queries.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_QueriesAssocItems', 'Table/Table_QueriesAssocItems.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_Sessions', 'Table/Table_Sessions.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_SessionsAssocQueries', 'Table/Table_SessionsAssocQueries.html');
+                tree_classe.add(classe);
+                                                      var classe = new WebFXTreeItem('Table_Users', 'Table/Table_Users.html');
+                tree_classe.add(classe);
+                        
+          tree.add(tree_classe);
+            
+    
+          var tree_file = new WebFXTreeItem('File(s)', '');
 
-							var file = new WebFXTreeItem('Comments.php', 'Table/_Table---Comments.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('Items.php', 'Table/_Table---Items.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('Metas.php', 'Table/_Table---Metas.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('MetasAssoc.php', 'Table/_Table---MetasAssoc.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('Queries.php', 'Table/_Table---Queries.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('QueriesAssocItems.php', 'Table/_Table---QueriesAssocItems.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('Sessions.php', 'Table/_Table---Sessions.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('SessionsAssocQueries.php', 'Table/_Table---SessionsAssocQueries.php.html');
-				tree_file.add(file);
-							var file = new WebFXTreeItem('Users.php', 'Table/_Table---Users.php.html');
-				tree_file.add(file);
-			
-			tree.add(tree_file);
-		
-							var subpackagetree = new WebFXTreeItem('<span class="sub-package">Datas</span>', '');
-		
-		
-					var subpackagetree_classe = new WebFXTreeItem('Class(es)', '');
+              var file = new WebFXTreeItem('Comments.php', 'Table/_Table---Comments.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('Items.php', 'Table/_Table---Items.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('Metas.php', 'Table/_Table---Metas.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('MetasAssoc.php', 'Table/_Table---MetasAssoc.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('Queries.php', 'Table/_Table---Queries.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('QueriesAssocItems.php', 'Table/_Table---QueriesAssocItems.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('Sessions.php', 'Table/_Table---Sessions.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('SessionsAssocQueries.php', 'Table/_Table---SessionsAssocQueries.php.html');
+        tree_file.add(file);
+              var file = new WebFXTreeItem('Users.php', 'Table/_Table---Users.php.html');
+        tree_file.add(file);
+      
+      tree.add(tree_file);
+    
+              var subpackagetree = new WebFXTreeItem('<span class="sub-package">Datas</span>', '');
+    
+    
+          var subpackagetree_classe = new WebFXTreeItem('Class(es)', '');
 
-							var classe = new WebFXTreeItem('Table_Datas_Adress', 'Table/Datas/Table_Datas_Adress.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Datas_Assoc', 'Table/Datas/Table_Datas_Assoc.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Datas_Carto', 'Table/Datas/Table_Datas_Carto.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Datas_Interface', 'Table/Datas/Table_Datas_Interface.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Datas_Vote', 'Table/Datas/Table_Datas_Vote.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Medias_Interface', 'Table/Datas/Table_Medias_Interface.html');
-				subpackagetree_classe.add(classe);
-			
-			subpackagetree.add(subpackagetree_classe);
-		
-		
-					var subpackagetree_file = new WebFXTreeItem('File(s)', '');
+              var classe = new WebFXTreeItem('Table_Datas_Adress', 'Table/Datas/Table_Datas_Adress.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Datas_Assoc', 'Table/Datas/Table_Datas_Assoc.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Datas_Carto', 'Table/Datas/Table_Datas_Carto.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Datas_Interface', 'Table/Datas/Table_Datas_Interface.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Datas_Vote', 'Table/Datas/Table_Datas_Vote.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Medias_Interface', 'Table/Datas/Table_Medias_Interface.html');
+        subpackagetree_classe.add(classe);
+      
+      subpackagetree.add(subpackagetree_classe);
+    
+    
+          var subpackagetree_file = new WebFXTreeItem('File(s)', '');
 
-							var file = new WebFXTreeItem('Adress.php', 'Table/Datas/_Table---Datas---Adress.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Assoc.php', 'Table/Datas/_Table---Datas---Assoc.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Carto.php', 'Table/Datas/_Table---Datas---Carto.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Interface.php', 'Table/Datas/_Table---Datas---Interface.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Interface.php', 'Table/Datas/_Table---Medias---Interface.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Vote.php', 'Table/Datas/_Table---Datas---Vote.php.html');
-				subpackagetree_file.add(file);
-			
-			subpackagetree.add(subpackagetree_file);
-		
-	  tree.add(subpackagetree);
-							var subpackagetree = new WebFXTreeItem('<span class="sub-package">Medias</span>', '');
-		
-		
-					var subpackagetree_classe = new WebFXTreeItem('Class(es)', '');
+              var file = new WebFXTreeItem('Adress.php', 'Table/Datas/_Table---Datas---Adress.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Assoc.php', 'Table/Datas/_Table---Datas---Assoc.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Carto.php', 'Table/Datas/_Table---Datas---Carto.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Interface.php', 'Table/Datas/_Table---Datas---Interface.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Interface.php', 'Table/Datas/_Table---Medias---Interface.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Vote.php', 'Table/Datas/_Table---Datas---Vote.php.html');
+        subpackagetree_file.add(file);
+      
+      subpackagetree.add(subpackagetree_file);
+    
+    tree.add(subpackagetree);
+              var subpackagetree = new WebFXTreeItem('<span class="sub-package">Medias</span>', '');
+    
+    
+          var subpackagetree_classe = new WebFXTreeItem('Class(es)', '');
 
-							var classe = new WebFXTreeItem('Table_Medias_Assoc', 'Table/Medias/Table_Medias_Assoc.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Medias_Picture', 'Table/Medias/Table_Medias_Picture.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Medias_Sound', 'Table/Medias/Table_Medias_Sound.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Medias_Text', 'Table/Medias/Table_Medias_Text.html');
-				subpackagetree_classe.add(classe);
-							var classe = new WebFXTreeItem('Table_Medias_Video', 'Table/Medias/Table_Medias_Video.html');
-				subpackagetree_classe.add(classe);
-			
-			subpackagetree.add(subpackagetree_classe);
-		
-		
-					var subpackagetree_file = new WebFXTreeItem('File(s)', '');
+              var classe = new WebFXTreeItem('Table_Medias_Assoc', 'Table/Medias/Table_Medias_Assoc.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Medias_Picture', 'Table/Medias/Table_Medias_Picture.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Medias_Sound', 'Table/Medias/Table_Medias_Sound.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Medias_Text', 'Table/Medias/Table_Medias_Text.html');
+        subpackagetree_classe.add(classe);
+              var classe = new WebFXTreeItem('Table_Medias_Video', 'Table/Medias/Table_Medias_Video.html');
+        subpackagetree_classe.add(classe);
+      
+      subpackagetree.add(subpackagetree_classe);
+    
+    
+          var subpackagetree_file = new WebFXTreeItem('File(s)', '');
 
-							var file = new WebFXTreeItem('Assoc.php', 'Table/Medias/_Table---Medias---Assoc.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Picture.php', 'Table/Medias/_Table---Medias---Picture.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Sound.php', 'Table/Medias/_Table---Medias---Sound.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Text.php', 'Table/Medias/_Table---Medias---Text.php.html');
-				subpackagetree_file.add(file);
-							var file = new WebFXTreeItem('Video.php', 'Table/Medias/_Table---Medias---Video.php.html');
-				subpackagetree_file.add(file);
-			
-			subpackagetree.add(subpackagetree_file);
-		
-	  tree.add(subpackagetree);
-	
+              var file = new WebFXTreeItem('Assoc.php', 'Table/Medias/_Table---Medias---Assoc.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Picture.php', 'Table/Medias/_Table---Medias---Picture.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Sound.php', 'Table/Medias/_Table---Medias---Sound.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Text.php', 'Table/Medias/_Table---Medias---Text.php.html');
+        subpackagetree_file.add(file);
+              var file = new WebFXTreeItem('Video.php', 'Table/Medias/_Table---Medias---Video.php.html');
+        subpackagetree_file.add(file);
+      
+      subpackagetree.add(subpackagetree_file);
+    
+    tree.add(subpackagetree);
+  
 document.write(tree);
 }
 </script>
 </div>
 <p class="notes">
-	Generated by
-	<a href="http://www.phpdoc.org" target="_blank">phpDocumentor <span>1.4.1</span></a>
+  Generated by
+  <a href="http://www.phpdoc.org" target="_blank">phpDocumentor <span>1.4.1</span></a>
 </p>
 </div>
 </body>

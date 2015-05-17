@@ -48,9 +48,9 @@
     <historyfile name="" />
   </argo>
 <profile>
-		<plugin>
-			UML 1.4
-		</plugin>
+    <plugin>
+      UML 1.4
+    </plugin>
 </profile>
 <XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri May 22 23:33:14 CEST 2009'>
   <XMI.header>    <XMI.documentation>

@@ -1,51 +1,51 @@
 <?php
 
-	/**
-	 * Interface de service ayant des métadonnées
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 * @subpackage Interface
-	 */
+  /**
+   * Interface de service ayant des m≈Ωtadonn≈Ωes
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   * @subpackage Interface
+   */
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Interface de service ayant des métadonnées
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 * @subpackage Interface
-	 */
-	interface Service_Interface_Meta
-	{
+  /**
+   * Interface de service ayant des m≈Ωtadonn≈Ωes
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   * @subpackage Interface
+   */
+  interface Service_Interface_Meta
+  {
 
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Ajoute une métadonnées dans le Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Meta meta Un métadonnée
-	     * @param  int voId Identifiant du Value Object
-	     * @return int Identifiant de la nouvelle métadonnée
-	     */
-	    public function addMetaIntoVo( Vo_Meta $meta, $voId);
+      /**
+       * Ajoute une m≈Ωtadonn≈Ωes dans le Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Meta meta Un m≈Ωtadonn≈Ωe
+       * @param  int voId Identifiant du Value Object
+       * @return int Identifiant de la nouvelle m≈Ωtadonn≈Ωe
+       */
+      public function addMetaIntoVo( Vo_Meta $meta, $voId);
 
-	    /**
-	     * Retire une métadonnée du Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int metaId Identifiant d'une métadonnée
-	     * @param  int voId Identifiant du Value Object
-	     * @return void
-	     */
-	    public function removeMetaFromVo($metaId, $voId);
+      /**
+       * Retire une m≈Ωtadonn≈Ωe du Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int metaId Identifiant d'une m≈Ωtadonn≈Ωe
+       * @param  int voId Identifiant du Value Object
+       * @return void
+       */
+      public function removeMetaFromVo($metaId, $voId);
 
-	} /* end of interface Service_Interface_Meta */
+  } /* end of interface Service_Interface_Meta */

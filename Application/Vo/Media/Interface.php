@@ -1,38 +1,38 @@
 <?php
 
-	/**
-	 * Interface des médias
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
+  /**
+   * Interface des m≈Ωdias
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Interface des médias
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
-	interface Vo_Media_Interface
-	{
+  /**
+   * Interface des m≈Ωdias
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
+  interface Vo_Media_Interface
+  {
 
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Renvoi le type du média
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-	    public function getType();
+      /**
+       * Renvoi le type du m≈Ωdia
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+      public function getType();
 
-	} /* end of interface Vo_Media_Interface */
+  } /* end of interface Vo_Media_Interface */

@@ -1,41 +1,41 @@
 <?php
 
-	/**
-	 * Interface de service ayant des fonctions de modération
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 * @subpackage Interface
-	 */
+  /**
+   * Interface de service ayant des fonctions de mod≈Ωration
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   * @subpackage Interface
+   */
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Interface de service ayant des fonctions de modération
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 * @subpackage Interface
-	 */
-	interface Service_Interface_Validate
-	{
+  /**
+   * Interface de service ayant des fonctions de mod≈Ωration
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   * @subpackage Interface
+   */
+  interface Service_Interface_Validate
+  {
 
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Valide ou invalide un Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int voId Identifiant du Value Object
-	     * @param  bool trueOrFalse True pour valide et false pour invalide
-	     * @param  bool all Si true, alors tous les enfants du Value Object seront validés ou invalidés
-	     * @return void
-	     */
-	    public function validateVo($voId, $trueOrFalse, $all = false);
+      /**
+       * Valide ou invalide un Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int voId Identifiant du Value Object
+       * @param  bool trueOrFalse True pour valide et false pour invalide
+       * @param  bool all Si true, alors tous les enfants du Value Object seront valid≈Ωs ou invalid≈Ωs
+       * @return void
+       */
+      public function validateVo($voId, $trueOrFalse, $all = false);
 
-	} /* end of interface Service_Interface_Validate */
+  } /* end of interface Service_Interface_Validate */

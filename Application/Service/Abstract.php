@@ -1,37 +1,37 @@
 <?php
 
-	/**
-	 * Classes d'abstraction des services
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 */
+  /**
+   * Classes d'abstraction des services
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   */
 
-	/**
-	 * Interface des services
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface.php');
+  /**
+   * Interface des services
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface.php');
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Classes d'abstraction des services
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 */
-	class Service_Abstract implements Service_Interface
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Classes d'abstraction des services
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   */
+  class Service_Abstract implements Service_Interface
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	} /* end of class Service_Abstract */
+  } /* end of class Service_Abstract */

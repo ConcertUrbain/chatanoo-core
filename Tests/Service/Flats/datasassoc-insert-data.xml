@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 
-	<users id='1' sessions_id="1" firstName='Desve' lastName='Mathieu' pseudo='mazerte' password='0fba5c22724cbfe3a9ec1e1cb1d7b690e4ef57bb' email='mathieu.desve@unflux.fr' role='admin' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isBan='0' />
+  <users id='1' sessions_id="1" firstName='Desve' lastName='Mathieu' pseudo='mazerte' password='0fba5c22724cbfe3a9ec1e1cb1d7b690e4ef57bb' email='mathieu.desve@unflux.fr' role='admin' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isBan='0' />
 
-	<sessions id='1' title='Ma session' description='Ma description' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' publishDate='2009-04-15 23:55:36' endDate='2009-04-15 23:55:36' users_id='1' />
+  <sessions id='1' title='Ma session' description='Ma description' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' publishDate='2009-04-15 23:55:36' endDate='2009-04-15 23:55:36' users_id='1' />
 
-	<queries id='1' content='Une question ?' description='bah une question' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' publishDate='2009-04-15 23:55:36' endDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
+  <queries id='1' content='Une question ?' description='bah une question' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' publishDate='2009-04-15 23:55:36' endDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
-	<items id='1' sessions_id="1" title='Mon Item' description='Ma description' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
+  <items id='1' sessions_id="1" title='Mon Item' description='Ma description' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
-	<comments id='1' sessions_id="1" content='Un commentaire' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' items_id='1' users_id='1' />
-
-
-	<medias_sound id='1' sessions_id="1" title='Un son' description="il s ecoute" url='http://www.unsite.fr/sound.mp3' totalTime='180' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
-
-	<medias_picture id='1' sessions_id="1" title='Une image' description="Elle se regarde" url='http://www.unsite.fr/picture.jpg' width='400' height='300' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
-
-	<medias_text id='1' sessions_id="1" title='Un texte' description="il se lit" content='Un texte' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
-
-	<medias_video id='1' sessions_id="1" title='Une video' description="il s ecoute et se regarde" url='http://www.unsite.fr/video.flv' width='400' height='300' totalTime='180' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
+  <comments id='1' sessions_id="1" content='Un commentaire' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' items_id='1' users_id='1' />
 
 
-	<datas_adress id='1' sessions_id="1" adress='8, rue de la Marne' zipCode='94500' city='Champigny' country='France' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' />
+  <medias_sound id='1' sessions_id="1" title='Un son' description="il s ecoute" url='http://www.unsite.fr/sound.mp3' totalTime='180' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
-	<datas_carto id='1' sessions_id="1" x='1.89489e+06' y='7881' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' />
+  <medias_picture id='1' sessions_id="1" title='Une image' description="Elle se regarde" url='http://www.unsite.fr/picture.jpg' width='400' height='300' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
-	<datas_vote id='1' sessions_id="1" rate='1' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' users_id='1'/>
+  <medias_text id='1' sessions_id="1" title='Un texte' description="il se lit" content='Un texte' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
-
-	<metas id='1' sessions_id="1" name='keyword' content='Un meta' />
-
-
-	<sessions_assoc_queries sessions_id='1' queries_id='1' />
-
-	<queries_assoc_items queries_id='1' items_id='1' />
-
-	<medias_assoc medias_id='1' mediaType='Sound' assoc_id='1' assocType='Item' />
-	<medias_assoc medias_id='1' mediaType='Picture' assoc_id='1' assocType='Item' />
-	<medias_assoc medias_id='1' mediaType='Text' assoc_id='1' assocType='Item' />
-	<medias_assoc medias_id='1' mediaType='Video' assoc_id='1' assocType='Item' />
-	<medias_assoc medias_id='1' mediaType='Video' assoc_id='1' assocType='Query' />
+  <medias_video id='1' sessions_id="1" title='Une video' description="il s ecoute et se regarde" url='http://www.unsite.fr/video.flv' width='400' height='300' totalTime='180' preview='http://www.unsite.fr/preview.jpg' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' isValid='1' users_id='1' />
 
 
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='User' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='User' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Item' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Item' />
-	<datas_assoc datas_id='1' dataType='Vote' assoc_id='1' assocType='Item' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Query' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Query' />
-	<datas_assoc datas_id='1' dataType='Vote' assoc_id='1' assocType='Comment' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Comment' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Picture' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Picture' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Sound' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Sound' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Text' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Text' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Video' />
-	<datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Video' />
-	<datas_assoc datas_id='1' dataType='Adress' assoc_id='2' assocType='User' />
+  <datas_adress id='1' sessions_id="1" adress='8, rue de la Marne' zipCode='94500' city='Champigny' country='France' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' />
+
+  <datas_carto id='1' sessions_id="1" x='1.89489e+06' y='7881' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' />
+
+  <datas_vote id='1' sessions_id="1" rate='1' addDate='2009-04-15 23:55:36' setDate='2009-04-15 23:55:36' users_id='1'/>
 
 
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Session' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Query' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Item' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Media_Sound' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Media_Picture' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Media_Text' />
-	<metas_assoc metas_id='1' assoc_id='1' assocType='Media_Video' />
+  <metas id='1' sessions_id="1" name='keyword' content='Un meta' />
+
+
+  <sessions_assoc_queries sessions_id='1' queries_id='1' />
+
+  <queries_assoc_items queries_id='1' items_id='1' />
+
+  <medias_assoc medias_id='1' mediaType='Sound' assoc_id='1' assocType='Item' />
+  <medias_assoc medias_id='1' mediaType='Picture' assoc_id='1' assocType='Item' />
+  <medias_assoc medias_id='1' mediaType='Text' assoc_id='1' assocType='Item' />
+  <medias_assoc medias_id='1' mediaType='Video' assoc_id='1' assocType='Item' />
+  <medias_assoc medias_id='1' mediaType='Video' assoc_id='1' assocType='Query' />
+
+
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='User' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='User' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Item' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Item' />
+  <datas_assoc datas_id='1' dataType='Vote' assoc_id='1' assocType='Item' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Query' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Query' />
+  <datas_assoc datas_id='1' dataType='Vote' assoc_id='1' assocType='Comment' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Comment' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Picture' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Picture' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Sound' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Sound' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Text' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Text' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='1' assocType='Media_Video' />
+  <datas_assoc datas_id='1' dataType='Carto' assoc_id='1' assocType='Media_Video' />
+  <datas_assoc datas_id='1' dataType='Adress' assoc_id='2' assocType='User' />
+
+
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Session' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Query' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Item' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Media_Sound' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Media_Picture' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Media_Text' />
+  <metas_assoc metas_id='1' assoc_id='1' assocType='Media_Video' />
 
 </dataset>

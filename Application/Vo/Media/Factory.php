@@ -1,118 +1,118 @@
 <?php
 
-	/**
-	 * Classe permettant de créer des médias (patern Factory et Singleton)
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
+  /**
+   * Classe permettant de cr≈Ωer des m≈Ωdias (patern Factory et Singleton)
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
 
-	/**
-	 * Class d'abstraction des factories
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/../Factory/Abstract.php');
+  /**
+   * Class d'abstraction des factories
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/../Factory/Abstract.php');
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Classe permettant de créer des médias (patern Factory et Singleton)
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
-	class Vo_Media_Factory extends Vo_Factory_Abstract
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Classe permettant de cr≈Ωer des m≈Ωdias (patern Factory et Singleton)
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
+  class Vo_Media_Factory extends Vo_Factory_Abstract
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    /**
-	     * Instance de la classe
-	     *
-	     * @access private
-	     * @var Factory
-	     */
-	    private static $_instance = null;
+      /**
+       * Instance de la classe
+       *
+       * @access private
+       * @var Factory
+       */
+      private static $_instance = null;
 
-	    /**
-	     * Constance donnant le type du média vidéo
-	     *
-	     * @access public
-	     * @var string
-	     */
-	    public static $VIDEO_TYPE = 'Video';
+      /**
+       * Constance donnant le type du m≈Ωdia vid≈Ωo
+       *
+       * @access public
+       * @var string
+       */
+      public static $VIDEO_TYPE = 'Video';
 
-	    /**
-	     * Constance donnant le type du média son
-	     *
-	     * @access public
-	     * @var string
-	     */
-	    public static $SOUND_TYPE = 'Sound';
+      /**
+       * Constance donnant le type du m≈Ωdia son
+       *
+       * @access public
+       * @var string
+       */
+      public static $SOUND_TYPE = 'Sound';
 
-	    /**
-	     * Constance donnant le type du média image
-	     *
-	     * @access public
-	     * @var string
-	     */
-	    public static $PICTURE_TYPE = 'Picture';
+      /**
+       * Constance donnant le type du m≈Ωdia image
+       *
+       * @access public
+       * @var string
+       */
+      public static $PICTURE_TYPE = 'Picture';
 
-	    /**
-	     * Constance donnant le type du média texte
-	     *
-	     * @access public
-	     * @var string
-	     */
-	    public static $TEXT_TYPE = 'Text';
+      /**
+       * Constance donnant le type du m≈Ωdia texte
+       *
+       * @access public
+       * @var string
+       */
+      public static $TEXT_TYPE = 'Text';
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Constructeur de la classe
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return mixed
-	     */
-	    private function __construct(){}
+      /**
+       * Constructeur de la classe
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return mixed
+       */
+      private function __construct(){}
 
-	    /**
-	     * Permet de réccupérer la seule instance de la classe
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return Vo_Media_Factory
-	     */
-	    public static function getInstance()
-	    {
-	        if(self::$_instance === null){
+      /**
+       * Permet de r≈Ωccup≈Ωrer la seule instance de la classe
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return Vo_Media_Factory
+       */
+      public static function getInstance()
+      {
+          if(self::$_instance === null){
                 self::$_instance = new self();
            }
            return self::$_instance;
-	    }
+      }
 
-	    /**
-	     * Crée et retourne un média
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  string type Type du média
-	     * @param  mixed media
-	     * @return Vo_Abstract
-	     */
-	    public function factory($type, $media = array())
-	    {
-	        $className = 'Vo_Media_' . $type;
-	        return new $className($media);
-	    }
+      /**
+       * Cr≈Ωe et retourne un m≈Ωdia
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  string type Type du m≈Ωdia
+       * @param  mixed media
+       * @return Vo_Abstract
+       */
+      public function factory($type, $media = array())
+      {
+          $className = 'Vo_Media_' . $type;
+          return new $className($media);
+      }
 
-	} /* end of class Vo_Media_Factory */
+  } /* end of class Vo_Media_Factory */

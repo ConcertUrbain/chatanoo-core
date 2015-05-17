@@ -1,49 +1,49 @@
 <?php
 
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 */
+  /**
+   * Class for SQL table interface.
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   */
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 */
-	class Table_Metas extends Zend_Db_Table_Abstract
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Class for SQL table interface.
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   */
+  class Table_Metas extends Zend_Db_Table_Abstract
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    /**
-	     * Table Name
-	     *
-	     * @access protected
-	     * @var string
-	     */
-	    protected $_name = 'metas';
+      /**
+       * Table Name
+       *
+       * @access protected
+       * @var string
+       */
+      protected $_name = 'metas';
 
-	    /**
-	     * The primary key column or columns.
-	     * A compound key should be declared as an array.
-	     * You may declare a single-column primary key
-	     * as a string.
-	     *
-	     * @access protected
-	     * @var mixed
-	     */
-	    protected $_primary = 'id';
+      /**
+       * The primary key column or columns.
+       * A compound key should be declared as an array.
+       * You may declare a single-column primary key
+       * as a string.
+       *
+       * @access protected
+       * @var mixed
+       */
+      protected $_primary = 'id';
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	} /* end of class Table_Metas */
+  } /* end of class Table_Metas */

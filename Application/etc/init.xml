@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
 
-	<production>
-		<phpSettings>
-			<!-- Error -->
-			<display_startup_errors>0</display_startup_errors>
-			<display_errors>0</display_errors>
+  <production>
+    <phpSettings>
+      <!-- Error -->
+      <display_startup_errors>0</display_startup_errors>
+      <display_errors>0</display_errors>
 
-			<!-- Time -->
-			<date>
-				<timezone>Europe/Berlin</timezone>
-			</date>
-		</phpSettings>
+      <!-- Time -->
+      <date>
+        <timezone>Europe/Berlin</timezone>
+      </date>
+    </phpSettings>
 
-		<!-- Include Path -->
-		<includePaths>
-			<library><zf:const zf:name="APPLICATION_PATH"/>/../Library</library>
-			<application><zf:const zf:name="APPLICATION_PATH"/></application>
-		</includePaths>
+    <!-- Include Path -->
+    <includePaths>
+      <library><zf:const zf:name="APPLICATION_PATH"/>/../Library</library>
+      <application><zf:const zf:name="APPLICATION_PATH"/></application>
+    </includePaths>
 
-		<!-- Bootstap -->
-		<bootstrap>
-			<path><zf:const zf:name="APPLICATION_PATH"/>/Bootstrap.php</path>
-			<class>Bootstrap</class>
-		</bootstrap>
+    <!-- Bootstap -->
+    <bootstrap>
+      <path><zf:const zf:name="APPLICATION_PATH"/>/Bootstrap.php</path>
+      <class>Bootstrap</class>
+    </bootstrap>
 
-		<!-- Resources -->
-		<resources>
-			<!-- Locale -->
-			<locale>
-				<default>fr_FR</default>
-			</locale>
+    <!-- Resources -->
+    <resources>
+      <!-- Locale -->
+      <locale>
+        <default>fr_FR</default>
+      </locale>
 
-			<!-- FrontController -->
-			<frontController>
-				<!-- Error -->
-				<throwerrors>false</throwerrors>
+      <!-- FrontController -->
+      <frontController>
+        <!-- Error -->
+        <throwerrors>false</throwerrors>
 
-				<!-- Default -->
-				<defaultModule>services</defaultModule>
-				<defaultControllerName>Search</defaultControllerName>
-				<defaultAction>index</defaultAction>
+        <!-- Default -->
+        <defaultModule>services</defaultModule>
+        <defaultControllerName>Search</defaultControllerName>
+        <defaultAction>index</defaultAction>
 
-				<!-- Modules -->
-				<moduleDirectory><zf:const zf:name="APPLICATION_PATH"/>/modules</moduleDirectory>
-				<moduleControllerDirectoryName>controllers</moduleControllerDirectoryName>
-			</frontController>
-		</resources>
-	</production>
+        <!-- Modules -->
+        <moduleDirectory><zf:const zf:name="APPLICATION_PATH"/>/modules</moduleDirectory>
+        <moduleControllerDirectoryName>controllers</moduleControllerDirectoryName>
+      </frontController>
+    </resources>
+  </production>
 
-	<development extends="production">
-		<phpSettings>
-			<!-- Error -->
-			<display_startup_errors>0</display_startup_errors>
-			<display_errors>0</display_errors>
-		</phpSettings>
+  <development extends="production">
+    <phpSettings>
+      <!-- Error -->
+      <display_startup_errors>0</display_startup_errors>
+      <display_errors>0</display_errors>
+    </phpSettings>
 
-		<!-- Resources -->
-		<resources>
-			<!-- FrontController -->
-			<frontController>
-				<throwerrors>true</throwerrors>
-			</frontController>
-		</resources>
-	</development>
-	
-	<preproduction extends="production">
-		<phpSettings>
-			<!-- Error -->
-			<display_startup_errors>0</display_startup_errors>
-			<display_errors>0</display_errors>
-		</phpSettings>
+    <!-- Resources -->
+    <resources>
+      <!-- FrontController -->
+      <frontController>
+        <throwerrors>true</throwerrors>
+      </frontController>
+    </resources>
+  </development>
+  
+  <preproduction extends="production">
+    <phpSettings>
+      <!-- Error -->
+      <display_startup_errors>0</display_startup_errors>
+      <display_errors>0</display_errors>
+    </phpSettings>
 
-		<!-- Resources -->
-		<resources>
-			<!-- FrontController -->
-			<frontController>
-				<throwerrors>true</throwerrors>
-			</frontController>
-		</resources>
-	</preproduction>
+    <!-- Resources -->
+    <resources>
+      <!-- FrontController -->
+      <frontController>
+        <throwerrors>true</throwerrors>
+      </frontController>
+    </resources>
+  </preproduction>
 
-	<test extends="production">
-		<phpSettings>
-			<!-- Error -->
-			<display_startup_errors>1</display_startup_errors>
-			<display_errors>1</display_errors>
-		</phpSettings>
+  <test extends="production">
+    <phpSettings>
+      <!-- Error -->
+      <display_startup_errors>1</display_startup_errors>
+      <display_errors>1</display_errors>
+    </phpSettings>
 
-		<!-- Resources -->
-		<resources>
-			<!-- FrontController -->
-			<frontController>
-				<throwerrors>true</throwerrors>
-			</frontController>
-		</resources>
-	</test>
+    <!-- Resources -->
+    <resources>
+      <!-- FrontController -->
+      <frontController>
+        <throwerrors>true</throwerrors>
+      </frontController>
+    </resources>
+  </test>
 
 </config>

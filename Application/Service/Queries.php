@@ -1,661 +1,661 @@
 <?php
 
-	/**
-	 * Permet d'interagir avec les questions et la base de données
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 */
+  /**
+   * Permet d'interagir avec les questions et la base de donn≈Ωes
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   */
 
-	/**
-	 * Interface de service ayant des datas
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface/Data.php');
+  /**
+   * Interface de service ayant des datas
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface/Data.php');
 
-	/**
-	 * Interface de service ayant des métadonnées
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface/Meta.php');
+  /**
+   * Interface de service ayant des m≈Ωtadonn≈Ωes
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface/Meta.php');
 
-	/**
-	 * Interface de service ayant des auteurs
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface/User.php');
+  /**
+   * Interface de service ayant des auteurs
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface/User.php');
 
-	/**
-	 * Interface de service ayant des fonctions de modération
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface/Validate.php');
+  /**
+   * Interface de service ayant des fonctions de mod≈Ωration
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface/Validate.php');
 
-	/**
-	 * Classes d'abstraction des services
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Abstract.php');
+  /**
+   * Classes d'abstraction des services
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Abstract.php');
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Permet d'interagir avec les questions et la base de données
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Service
-	 */
-	class Service_Queries extends Service_Abstract implements Service_Interface_Meta,
-											                  Service_Interface_User,
-											                  Service_Interface_Validate,
-											                  Service_Interface_Data
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Permet d'interagir avec les questions et la base de donn≈Ωes
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Service
+   */
+  class Service_Queries extends Service_Abstract implements Service_Interface_Meta,
+                                        Service_Interface_User,
+                                        Service_Interface_Validate,
+                                        Service_Interface_Data
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    /**
-	     * Passerelles vers la table des questions
-	     *
-	     * @access private
-	     * @var Table_Queries
-	     */
-	    private $_queriesTable = null;
+      /**
+       * Passerelles vers la table des questions
+       *
+       * @access private
+       * @var Table_Queries
+       */
+      private $_queriesTable = null;
 
-	    /**
-	     * Passerelles vers la table des sessions
-	     *
-	     * @access private
-	     * @var Table_Sessions
-	     */
-	    private $_sessionsTable = null;
+      /**
+       * Passerelles vers la table des sessions
+       *
+       * @access private
+       * @var Table_Sessions
+       */
+      private $_sessionsTable = null;
 
-	    /**
-	     * Passerelles vers la table des items
-	     *
-	     * @access private
-	     * @var Table_Items
-	     */
-	    private $_itemsTable = null;
+      /**
+       * Passerelles vers la table des items
+       *
+       * @access private
+       * @var Table_Items
+       */
+      private $_itemsTable = null;
 
-	    /**
-	     * Service des items
-	     *
-	     * @access protected
-	     * @var Service_Items
-	     */
-	    protected $_itemsService = null;
+      /**
+       * Service des items
+       *
+       * @access protected
+       * @var Service_Items
+       */
+      protected $_itemsService = null;
 
-	    /**
-	     * Passerelles vers la table de liaison entre les questions et les items
-	     *
-	     * @access protected
-	     * @var Table_QueriesAssocItems
-	     */
-	    protected $_queriesAssocItemsTable = null;
+      /**
+       * Passerelles vers la table de liaison entre les questions et les items
+       *
+       * @access protected
+       * @var Table_QueriesAssocItems
+       */
+      protected $_queriesAssocItemsTable = null;
 
-	    /**
-	     * Passerelles vers la table de liaison entre les sessions de les questions
-	     *
-	     * @access protected
-	     * @var Table_SessionsAssocQueries
-	     */
-	    protected $_sessionsAssocQueriesTable = null;
+      /**
+       * Passerelles vers la table de liaison entre les sessions de les questions
+       *
+       * @access protected
+       * @var Table_SessionsAssocQueries
+       */
+      protected $_sessionsAssocQueriesTable = null;
 
-	    /**
-	     * Passerelles vers la table de liaison des datas
-	     *
-	     * @access protected
-	     * @var Table_Datas_Assoc
-	     */
-	    protected $_datasAssocTable = null;
+      /**
+       * Passerelles vers la table de liaison des datas
+       *
+       * @access protected
+       * @var Table_Datas_Assoc
+       */
+      protected $_datasAssocTable = null;
 
-	    /**
-	     * Passerelles vers la table de liaison des metas
-	     *
-	     * @access protected
-	     * @var Table_MetasAssoc
-	     */
-	    protected $_metasAssocTable = null;
+      /**
+       * Passerelles vers la table de liaison des metas
+       *
+       * @access protected
+       * @var Table_MetasAssoc
+       */
+      protected $_metasAssocTable = null;
 
-	    /**
-	     * Passerelles vers la table de liaison des metas
-	     *
-	     * @access protected
-	     * @var Table_Media_Assoc
-	     */
-	    protected $_mediasAssocTable = null;
+      /**
+       * Passerelles vers la table de liaison des metas
+       *
+       * @access protected
+       * @var Table_Media_Assoc
+       */
+      protected $_mediasAssocTable = null;
 
-	    /**
-	     * Service des datas
-	     *
-	     * @access protected
-	     * @var Service_Datas
-	     */
-	    protected $_datasService = null;
+      /**
+       * Service des datas
+       *
+       * @access protected
+       * @var Service_Datas
+       */
+      protected $_datasService = null;
 
-	    /**
-	     * Service des médias
-	     *
-	     * @access protected
-	     * @var Service_Data
-	     */
-	    protected $_mediasService = null;
+      /**
+       * Service des m≈Ωdias
+       *
+       * @access protected
+       * @var Service_Data
+       */
+      protected $_mediasService = null;
 
-	    /**
-	     * Service de recherche
-	     *
-	     * @access protected
-	     * @var Service_Search
-	     */
-	    protected $_searchService = null;
+      /**
+       * Service de recherche
+       *
+       * @access protected
+       * @var Service_Search
+       */
+      protected $_searchService = null;
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Constructeur de la classe
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return mixed
-	     */
-	    public function __construct()
-	    {
-	        $this->_queriesTable = new Table_Queries();
-	        $this->_sessionsTable = new Table_Sessions();
-	        $this->_itemsTable = new Table_Items();
-	        $this->_datasAssocTable = new Table_Datas_Assoc();
-	        $this->_mediasAssocTable = new Table_Medias_Assoc();
-	        $this->_queriesAssocItemsTable = new Table_QueriesAssocItems();
-	        $this->_sessionsAssocQueriesTable = new Table_SessionsAssocQueries();
-	        $this->_datasService = new Service_Datas();
-	        $this->_itemsService = new Service_Items();
-	        $this->_mediasService = new Service_Medias();
-	        $this->_searchService = new Service_Search();
-	        $this->_metasAssocTable = new Table_MetasAssoc();
-	    }
+      /**
+       * Constructeur de la classe
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return mixed
+       */
+      public function __construct()
+      {
+          $this->_queriesTable = new Table_Queries();
+          $this->_sessionsTable = new Table_Sessions();
+          $this->_itemsTable = new Table_Items();
+          $this->_datasAssocTable = new Table_Datas_Assoc();
+          $this->_mediasAssocTable = new Table_Medias_Assoc();
+          $this->_queriesAssocItemsTable = new Table_QueriesAssocItems();
+          $this->_sessionsAssocQueriesTable = new Table_SessionsAssocQueries();
+          $this->_datasService = new Service_Datas();
+          $this->_itemsService = new Service_Items();
+          $this->_mediasService = new Service_Medias();
+          $this->_searchService = new Service_Search();
+          $this->_metasAssocTable = new Table_MetasAssoc();
+      }
 
-	    /**
-	     * Retourne toutes les questions contenues dans la base de données en
-	     * de options
-	     * Options:
-	     *  - where -> array(array('cond', 'value'))
-	     *  - order	-> string
-	     *  - limit	-> array(count, offset)
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  array options Options pour le retour de la fonction
-	     * @return array
-	     */
-	    public function getQueries($options = array())
-	    {
-	    	$queries = array();
-	    	$select = Zend_Registry::get('db')->select();
-			$select->from('sessions_assoc_queries', null)
-					->join('queries', 'sessions_assoc_queries.queries_id = queries.id')
-					->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
-	    	if(count($options))
-	    	{
-	    		foreach($options['where'] as $key=>$where)
-	    			$select->where('queries.' . $where[0], $where[1]);
-	    		if(isset($options['order']))
-	    			$select->order($options['order']);
-	    		if(isset($options['limit']))
-	    			$select->limit($options['limit'][0], $options['limit'][1]);
-	    	}
-	        $queriesRowset = Zend_Registry::get('db')->fetchAll($select);
-			if(count($queriesRowset))
-	        	$queries = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
-	        return $queries;
-	    }
+      /**
+       * Retourne toutes les questions contenues dans la base de donn≈Ωes en
+       * de options
+       * Options:
+       *  - where -> array(array('cond', 'value'))
+       *  - order  -> string
+       *  - limit  -> array(count, offset)
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  array options Options pour le retour de la fonction
+       * @return array
+       */
+      public function getQueries($options = array())
+      {
+        $queries = array();
+        $select = Zend_Registry::get('db')->select();
+      $select->from('sessions_assoc_queries', null)
+          ->join('queries', 'sessions_assoc_queries.queries_id = queries.id')
+          ->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
+        if(count($options))
+        {
+          foreach($options['where'] as $key=>$where)
+            $select->where('queries.' . $where[0], $where[1]);
+          if(isset($options['order']))
+            $select->order($options['order']);
+          if(isset($options['limit']))
+            $select->limit($options['limit'][0], $options['limit'][1]);
+        }
+          $queriesRowset = Zend_Registry::get('db')->fetchAll($select);
+      if(count($queriesRowset))
+            $queries = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
+          return $queries;
+      }
 
-	    /**
-	     * Retourne une question de la base de données en fonction de son
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int queryId Identifiant d'une question
-	     * @return Vo_Query
-	     */
-	    public function getQueryById($queryId)
-	    {
-	    	$query = null;
-    		
-	    	$select = Zend_Registry::get('db')->select();
-			$select->from('sessions_assoc_queries', null)
-					->join('queries', 'sessions_assoc_queries.queries_id = queries.id')
-					->where("queries.id = ?", $queryId)
-					->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
-    		
-	        $queryRow = Zend_Registry::get('db')->fetchRow($select);
-	    	if(!is_null($queryRow) && $queryRow)
-	        	$query = Vo_Factory::getInstance()->factory(Vo_Factory::$QUERY_TYPE, $queryRow);
-	        return $query;
-	    }
+      /**
+       * Retourne une question de la base de donn≈Ωes en fonction de son
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int queryId Identifiant d'une question
+       * @return Vo_Query
+       */
+      public function getQueryById($queryId)
+      {
+        $query = null;
+        
+        $select = Zend_Registry::get('db')->select();
+      $select->from('sessions_assoc_queries', null)
+          ->join('queries', 'sessions_assoc_queries.queries_id = queries.id')
+          ->where("queries.id = ?", $queryId)
+          ->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
+        
+          $queryRow = Zend_Registry::get('db')->fetchRow($select);
+        if(!is_null($queryRow) && $queryRow)
+            $query = Vo_Factory::getInstance()->factory(Vo_Factory::$QUERY_TYPE, $queryRow);
+          return $query;
+      }
 
-	    /**
-	     * Retourne toutes les questions contenues dans une session
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int sessionId Identifiant d'une session
-	     * @return array
-	     */
-	    public function getQueriesBySessionId($sessionId)
-	    {
-	    	if($sessionId != Zend_Registry::get('sessionID'))
-	    		return array();
-	    	
-	    	$queries = array();
-	    	$sessionsRow = $this->_sessionsTable->find($sessionId)->current();
-	    	if($sessionsRow)
-	    	{
-				$queriesRowset = $sessionsRow->findManyToManyRowset('Table_Queries', 'Table_SessionsAssocQueries');
-				if($queriesRowset->count())
-		        	$queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
-	    	}
-	        return $queries;
-	    }
+      /**
+       * Retourne toutes les questions contenues dans une session
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int sessionId Identifiant d'une session
+       * @return array
+       */
+      public function getQueriesBySessionId($sessionId)
+      {
+        if($sessionId != Zend_Registry::get('sessionID'))
+          return array();
+        
+        $queries = array();
+        $sessionsRow = $this->_sessionsTable->find($sessionId)->current();
+        if($sessionsRow)
+        {
+        $queriesRowset = $sessionsRow->findManyToManyRowset('Table_Queries', 'Table_SessionsAssocQueries');
+        if($queriesRowset->count())
+              $queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
+        }
+          return $queries;
+      }
 
-	    /**
-	     * Retourne toutes les questions contenant un item
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int sessionId Identifiant d'une session
-	     * @return array
-	     */
-	    public function getQueriesByItemId($itemId)
-	    {
-	    	$queries = array();
-	    	
-	    	$select = $this->_itemsTable->select();
-	    	$select->where("id = ?", $itemId);
-	    	$select->where("sessions_id = ?", Zend_Registry::get('sessionID'));
-	    	
-	    	$itemRow = $this->_itemsTable->fetchRow($select);
-	    	if($itemRow)
-	    	{
-				$queriesRowset = $itemRow->findManyToManyRowset('Table_Queries', 'Table_QueriesAssocItems');
-				if($queriesRowset->count())
-		        	$queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
-	    	}
-	        return $queries;
-	    }
+      /**
+       * Retourne toutes les questions contenant un item
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int sessionId Identifiant d'une session
+       * @return array
+       */
+      public function getQueriesByItemId($itemId)
+      {
+        $queries = array();
+        
+        $select = $this->_itemsTable->select();
+        $select->where("id = ?", $itemId);
+        $select->where("sessions_id = ?", Zend_Registry::get('sessionID'));
+        
+        $itemRow = $this->_itemsTable->fetchRow($select);
+        if($itemRow)
+        {
+        $queriesRowset = $itemRow->findManyToManyRowset('Table_Queries', 'Table_QueriesAssocItems');
+        if($queriesRowset->count())
+              $queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
+        }
+          return $queries;
+      }
 
-	    /**
-	     * Retourne toutes les questions pour une metadonnÈe
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int metaId Identifiant d'une mÈtadonnÈe
-	     * @return array
-	     */
-	    public function getQueriesByMetaId($metaId)
-	    {
-	    	$queries = array();
-	    	
-	        $select = Zend_Registry::get('db')->select();
-    		$table = 'queries';
-			$select->from('metas_assoc', null)
-					->join($table, 'metas_assoc.assoc_id = '.$table.'.id')
-					->join('sessions_assoc_queries', 'sessions_assoc_queries.queries_id = '.$table.'.id')
-					->where('metas_assoc.metas_id = ?', $metaId)
-					->where("metas_assoc.assocType = ?", 'Item')
-					->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
-			$queriesRows = Zend_Registry::get('db')->fetchAll($select);
-			if(count($queriesRows))
-	        	$queries = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRows);
-	        return $queries;
-	    }
+      /**
+       * Retourne toutes les questions pour une metadonn√©e
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int metaId Identifiant d'une m√©tadonn√©e
+       * @return array
+       */
+      public function getQueriesByMetaId($metaId)
+      {
+        $queries = array();
+        
+          $select = Zend_Registry::get('db')->select();
+        $table = 'queries';
+      $select->from('metas_assoc', null)
+          ->join($table, 'metas_assoc.assoc_id = '.$table.'.id')
+          ->join('sessions_assoc_queries', 'sessions_assoc_queries.queries_id = '.$table.'.id')
+          ->where('metas_assoc.metas_id = ?', $metaId)
+          ->where("metas_assoc.assocType = ?", 'Item')
+          ->where("sessions_assoc_queries.sessions_id = ?", Zend_Registry::get('sessionID'));
+      $queriesRows = Zend_Registry::get('db')->fetchAll($select);
+      if(count($queriesRows))
+            $queries = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRows);
+          return $queries;
+      }
 
-	    /**
-	     * Ajoute une question à la base de données
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Query query Une question
-	     * @return int Identifiant de la question
-	     */
-	    public function addQuery( Vo_Query $query)
-	    {
-			$queryRow = $this->_queriesTable->createRow($query->toRowArray());
-			$queryRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			$queryRow->users_id = Zend_Registry::get('userID');
-			
-			$id = $queryRow->save();
-			
-			$assoc = $this->_sessionsAssocQueriesTable->createRow();
-			$assoc->queries_id = $id;
-			$assoc->sessions_id = Zend_Registry::get('sessionID');
-			$assoc->save();
-			
-			return $id;
-	    }
+      /**
+       * Ajoute une question ÀÜ la base de donn≈Ωes
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Query query Une question
+       * @return int Identifiant de la question
+       */
+      public function addQuery( Vo_Query $query)
+      {
+      $queryRow = $this->_queriesTable->createRow($query->toRowArray());
+      $queryRow->addDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
+      $queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
+      $queryRow->users_id = Zend_Registry::get('userID');
+      
+      $id = $queryRow->save();
+      
+      $assoc = $this->_sessionsAssocQueriesTable->createRow();
+      $assoc->queries_id = $id;
+      $assoc->sessions_id = Zend_Registry::get('sessionID');
+      $assoc->save();
+      
+      return $id;
+      }
 
-	    /**
-	     * Modifie une question dans la base de données
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Query query Une question
-	     * @return void
-	     */
-	    public function setQuery( Vo_Query $query)
-	    {
-	        $queryRow = $this->_queriesTable->find($query->id)->current();
-	        $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
-	        if($sessionsRowset->count())
-	        {
-	        	$flag = false;
-	        	foreach($sessionsRowset->toArray() as $key=>$value)
-	        	{
-	        		if($value['id'] == Zend_Registry::get('sessionID') && !$flag)
-	        			$flag = true;
-	        	}
-	        	if(!$flag)
-	        		return;
-	        } 	
-	        else
-	        	return;
-	        
-	    	$queryRowArray = $query->toRowArray();
-			foreach($queryRowArray as $key=>$value)
-			{
-				if($queryRowArray[$key] != $queryRow->$key)
-					$queryRow->$key = $value;
-			}
-			$queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
-			return $queryRow->save();
-	    }
+      /**
+       * Modifie une question dans la base de donn≈Ωes
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Query query Une question
+       * @return void
+       */
+      public function setQuery( Vo_Query $query)
+      {
+          $queryRow = $this->_queriesTable->find($query->id)->current();
+          $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
+          if($sessionsRowset->count())
+          {
+            $flag = false;
+            foreach($sessionsRowset->toArray() as $key=>$value)
+            {
+              if($value['id'] == Zend_Registry::get('sessionID') && !$flag)
+                $flag = true;
+            }
+            if(!$flag)
+              return;
+          }   
+          else
+            return;
+          
+        $queryRowArray = $query->toRowArray();
+      foreach($queryRowArray as $key=>$value)
+      {
+        if($queryRowArray[$key] != $queryRow->$key)
+          $queryRow->$key = $value;
+      }
+      $queryRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
+      return $queryRow->save();
+      }
 
-	    /**
-	     * Supprime une question de la base de données
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int queryId Identifiant d'une question
-	     * @return void
-	     */
-	    public function deleteQuery($queryId)
-	    {
-	        $queryRow = $this->_queriesTable->find($queryId)->current();
-	        if(is_null($queryRow) || !$queryRow)
-	        	return true;
-	        
-	        $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
-	        if($sessionsRowset->count())
-	        {
-	        	$flag = false;
-	        	foreach($sessionsRowset->toArray() as $key=>$value)
-	        	{
-	        		if($value['id'] == Zend_Registry::get('sessionID') && !$flag)
-	        			$flag = true;
-	        	}
-	        	if(!$flag)
-	        		return true;
-	        } 	
-	        else
-	        	return true;
-	        
-			if($queryRow->delete())
-			{
-				$this->_queriesAssocItemsTable->delete('queries_id = ' . $queryId);
-				$this->_sessionsAssocQueriesTable->delete('queries_id = ' . $queryId);
-				$where = array(
-					"assoc_id = '" . $queryId . "'",
-					"assocType = 'Query'"
-				);
-				$this->_datasAssocTable->delete($where);
-				$this->_metasAssocTable->delete($where);
-				$this->_mediasAssocTable->delete($where);
-			}
-			return true;
-	    }
+      /**
+       * Supprime une question de la base de donn≈Ωes
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int queryId Identifiant d'une question
+       * @return void
+       */
+      public function deleteQuery($queryId)
+      {
+          $queryRow = $this->_queriesTable->find($queryId)->current();
+          if(is_null($queryRow) || !$queryRow)
+            return true;
+          
+          $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
+          if($sessionsRowset->count())
+          {
+            $flag = false;
+            foreach($sessionsRowset->toArray() as $key=>$value)
+            {
+              if($value['id'] == Zend_Registry::get('sessionID') && !$flag)
+                $flag = true;
+            }
+            if(!$flag)
+              return true;
+          }   
+          else
+            return true;
+          
+      if($queryRow->delete())
+      {
+        $this->_queriesAssocItemsTable->delete('queries_id = ' . $queryId);
+        $this->_sessionsAssocQueriesTable->delete('queries_id = ' . $queryId);
+        $where = array(
+          "assoc_id = '" . $queryId . "'",
+          "assocType = 'Query'"
+        );
+        $this->_datasAssocTable->delete($where);
+        $this->_metasAssocTable->delete($where);
+        $this->_mediasAssocTable->delete($where);
+      }
+      return true;
+      }
 
-	    /**
-	     * Ajoute un item à un question
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Item item Un item
-	     * @param  int queryId Identifiant d'une question
-	     * @return int Identifiant du nouvel item
-	     */
-	    public function addItemIntoQuery( Vo_Item $item, $queryId)
-	    {
-	    	if(!$item->id)
-	    		$item->id = $this->_itemsService->addItem($item);
+      /**
+       * Ajoute un item ÀÜ un question
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Item item Un item
+       * @param  int queryId Identifiant d'une question
+       * @return int Identifiant du nouvel item
+       */
+      public function addItemIntoQuery( Vo_Item $item, $queryId)
+      {
+        if(!$item->id)
+          $item->id = $this->_itemsService->addItem($item);
 
-    		$linkRow = $this->_queriesAssocItemsTable->createRow();
-    		$linkRow->queries_id = $queryId;
-    		$linkRow->items_id = $item->id;
-    		$linkRow->save();
-    		return $item->id;
-	    }
+        $linkRow = $this->_queriesAssocItemsTable->createRow();
+        $linkRow->queries_id = $queryId;
+        $linkRow->items_id = $item->id;
+        $linkRow->save();
+        return $item->id;
+      }
 
-	    /**
-	     * Retire un item d'une question
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int itemId Identifiant d'un item
-	     * @param  int queryId Identifiant d'une question
-	     * @return void
-	     */
-	    public function removeItemFromQuery($itemId, $queryId)
-	    {
-	    	$where = array(
-	    		"queries_id = '" . $queryId . "'",
-	    		"items_id = '" . $itemId . "'",
-	    	);
-	        $this->_queriesAssocItemsTable->delete($where);
-			return true;
-	    }
+      /**
+       * Retire un item d'une question
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int itemId Identifiant d'un item
+       * @param  int queryId Identifiant d'une question
+       * @return void
+       */
+      public function removeItemFromQuery($itemId, $queryId)
+      {
+        $where = array(
+          "queries_id = '" . $queryId . "'",
+          "items_id = '" . $itemId . "'",
+        );
+          $this->_queriesAssocItemsTable->delete($where);
+      return true;
+      }
 
-	    /**
-	     * Ajoute un média à un item
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Media_Abstract media Un média
-	     * @param  int queryId Identifiant d'une question
-	     * @return void
-	     */
-	    public function addMediaIntoQuery( Vo_Media_Abstract $media, $queryId)
-	    {
-	    	if(!$media->id)
-	    		$media->id = $this->_mediasService->addMedia($media);
+      /**
+       * Ajoute un m≈Ωdia ÀÜ un item
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Media_Abstract media Un m≈Ωdia
+       * @param  int queryId Identifiant d'une question
+       * @return void
+       */
+      public function addMediaIntoQuery( Vo_Media_Abstract $media, $queryId)
+      {
+        if(!$media->id)
+          $media->id = $this->_mediasService->addMedia($media);
 
-    		$linkRow = $this->_mediasAssocTable->createRow();
-    		$linkRow->medias_id = $media->id;
-    		$linkRow->mediaType = $media->getType();
-    		$linkRow->assoc_id = $queryId;
-    		$linkRow->assocType = 'Query';
-    		$linkRow->save();
-    		return $media->id;
-	    }
+        $linkRow = $this->_mediasAssocTable->createRow();
+        $linkRow->medias_id = $media->id;
+        $linkRow->mediaType = $media->getType();
+        $linkRow->assoc_id = $queryId;
+        $linkRow->assocType = 'Query';
+        $linkRow->save();
+        return $media->id;
+      }
 
-	    /**
-	     * Retire un média d'un item
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int mediaId Identifiant d'un média
-	     * @param  string mediaType Type du média
-	     * @param  int queryId Identifiant d'une question
-	     * @return void
-	     */
-	    public function removeMediaFromQuery($mediaId, $mediaType, $queryId)
-	    {
-	    	$where = array(
-	    		"medias_id = '" . $mediaId . "'",
-	    		"mediaType = '" . $mediaType. "'",
-	    		"assoc_id = '" . $queryId. "'",
-	    		"assocType = 'Query'"
-	    	);
-	        $this->_mediasAssocTable->delete($where);
-			return true;
-	    }
+      /**
+       * Retire un m≈Ωdia d'un item
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int mediaId Identifiant d'un m≈Ωdia
+       * @param  string mediaType Type du m≈Ωdia
+       * @param  int queryId Identifiant d'une question
+       * @return void
+       */
+      public function removeMediaFromQuery($mediaId, $mediaType, $queryId)
+      {
+        $where = array(
+          "medias_id = '" . $mediaId . "'",
+          "mediaType = '" . $mediaType. "'",
+          "assoc_id = '" . $queryId. "'",
+          "assocType = 'Query'"
+        );
+          $this->_mediasAssocTable->delete($where);
+      return true;
+      }
 
-	    /**
-	     * Ajoute une métadonnées dans le Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Meta meta Un métadonnée
-	     * @param  int voId Identifiant du Value Object
-	     * @return int Identifiant de la nouvelle métadonnée
-	     */
-	    public function addMetaIntoVo( Vo_Meta $meta, $voId)
-	    {
-	        if(!$meta->id)
-	        	$meta->id = $this->_searchService->addMeta($meta);
+      /**
+       * Ajoute une m≈Ωtadonn≈Ωes dans le Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Meta meta Un m≈Ωtadonn≈Ωe
+       * @param  int voId Identifiant du Value Object
+       * @return int Identifiant de la nouvelle m≈Ωtadonn≈Ωe
+       */
+      public function addMetaIntoVo( Vo_Meta $meta, $voId)
+      {
+          if(!$meta->id)
+            $meta->id = $this->_searchService->addMeta($meta);
 
-        	$linkRow = $this->_metasAssocTable->createRow();
-        	$linkRow->metas_id = $meta->id;
-        	$linkRow->assoc_id = $voId;
-        	$linkRow->assocType = 'Query';
-        	$linkRow->save();
-        	return $meta->id;
-	    }
+          $linkRow = $this->_metasAssocTable->createRow();
+          $linkRow->metas_id = $meta->id;
+          $linkRow->assoc_id = $voId;
+          $linkRow->assocType = 'Query';
+          $linkRow->save();
+          return $meta->id;
+      }
 
-	    /**
-	     * Retire une métadonnée du Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int metaId Identifiant d'une métadonnée
-	     * @param  int voId Identifiant du Value Object
-	     * @return void
-	     */
-	    public function removeMetaFromVo($metaId, $voId)
-	    {
-	    	$where = array(
-	    		"metas_id = '" . $metaId . "'",
-	    		"assoc_id = '" . $voId . "'",
-	    		"assocType = 'Query'"
-	    	);
-	        $this->_metasAssocTable->delete($where);
-			return true;
-	    }
+      /**
+       * Retire une m≈Ωtadonn≈Ωe du Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int metaId Identifiant d'une m≈Ωtadonn≈Ωe
+       * @param  int voId Identifiant du Value Object
+       * @return void
+       */
+      public function removeMetaFromVo($metaId, $voId)
+      {
+        $where = array(
+          "metas_id = '" . $metaId . "'",
+          "assoc_id = '" . $voId . "'",
+          "assocType = 'Query'"
+        );
+          $this->_metasAssocTable->delete($where);
+      return true;
+      }
 
-	    /**
-	     * Ajoute un utilisateur dans le Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int voId Identifiant du Value Object
-	     * @return void
-	     */
-	    public function getUserFromVo($voId)
-	    {
-			$queryRow = $this->_queriesTable->find($voId)->current();
-			$userRow = $queryRow->findParentTable_Users();
-			$user = new Vo_User($userRow);
-			return $user;
-	    }
+      /**
+       * Ajoute un utilisateur dans le Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int voId Identifiant du Value Object
+       * @return void
+       */
+      public function getUserFromVo($voId)
+      {
+      $queryRow = $this->_queriesTable->find($voId)->current();
+      $userRow = $queryRow->findParentTable_Users();
+      $user = new Vo_User($userRow);
+      return $user;
+      }
 
-	    /**
-	     * Retire un utilisateur du Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int userId Identifiant d'un utilisateur
-	     * @param  int voId Identifiant du Value Object
-	     * @return void
-	     */
-	    public function setUserOfVo($userId, $voId)
-	    {
-			$queryRow = $this->_queriesTable->find($voId)->current();
-			$queryRow->users_id = $userId;
-			return $queryRow->save();
-	    }
+      /**
+       * Retire un utilisateur du Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int userId Identifiant d'un utilisateur
+       * @param  int voId Identifiant du Value Object
+       * @return void
+       */
+      public function setUserOfVo($userId, $voId)
+      {
+      $queryRow = $this->_queriesTable->find($voId)->current();
+      $queryRow->users_id = $userId;
+      return $queryRow->save();
+      }
 
-	    /**
-	     * Retourne tous les Values Objects du type du service ayant pour
-	     * celui précisé
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int userId Identifiant d'un utilisateur
-	     * @return array
-	     */
-	    public function getVosByUserId($userId)
-	    {
-	    	$select = $this->_queriesTable->select();
-	    	$select->where('users_id = ?', $userId);
+      /**
+       * Retourne tous les Values Objects du type du service ayant pour
+       * celui pr≈Ωcis≈Ω
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int userId Identifiant d'un utilisateur
+       * @return array
+       */
+      public function getVosByUserId($userId)
+      {
+        $select = $this->_queriesTable->select();
+        $select->where('users_id = ?', $userId);
 
-	    	$queries = array();
-			$queriesRowset = $this->_queriesTable->fetchAll($select);
-	        $queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
-	        return $queries;
-	    }
+        $queries = array();
+      $queriesRowset = $this->_queriesTable->fetchAll($select);
+          $queries = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$QUERY_TYPE, $queriesRowset);
+          return $queries;
+      }
 
-	    /**
-	     * Valide ou invalide un Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int voId Identifiant du Value Object
-	     * @param  bool trueOrFalse True pour valide et false pour invalide
-	     * @param  bool all Si true, alors tous les enfants du Value Object seront validés ou invalidés
-	     * @return void
-	     */
-	    public function validateVo($voId, $trueOrFalse, $all = false)
-	    {
-			$queryRow = $this->_queriesTable->find($voId)->current();
-			$queryRow->isValid = $trueOrFalse ? 1 : 0;
-			return $queryRow->save();
-	    }
+      /**
+       * Valide ou invalide un Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int voId Identifiant du Value Object
+       * @param  bool trueOrFalse True pour valide et false pour invalide
+       * @param  bool all Si true, alors tous les enfants du Value Object seront valid≈Ωs ou invalid≈Ωs
+       * @return void
+       */
+      public function validateVo($voId, $trueOrFalse, $all = false)
+      {
+      $queryRow = $this->_queriesTable->find($voId)->current();
+      $queryRow->isValid = $trueOrFalse ? 1 : 0;
+      return $queryRow->save();
+      }
 
-	    /**
-	     * Ajoute une data dans le Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  Vo_Data_Abstract data Une data
-	     * @param  int voId Identifiant du Value Object
-	     * @return int Identifiant de la nouvelle data
-	     */
-	    public function addDataIntoVo( Vo_Data_Abstract $data, $voId)
-	    {
-			if(!$data->id)
-				$data->id = $this->_datasService->addData($data);
-			$linkRow = $this->_datasAssocTable->createRow();
-			$linkRow->datas_id = $data->id;
-			$linkRow->dataType = $data->getType();
-			$linkRow->assoc_id = $voId;
-			$linkRow->assocType = 'Query';
-			$linkRow->save();
-			return $data->id;
-	    }
+      /**
+       * Ajoute une data dans le Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  Vo_Data_Abstract data Une data
+       * @param  int voId Identifiant du Value Object
+       * @return int Identifiant de la nouvelle data
+       */
+      public function addDataIntoVo( Vo_Data_Abstract $data, $voId)
+      {
+      if(!$data->id)
+        $data->id = $this->_datasService->addData($data);
+      $linkRow = $this->_datasAssocTable->createRow();
+      $linkRow->datas_id = $data->id;
+      $linkRow->dataType = $data->getType();
+      $linkRow->assoc_id = $voId;
+      $linkRow->assocType = 'Query';
+      $linkRow->save();
+      return $data->id;
+      }
 
-	    /**
-	     * Retire une data du Value Object
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  int dataId Identifaint d'une data
-	     * @param  string dataType Type de la data
-	     * @param  int voId Identifiant du Value Object
-	     * @return void
-	     */
-	    public function removeDataFromVo($dataId, $dataType, $voId)
-	    {
-			$this->_datasAssocTable->delete("datas_id = '" . $dataId . "' AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = '" . $voId . "' AND assocType = 'Query'");
-			return true;
-	    }
+      /**
+       * Retire une data du Value Object
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  int dataId Identifaint d'une data
+       * @param  string dataType Type de la data
+       * @param  int voId Identifiant du Value Object
+       * @return void
+       */
+      public function removeDataFromVo($dataId, $dataType, $voId)
+      {
+      $this->_datasAssocTable->delete("datas_id = '" . $dataId . "' AND dataType = " . $this->_datasAssocTable->getAdapter()->quote($dataType) . " AND assoc_id = '" . $voId . "' AND assocType = 'Query'");
+      return true;
+      }
 
-	} /* end of class Service_Queries */
+  } /* end of class Service_Queries */

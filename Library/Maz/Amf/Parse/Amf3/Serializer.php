@@ -255,7 +255,7 @@ class Maz_Amf_Parse_Amf3_Serializer extends Maz_Amf_Parse_Serializer
         switch (true) {
              // the return class mapped name back to actionscript class name.
             case ($className = Maz_Amf_Parse_TypeLoader::getMappedClassName(get_class($object))):
-            	$moreMappedFields = Maz_Amf_Parse_TypeLoader::getMoreMappedFields(get_class($object));
+              $moreMappedFields = Maz_Amf_Parse_TypeLoader::getMoreMappedFields(get_class($object));
                 break;
 
             // Check to see if the user has defined an explicit Action Script type.

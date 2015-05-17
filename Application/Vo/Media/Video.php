@@ -1,89 +1,89 @@
 <?php
 
-	/**
-	 * ValueObject d'un média vidéo
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
+  /**
+   * ValueObject d'un m≈Ωdia vid≈Ωo
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
 
-	/**
-	 * Classe d'abstract de ValueObject des médias
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Abstract.php');
+  /**
+   * Classe d'abstract de ValueObject des m≈Ωdias
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Abstract.php');
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * ValueObject d'un média vidéo
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Vo
-	 * @subpackage Media
-	 */
-	class Vo_Media_Video extends Vo_Media_Abstract
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * ValueObject d'un m≈Ωdia vid≈Ωo
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Vo
+   * @subpackage Media
+   */
+  class Vo_Media_Video extends Vo_Media_Abstract
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    /**
-	     * Url de la vidéo
-	     *
-	     * @access public
-	     * @var string
-	     */
-	    public $url = '';
+      /**
+       * Url de la vid≈Ωo
+       *
+       * @access public
+       * @var string
+       */
+      public $url = '';
 
-	    /**
-	     * Largeur de la vidéo
-	     *
-	     * @access public
-	     * @var float
-	     */
-	    public $width = 0.0;
+      /**
+       * Largeur de la vid≈Ωo
+       *
+       * @access public
+       * @var float
+       */
+      public $width = 0.0;
 
-	    /**
-	     * Hauteur de la vidéo
-	     *
-	     * @access public
-	     * @var float
-	     */
-	    public $height = 0.0;
+      /**
+       * Hauteur de la vid≈Ωo
+       *
+       * @access public
+       * @var float
+       */
+      public $height = 0.0;
 
-	    /**
-	     * Temps total de la vidéo (en seconde)
-	     *
-	     * @access public
-	     * @var int
-	     */
-	    public $totalTime = 0;
+      /**
+       * Temps total de la vid≈Ωo (en seconde)
+       *
+       * @access public
+       * @var int
+       */
+      public $totalTime = 0;
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	    /**
-	     * Constructeur de la classe
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @param  mixed video array|object|Zend_Db_Table_Row_Abstract object permettant de remplire l'instance
-	     * @return mixed
-	     */
-	    public function __construct($video = array())
-	    {
-	    	parent::__construct($video);
-	    }
+      /**
+       * Constructeur de la classe
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @param  mixed video array|object|Zend_Db_Table_Row_Abstract object permettant de remplire l'instance
+       * @return mixed
+       */
+      public function __construct($video = array())
+      {
+        parent::__construct($video);
+      }
 
-	    public function getType()
-	    {
-	    	return 'Video';
-	    }
+      public function getType()
+      {
+        return 'Video';
+      }
 
-	} /* end of class Vo_Media_Video */
+  } /* end of class Vo_Media_Video */

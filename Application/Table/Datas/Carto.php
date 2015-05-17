@@ -1,95 +1,95 @@
 <?php
 
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 * @subpackage Datas
-	 */
+  /**
+   * Class for SQL table interface.
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   * @subpackage Datas
+   */
 
-	/**
-	 * Interface de table de datas
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 */
-	require_once(dirname(__FILE__) . '/Interface.php');
-
-
-	/* user defined includes */
-
-	/* user defined constants */
-
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 * @subpackage Datas
-	 */
-	class Table_Datas_Carto extends Zend_Db_Table_Abstract implements Table_Datas_Interface
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Interface de table de datas
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   */
+  require_once(dirname(__FILE__) . '/Interface.php');
 
 
-	    // --- ATTRIBUTES ---
+  /* user defined includes */
 
-	    /**
-	     * Table Name
-	     *
-	     * @access protected
-	     * @var string
-	     */
-	    protected $_name = 'datas_carto';
+  /* user defined constants */
 
-	    /**
-	     * The primary key column or columns.
-	     * A compound key should be declared as an array.
-	     * You may declare a single-column primary key
-	     * as a string.
-	     *
-	     * @access protected
-	     * @var mixed
-	     */
-	    protected $_primary = 'id';
+  /**
+   * Class for SQL table interface.
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   * @subpackage Datas
+   */
+  class Table_Datas_Carto extends Zend_Db_Table_Abstract implements Table_Datas_Interface
+  {
+      // --- ASSOCIATIONS ---
 
-		/**
-	     * Retourne le type des datas de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-	    public function getDataType()
-	    {
-	    	return 'Carto';
-	    }
 
-		/**
-	     * Retourne le type des Value Object de datas de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-	    public function getDataVoClass()
-	    {
-	    	return 'Carto';
-	    }
+      // --- ATTRIBUTES ---
 
-		/**
-	     * Retourne le nom de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-		public function getTableName()
-		{
-			return $this->_name;
-		}
+      /**
+       * Table Name
+       *
+       * @access protected
+       * @var string
+       */
+      protected $_name = 'datas_carto';
 
-	    // --- OPERATIONS ---
+      /**
+       * The primary key column or columns.
+       * A compound key should be declared as an array.
+       * You may declare a single-column primary key
+       * as a string.
+       *
+       * @access protected
+       * @var mixed
+       */
+      protected $_primary = 'id';
 
-	} /* end of class Table_Datas_Carto */
+    /**
+       * Retourne le type des datas de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+      public function getDataType()
+      {
+        return 'Carto';
+      }
+
+    /**
+       * Retourne le type des Value Object de datas de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+      public function getDataVoClass()
+      {
+        return 'Carto';
+      }
+
+    /**
+       * Retourne le nom de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+    public function getTableName()
+    {
+      return $this->_name;
+    }
+
+      // --- OPERATIONS ---
+
+  } /* end of class Table_Datas_Carto */

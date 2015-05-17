@@ -131,8 +131,8 @@ final class Maz_Amf_Parse_TypeLoader
      */
     public static function setMapping($asClassName, $phpClassName, $moreMappedFields)
     {
-    	if(!is_null($moreMappedFields))
-    		self::$moreMappedFields[$phpClassName] = $moreMappedFields;
+      if(!is_null($moreMappedFields))
+        self::$moreMappedFields[$phpClassName] = $moreMappedFields;
         self::$classMap[$asClassName] = $phpClassName;
     }
 

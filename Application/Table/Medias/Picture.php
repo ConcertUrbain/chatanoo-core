@@ -1,104 +1,104 @@
 <?php
 
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 * @subpackage Medias
-	 */
+  /**
+   * Class for SQL table interface.
+   *
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   * @subpackage Medias
+   */
 
-	/* user defined includes */
+  /* user defined includes */
 
-	/* user defined constants */
+  /* user defined constants */
 
-	/**
-	 * Class for SQL table interface.
-	 *
-	 * @access public
-	 * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	 * @package Table
-	 * @subpackage Medias
-	 */
-	class Table_Medias_Picture extends Zend_Db_Table_Abstract implements Table_Medias_Interface
-	{
-	    // --- ASSOCIATIONS ---
+  /**
+   * Class for SQL table interface.
+   *
+   * @access public
+   * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+   * @package Table
+   * @subpackage Medias
+   */
+  class Table_Medias_Picture extends Zend_Db_Table_Abstract implements Table_Medias_Interface
+  {
+      // --- ASSOCIATIONS ---
 
 
-	    // --- ATTRIBUTES ---
+      // --- ATTRIBUTES ---
 
-	    /**
-	     * Table Name
-	     *
-	     * @access protected
-	     * @var string
-	     */
-	    protected $_name = 'medias_picture';
+      /**
+       * Table Name
+       *
+       * @access protected
+       * @var string
+       */
+      protected $_name = 'medias_picture';
 
-	    /**
-	     * The primary key column or columns.
-	     * A compound key should be declared as an array.
-	     * You may declare a single-column primary key
-	     * as a string.
-	     *
-	     * @access protected
-	     * @var mixed
-	     */
-	    protected $_primary = 'id';
+      /**
+       * The primary key column or columns.
+       * A compound key should be declared as an array.
+       * You may declare a single-column primary key
+       * as a string.
+       *
+       * @access protected
+       * @var mixed
+       */
+      protected $_primary = 'id';
 
-	    /**
-	     * Simple array of class names of tables that are "children" of the current
-	     * table, in other words tables that contain a foreign key to this one.
-	     * Array elements are not table names; they are class names of classes that
-	     * extend Zend_Db_Table_Abstract.
-	     *
-	     * @access protected
-	     * @var array
-	     */
-	    protected $_referenceMap = array(
-	    	'auteur' => array(
-	    		'columns'		=> 'users_id',
-	    		'refTableClass'	=> 'Table_Users',
-	    		'refColumns'	=> 'id'
-	    	)
-	    );
+      /**
+       * Simple array of class names of tables that are "children" of the current
+       * table, in other words tables that contain a foreign key to this one.
+       * Array elements are not table names; they are class names of classes that
+       * extend Zend_Db_Table_Abstract.
+       *
+       * @access protected
+       * @var array
+       */
+      protected $_referenceMap = array(
+        'auteur' => array(
+          'columns'    => 'users_id',
+          'refTableClass'  => 'Table_Users',
+          'refColumns'  => 'id'
+        )
+      );
 
-		/**
-	     * Retourne le type des datas de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-	    public function getMediaType()
-	    {
-	    	return 'Picture';
-	    }
+    /**
+       * Retourne le type des datas de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+      public function getMediaType()
+      {
+        return 'Picture';
+      }
 
-		/**
-	     * Retourne le type des Value Object de datas de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-	    public function getMediaVoClass()
-	    {
-	    	return 'Picture';
-	    }
+    /**
+       * Retourne le type des Value Object de datas de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+      public function getMediaVoClass()
+      {
+        return 'Picture';
+      }
 
-		/**
-	     * Retourne le nom de la table
-	     *
-	     * @access public
-	     * @author Mathieu Desvé, <mathieu.desve@unflux.fr>
-	     * @return string
-	     */
-		public function getTableName()
-		{
-			return $this->_name;
-		}
+    /**
+       * Retourne le nom de la table
+       *
+       * @access public
+       * @author Mathieu Desv≈Ω, <mathieu.desve@unflux.fr>
+       * @return string
+       */
+    public function getTableName()
+    {
+      return $this->_name;
+    }
 
-	    // --- OPERATIONS ---
+      // --- OPERATIONS ---
 
-	} /* end of class Table_Medias_Picture */
+  } /* end of class Table_Medias_Picture */

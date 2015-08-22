@@ -132,10 +132,10 @@
             $select->limit($options['limit'][0], $options['limit'][1]);
             $usersRowset = $this->_usersTable->fetchAll($select);
         }
-          $usersRowset = $this->_usersTable->fetchAll($select);
-      if($usersRowset->count())
+        $usersRowset = $this->_usersTable->fetchAll($select);
+        if($usersRowset->count())
             $users = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$USER_TYPE, $usersRowset);
-          return $users;
+        return $users;
       }
 
       /**
@@ -149,11 +149,11 @@
       public function getUserById($userId)
       {
         $user = null;
-        
+
         $select = $this->_usersTable->select();
         $select->where('id = ?', $userId);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-  
+
           $userRow = $this->_usersTable->fetchRow($select);
         if(!is_null($userRow))
             $user = Vo_Factory::getInstance()->factory(Vo_Factory::$USER_TYPE, $userRow);
@@ -172,7 +172,7 @@
       public function getUserByLogin($login, $pass)
       {
         $user = null;
-        
+
         $select = $this->_usersTable->select();
         $select->where("pseudo = ?", $login)
             ->where("password = ?", sha1($pass))
@@ -218,7 +218,7 @@
         $select = $this->_usersTable->select();
         $select->where('id = ?', $user->id);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-        
+
           $userRow = $this->_usersTable->fetchRow($select);
         $userRowArray = $user->toRowArray();
       foreach($userRowArray as $key=>$value)
@@ -230,7 +230,7 @@
       $userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
       return $userRow->save();
       }
-  
+
     /**
        * Modifie le mot de passe de l'utilisateur dans la base de donnŽes
        *
@@ -245,7 +245,7 @@
         $select = $this->_usersTable->select();
         $select->where('id = ?', $userId);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-        
+
           $userRow = $this->_usersTable->fetchRow($select);
       $userRow->password = sha1($password);
       $userRow->setDate = Zend_Date::now()->toString('YYYY.MM.dd HH:mm:ss');
@@ -281,7 +281,7 @@
         $select = $this->_usersTable->select();
         $select->where('id = ?', $userId);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-        
+
           $userRow = $this->_usersTable->fetchRow($select);
       $userRow->isBan = $trueOrFalse ? 1 : 0;
       return $userRow->save();
@@ -300,7 +300,7 @@
     {
         if(!$meta->id)
           $meta->id = $this->_searchService->addMeta($meta);
-        
+
         $linkRow = $this->_metasAssocTable->createRow();
         $linkRow->metas_id = $meta->id;
         $linkRow->assoc_id = $voId;
@@ -308,7 +308,7 @@
         $linkRow->save();
         return $meta->id;
     }
-        
+
     /**
      * Retire une mŽtadonnŽe du Value Object
      *

@@ -26,6 +26,7 @@
 
         $server = $this->getAmfServer($this->_serviceName);
         $result = $server->handle();
+        var_dump($server->getResponse()->getResult());
 
         if(in_array($server->getRequest()->getMethod(), $this->_notifyActions))
           $this->_notify($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
@@ -221,16 +222,16 @@
 
         $server = new Zend_Json_Server();
         $server->setClass($service);
-      $server->setProduction(APPLICATION_ENV == 'production');
+        $server->setProduction(APPLICATION_ENV == 'production');
 
-      $params = $server->getRequest()->getParams();
-      $params = $this->_jsonToTatVo($params);
-          if(!is_array($params))
-            $params = array_values($params);
+        $params = $server->getRequest()->getParams();
+        $params = $this->_jsonToTatVo($params);
+        if(!is_array($params))
+          $params = array_values($params);
 
-          $server->getRequest()->setParams($params);
+        $server->getRequest()->setParams($params);
 
-      return $server;
+        return $server;
       }
 
       protected function _jsonToTatVo($params)

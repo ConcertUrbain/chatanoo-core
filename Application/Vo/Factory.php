@@ -127,9 +127,9 @@
       // remove password information
       if( isset($vo['password']) )
         $vo['password'] = null;
-    
-          $className = 'Vo_' . $type;
-          return new $className($vo);
+
+        $className = 'Vo_' . $type;
+        return new $className($vo);
       }
 
   } /* end of class Vo_Factory */

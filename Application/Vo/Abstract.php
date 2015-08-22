@@ -47,32 +47,32 @@
       {
         if($vo instanceof Zend_Db_Table_Row_Abstract)
           $vo = $vo->toArray();
-      
+
         if(is_string($vo) && preg_match('/^\{("(\\.|[^"\\\n\r])*?"|[,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t])+?\}$/', $vo))
           $vo = Zend_Json_Decoder::decode($vo, Zend_Json::TYPE_ARRAY);
-          
-          if(is_array($vo))
-          {
-        foreach($vo as $key=>$value)
+
+        if(is_array($vo))
         {
-          $key = $this->_getKey($key);
-          if($key)
-            $this->$key = $value;
-        }
-          }
-          elseif(is_object($vo))
+          foreach($vo as $key=>$value)
           {
-        foreach($vo as $key=>$value)
+            $key = $this->_getKey($key);
+            if($key)
+              $this->$key = $value;
+          }
+        }
+        elseif(is_object($vo))
         {
-          $key = $this->_getKey($key);
-          if($key)
-            $this->$key = $value;
-        }
-          }
-          else
+          foreach($vo as $key=>$value)
           {
-            throw new Vo_Exception('Invalide type of comment parameter in contructor.', 3);
+            $key = $this->_getKey($key);
+            if($key)
+              $this->$key = $value;
           }
+        }
+        else
+        {
+          throw new Vo_Exception('Invalide type of comment parameter in contructor.', 3);
+        }
       }
 
       protected function _getKey($key)
@@ -113,7 +113,7 @@
 
           foreach($this as $key=>$value)
           {
-            switch($key) 
+            switch($key)
             {
               case 'id':
                 if($value != 0)
@@ -128,7 +128,7 @@
 
           return (array) $returnValue;
       }
-      
+
 
      /**
        * Converti le Value Object en JSON
@@ -141,6 +141,10 @@
       {
         $arr = $this->toArray();
         $arr['__className'] = get_class($this);
+        foreach ($arr as $key => $value) {
+          if (is_string($value))
+            $arr[$key] = utf8_encode($value);
+        }
         return json_encode($arr);
       }
 

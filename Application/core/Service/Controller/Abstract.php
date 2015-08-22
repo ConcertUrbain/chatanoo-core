@@ -29,7 +29,7 @@
 
         if(in_array($server->getRequest()->getMethod(), $this->_notifyActions))
           $this->_notify($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
-        $this->_logs($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
+        // $this->_logs($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
 
         echo $result;
         exit;
@@ -48,7 +48,7 @@
 
         if(in_array($server->getRequest()->getMethod(), $this->_notifyActions))
           $this->_notify($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
-        $this->_logs($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
+        // $this->_logs($server->getRequest()->getMethod(), Zend_Json::encode($server->getRequest()->getParams()), $server->getResponse()->getResult());
 
         echo $result;
         exit;

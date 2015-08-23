@@ -235,11 +235,11 @@
       public function getItemById($itemId)
       {
         $item = null;
-        
+
         $select = $this->_itemsTable->select();
         $select->where('id = ?', $itemId);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-        
+
           $itemRow = $this->_itemsTable->fetchRow($select);
         if(!is_null($itemRow) && $itemRow)
             $item = Vo_Factory::getInstance()->factory(Vo_Factory::$ITEM_TYPE, $itemRow);
@@ -257,11 +257,11 @@
       public function getItemsByQueryId($queryId)
       {
         $items = array();
-        
+
           $queryRow = $this->_queriesTable->find($queryId)->current();
           if(!$queryRow)
             return array();
-          
+
           $sessionsRowset = $queryRow->findManyToManyRowset('Table_Sessions', 'Table_SessionsAssocQueries');
           if($sessionsRowset->count())
           {
@@ -273,10 +273,10 @@
             }
             if(!$flag)
               return array();
-          }   
+          }
           else
             return array();
-            
+
       $itemsRowset = $queryRow->findManyToManyRowset('Table_Items', 'Table_QueriesAssocItems');
       if($itemsRowset->count())
             $items = Vo_Factory::getInstance()->rowsetToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRowset);
@@ -294,7 +294,7 @@
       public function getItemsByMetaId($metaId)
       {
         $items = array();
-        
+
           $select = Zend_Registry::get('db')->select();
         $table = 'items';
       $select->from('metas_assoc', null)
@@ -307,7 +307,7 @@
             $items = Vo_Factory::getInstance()->rowsToVoArray(Vo_Factory::$ITEM_TYPE, $itemsRows);
           return $items;
       }
-  
+
     /**
        * Retourne tous les items contenant un mŽdia
        *
@@ -318,9 +318,9 @@
        * @return array
        */
       public function getItemsByMediaId($mediaId, $mediaType)
-      {    
+      {
         $items = array();
-        
+
           $select = Zend_Registry::get('db')->select();
         $table = 'items';
       $select->from('medias_assoc', null)
@@ -366,7 +366,7 @@
         $select = $this->_itemsTable->select();
         $select->where('id = ?', $item->id);
         $select->where('sessions_id = ?', Zend_Registry::get('sessionID'));
-        
+
           $itemRow = $this->_itemsTable->fetchRow($select);
         $itemRowArray = $item->toRowArray();
       foreach($itemRowArray as $key=>$value)
@@ -471,7 +471,6 @@
       {
         if(!$media->id)
           $media->id = $this->_mediasService->addMedia($media);
-
         $linkRow = $this->_mediasAssocTable->createRow();
         $linkRow->medias_id = $media->id;
         $linkRow->mediaType = $media->getType();
@@ -675,7 +674,7 @@
         $cache = Zend_Registry::get('cache');
         $key = 'item_'.$itemId.'_rate';
         $value = $cache->load($key);
-        if($value) 
+        if($value)
         {
           return $value;
         }

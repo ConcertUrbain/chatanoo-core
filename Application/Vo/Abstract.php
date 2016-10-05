@@ -143,7 +143,7 @@
         $arr['__className'] = get_class($this);
         foreach ($arr as $key => $value) {
           if (is_string($value))
-            $arr[$key] = $value;
+            $arr[$key] = utf8_encode($value);
         }
         return json_encode($arr);
       }

@@ -1,0 +1,634 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Chatanoo Core
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: General Configuration
+        Parameters: ["ProjectName", "CreateDNSRecord", "DeploymentBucket"]
+      - Label:
+          default: Advanced Configuration
+        Parameters: ["CoreApplicationKey", "CoreDBSchemaKey"]
+      - Label:
+          default: DNS Configuration
+        Parameters: ["DomainName", "SubDomainName", "VPCId", "EC2KeyName", "Route53HostedZone"]
+      - Label:
+          default: Custom Resources Configuration
+        Parameters: ["PasswordGeneratorLambda", "SQLRequestLambda"]
+
+Parameters:
+  ProjectName:
+    Type: String
+  CreateDNSRecord:
+    Type: String
+    AllowedValues: ["true", "false"]
+    Default: "false"
+  DeploymentBucket:
+    Description: Name of Chatanoo Deployment Bucket
+    Type: String
+    Default: chatanoo-deployment
+
+  CoreApplicationKey:
+    Type: String
+    Default: core/application/1.0.0.zip
+  CoreDBSchemaKey:
+    Type: String
+    Default: core/database/1.0.0.zip
+
+  DomainName:
+    Description: Domain Name of the website
+    Type: String
+  SubDomainName:
+    Description: Subdomain Name of the website
+    Type: String
+  VPCId:
+    Description: AWS VPC ID
+    Type: AWS::EC2::VPC::Id
+  CidrPrefix:
+    Type: String
+    Default: '10.0.3'
+  EC2KeyName:
+    Description: EC2 KeyName
+    Type: AWS::EC2::KeyPair::KeyName
+  Route53HostedZone:
+    Description: AWS Route53 HostedZone ID of the domain
+    Type: AWS::Route53::HostedZone::Id
+  PrivateRouteTable:
+    Type: String
+  PublicRouteTable:
+    Type: String
+  InstanceSecurityGroup:
+    Type: String
+
+  PasswordGeneratorLambda:
+    Description: Lambda for the Password Generator Custom Resource
+    Type: String
+    Default: aws-cloudformation-password-generator-1-0-0"
+  SQLRequestLambda:
+    Description: Lambda for the SQL Request Custom Resource
+    Type: String
+    Default: aws-cloudformation-sql-request-1-0-0"
+
+# Mappings
+
+Conditions:
+  UseDNSRecord: !Equals [!Ref CreateDNSRecord, "true"]
+
+Resources:
+
+  #############
+  # Memcached #
+  #############
+
+  MemcachedSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.0/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  MemcachedSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MemcachedSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+
+  MemcachedSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.32/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  MemcachedSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref MemcachedSubnet2
+      RouteTableId: !Ref PrivateRouteTable
+
+  MemcachedNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  InboundMemcachedNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref MemcachedNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.128/26" # CoreSubnets Cidr
+      PortRange:
+        From: 11211
+        To: 11211
+
+  OutboundMemcachedNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref MemcachedNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+
+  MemcachedSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref MemcachedSubnet1
+      NetworkAclId: !Ref MemcachedNetworkAcl
+
+  MemcachedSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref MemcachedSubnet2
+      NetworkAclId: !Ref MemcachedNetworkAcl
+
+  MemcachedClientSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Chatanoo Memcached Client SecurityGroup
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  MemcachedClusterSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Chatanoo Memcached Cluster SecurityGroup
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  MemcachedClusterIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupName: !Ref MemcachedClusterSecurityGroup
+      IpProtocol: tcp
+      ToPort: 11211
+      FromPort: 11211
+      SourceSecurityGroupName: !Ref MemcachedClientSecurityGroup
+
+  MemcachedParameters:
+    Type: AWS::ElastiCache::ParameterGroup
+    Properties:
+      Description: Chatanoo memcached params
+      CacheParameterGroupFamily: memcached1.4
+      Properties:
+        cas_disabled: '1'
+
+  MemcachedSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      Description: Chatanoo memcached subnet group
+      SubnetIds:
+        - !Ref MemcachedSubnet1
+        - !Ref MemcachedSubnet2
+
+  MemcachedCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      AZMode: single-az
+      CacheNodeType: cache.t2.micro
+      Port: '11211'
+      CacheParameterGroupName: !Ref MemcachedParameters
+      VpcSecurityGroupIds:
+        - !Ref MemcachedClusterSecurityGroup
+      CacheSubnetGroupName: !Ref MemcachedSubnetGroup
+      Engine: memcached
+      EngineVersion: 1.4.14
+      NumCacheNodes: '1'
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  #######
+  # RDS #
+  #######
+
+  RDSSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.64/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref RDSSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+
+  RDSSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.96/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref RDSSubnet2
+      RouteTableId: !Ref PrivateRouteTable
+
+  RDSNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  InboundRDSNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref RDSNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.128/26" # CoreSubnets Cidr
+      PortRange:
+        From: 3306
+        To: 3306
+
+  OutboundRDSNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref RDSNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+
+  RDSSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref RDSSubnet1
+      NetworkAclId: !Ref RDSNetworkAcl
+
+  RDSSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref RDSSubnet2
+      NetworkAclId: !Ref RDSNetworkAcl
+
+  RDSSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: Chatano RDS SubnetGroup
+      SubnetIds:
+        - !Ref RDSSubnet1
+        - !Ref RDSSubnet2
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSClientSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Chatanoo RDS Client SecurityGroup
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Chatanoo RDS Cluster SecurityGroup
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSInstanceIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupName: !Ref RDSInstanceSecurityGroup
+      IpProtocol: tcp
+      ToPort: 3306
+      FromPort: 3306
+      SourceSecurityGroupName: !Ref RDSClientSecurityGroup
+
+  RDSDBParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: Chatanoo RDS ParameterGroup
+      Family: mysql5.6
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  RDSDBOptionGroup:
+    Type: AWS::RDS::OptionGroup
+    Properties:
+      EngineName: mysql
+      MajorEngineVersion: 5.6
+      OptionGroupDescription: Chatanoo RDS OptionGroup
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  DBUsername:
+    Type: Custom::Password
+    Version: 1.0
+    Properties:
+      ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref PasswordGeneratorLambda]]
+      Memorable: true
+
+  DBPassword:
+    Type: Custom::Password
+    Version: 1.0
+    Properties:
+      ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref PasswordGeneratorLambda]]
+      Strong: true
+
+  RDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 5
+      AutoMinorVersionUpgrade: true
+      AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
+      BackupRetentionPeriod: 7
+      DBInstanceClass: db.t2.micro
+      DBParameterGroupName: !Ref RDSDBParameterGroup
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+      Engine: mysql
+      EngineVersion: 5.6.22
+      Iops: Number
+      DBName: chatanoo
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      MultiAZ: false
+      OptionGroupName: !Ref RDSDBOptionGroup
+      Port: '3306'
+      PubliclyAccessible: false
+      StorageEncrypted: false
+      StorageType: standard
+      VPCSecurityGroups:
+        - !Ref RDSInstanceSecurityGroup
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  DatabaseSchema:
+    Type: Custom::SQLRequest
+    Version: 1.0
+    Properties:
+      ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref SQLRequestLambda]]
+      Host: !GetAtt RDSInstance.Endpoint.Address
+      Port: !GetAtt RDSInstance.Endpoint.Port
+      User: !Ref DBUsername
+      Password: !Ref DBPassword
+      Database: chatanoo
+      Engine: mysql
+      Request:
+        Bucket: !Ref DeploymentBucket
+        Key: !Ref CoreDBSchemaKey
+
+  ###############
+  # Application #
+  ###############
+
+  CoreSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.128/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  CoreSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref CoreSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+
+  CoreSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.160/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  CoreSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref CoreSubnet2
+      RouteTableId: !Ref PrivateRouteTable
+
+  CorePublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.192/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  CorePublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref CorePublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+
+  CorePublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCId
+      CidrBlock: !Sub "${CidrPrefix}.224/27"
+      MapPublicIpOnLaunch: false
+      AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  CorePublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref CorePublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  CoreApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      Description: Chatanoo Core
+
+  CoreApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName: !Ref CoreApplication
+      Description: Chatanoo Core Application Version
+      SourceBundle:
+        S3Bucket: !Ref DeploymentBucket
+        S3Key: !Ref CoreApplicationKey
+
+  CoreConfigurationTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName: !Ref CoreApplication
+      Description: Chatanoo Core Configuration Template
+      SolutionStackName: 64bit Amazon Linux 2015.03 v1.3.2 running PHP 5.6
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: aws:autoscaling:asg
+          OptionName: MinSize
+          Value: '1'
+        - Namespace: aws:autoscaling:asg
+          OptionName: MaxSize
+          Value: '1'
+
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: EC2KeyName
+          Value: !Ref EC2KeyName
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: InstanceType
+          Value: t1.micro
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: SecurityGroups
+          Value: !Join [',', [!Ref MemcachedClientSecurityGroup, !Ref RDSClientSecurityGroup, !Ref InstanceSecurityGroup]]
+        - Namespace: aws:ec2:vpc
+          OptionName: VPCId
+          Value: !Ref VPCId
+        - Namespace: aws:ec2:vpc
+          OptionName: Subnets
+          Value: !Join [',', [!Ref CoreSubnet1, !Ref CoreSubnet2]]
+        - Namespace: aws:ec2:vpc
+          OptionName: ELBSubnets
+          Value: !Join [',', [!Ref CorePublicSubnet1, !Ref CorePublicSubnet2]]
+
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: APPLICATION_ENV
+          Value: production
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: DATABASE_HOST
+          Value: !GetAtt RDSInstance.Endpoint.Address
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: DATABASE_NAME
+          Value: chatanoo
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: DATABASE_PASS
+          Value: !Ref DBPassword
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: DATABASE_USER
+          Value: !Ref DBUsername
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: MEMCACHED_HOST
+          Value: !GetAtt MemcachedCluster.ConfigurationEndpoint.Address
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: MEMCACHED_PORT
+          Value: !GetAtt MemcachedCluster.ConfigurationEndpoint.Port
+
+  CoreEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref CoreApplication
+      Description: Chatanoo Core Environment
+      TemplateName: !Ref CoreConfigurationTemplate
+      VersionLabel: !Ref CoreApplicationVersion
+      Tags:
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  CoreDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref Route53HostedZone
+      Comment: !Join [' - ', [!Ref ProjectName, Public DNS Record for Core]]
+      Name: !Join ['', [!Ref SubDomainName, '.', !Ref DomainName, '.']]
+      Type: CNAME
+      TTL: '300'
+      ResourceRecords:
+        - !GetAtt CoreEnvironment.EndpointURL
+    Condition: UseDNSRecord
+
+Outputs:
+  Url:
+    Value: !If
+      - UseDNSRecord
+      - !Join ['', ['https://', !Ref CoreDNSRecord]]
+      - !Join ['', ['https://', !GetAtt CoreEnvironment.EndpointURL]]

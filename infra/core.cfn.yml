@@ -60,6 +60,8 @@ Parameters:
     Type: String
   InstanceSecurityGroup:
     Type: String
+  ResourceSecurityGroup:
+    Type: String
 
   PasswordGeneratorLambda:
     Description: Lambda for the Password Generator Custom Resource
@@ -89,6 +91,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano MemcachedSubnet1 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -108,6 +112,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano MemcachedSubnet2 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -124,6 +130,8 @@ Resources:
     Properties:
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano MemcachedNetworkAcl (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -142,6 +150,19 @@ Resources:
         From: 11211
         To: 11211
 
+  InboundEmphemeralMemcachedNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref MemcachedNetworkAcl
+      RuleNumber: 200
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.128/26" # CoreSubnets Cidr
+      PortRange:
+        From: 1024
+        To: 65535
+
   OutboundMemcachedNetworkAclEntry:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -149,7 +170,7 @@ Resources:
       RuleNumber: 100
       Protocol: 6
       RuleAction: allow
-      Egress: false
+      Egress: true
       CidrBlock: 0.0.0.0/0
       PortRange:
         From: 0
@@ -173,6 +194,8 @@ Resources:
       GroupDescription: Chatanoo Memcached Client SecurityGroup
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano MemcachedClientSecurityGroup (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -184,6 +207,8 @@ Resources:
       GroupDescription: Chatanoo Memcached Cluster SecurityGroup
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano MemcachedClusterSecurityGroup (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -192,11 +217,11 @@ Resources:
   MemcachedClusterIngress:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
-      GroupName: !Ref MemcachedClusterSecurityGroup
+      GroupId: !Ref MemcachedClusterSecurityGroup
       IpProtocol: tcp
       ToPort: 11211
       FromPort: 11211
-      SourceSecurityGroupName: !Ref MemcachedClientSecurityGroup
+      SourceSecurityGroupId: !Ref MemcachedClientSecurityGroup
 
   MemcachedParameters:
     Type: AWS::ElastiCache::ParameterGroup
@@ -245,6 +270,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano RDSSubnet1 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -264,6 +291,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano RDSSubnet2 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -280,6 +309,8 @@ Resources:
     Properties:
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano RDSNetworkAcl (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -298,6 +329,19 @@ Resources:
         From: 3306
         To: 3306
 
+  InboundEmphemeralRDSNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref RDSNetworkAcl
+      RuleNumber: 200
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.128/26" # CoreSubnets Cidr
+      PortRange:
+        From: 1024
+        To: 65535
+
   OutboundRDSNetworkAclEntry:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -305,7 +349,7 @@ Resources:
       RuleNumber: 100
       Protocol: 6
       RuleAction: allow
-      Egress: false
+      Egress: true
       CidrBlock: 0.0.0.0/0
       PortRange:
         From: 0
@@ -342,6 +386,8 @@ Resources:
       GroupDescription: Chatanoo RDS Client SecurityGroup
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano RDSClientSecurityGroup (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -353,6 +399,8 @@ Resources:
       GroupDescription: Chatanoo RDS Cluster SecurityGroup
       VpcId: !Ref VPCId
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano RDSInstanceSecurityGroup (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -361,11 +409,20 @@ Resources:
   RDSInstanceIngress:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
-      GroupName: !Ref RDSInstanceSecurityGroup
+      GroupId: !Ref RDSInstanceSecurityGroup
       IpProtocol: tcp
       ToPort: 3306
       FromPort: 3306
-      SourceSecurityGroupName: !Ref RDSClientSecurityGroup
+      SourceSecurityGroupId: !Ref RDSClientSecurityGroup
+
+  RDSLambdaResourceIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref RDSInstanceSecurityGroup
+      IpProtocol: tcp
+      ToPort: 3306
+      FromPort: 3306
+      SourceSecurityGroupId: !Ref ResourceSecurityGroup
 
   RDSDBParameterGroup:
     Type: AWS::RDS::DBParameterGroup
@@ -416,7 +473,6 @@ Resources:
       DBSubnetGroupName: !Ref RDSSubnetGroup
       Engine: mysql
       EngineVersion: 5.6.22
-      Iops: Number
       DBName: chatanoo
       MasterUsername: !Ref DBUsername
       MasterUserPassword: !Ref DBPassword
@@ -461,6 +517,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano CoreSubnet1 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -480,6 +538,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano CoreSubnet2 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -491,6 +551,82 @@ Resources:
       SubnetId: !Ref CoreSubnet2
       RouteTableId: !Ref PrivateRouteTable
 
+  CoreNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: Name
+          Value: !Sub "Chatano CoreNetworkAcl (${ProjectName})"
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  InboundHTTPCoreNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CoreNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.192/26" # CorePublicSubnets Cidr
+      PortRange:
+        From: 80
+        To: 80
+
+  InboundHTTPSCoreNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CoreNetworkAcl
+      RuleNumber: 101
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: !Sub "${CidrPrefix}.192/26" # CorePublicSubnets Cidr
+      PortRange:
+        From: 443
+        To: 443
+
+  InboundEmphemeralCoreNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CoreNetworkAcl
+      RuleNumber: 201
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 1024
+        To: 65535
+
+  OutboundCoreNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CoreNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: true
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+
+  CoreSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref CoreSubnet1
+      NetworkAclId: !Ref CoreNetworkAcl
+
+  CoreSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref CoreSubnet2
+      NetworkAclId: !Ref CoreNetworkAcl
+
   CorePublicSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -499,6 +635,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['0', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano CorePublicSubnet1 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -518,6 +656,8 @@ Resources:
       MapPublicIpOnLaunch: false
       AvailabilityZone: !Select ['1', !GetAZs { Ref: 'AWS::Region'}]
       Tags:
+        - Key: Name
+          Value: !Sub "Chatano CorePublicSubnet2 (${ProjectName})"
         - Key: chatanoo:project
           Value: !Ref ProjectName
         - Key: chatanoo:component
@@ -528,6 +668,245 @@ Resources:
     Properties:
       SubnetId: !Ref CorePublicSubnet2
       RouteTableId: !Ref PublicRouteTable
+
+  CorePublicNetworkAcl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: Name
+          Value: !Sub "Chatano CorePublicNetworkAcl (${ProjectName})"
+        - Key: chatanoo:project
+          Value: !Ref ProjectName
+        - Key: chatanoo:component
+          Value: core
+
+  InboundHTTPCorePublicNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CorePublicNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 80
+        To: 80
+
+  InboundHTTPSCorePublicNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CorePublicNetworkAcl
+      RuleNumber: 101
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 443
+        To: 443
+
+  InboundEmphemeralCorePublicNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CorePublicNetworkAcl
+      RuleNumber: 201
+      Protocol: 6
+      RuleAction: allow
+      Egress: false
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 1024
+        To: 65535
+
+  OutboundCorePublicNetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref CorePublicNetworkAcl
+      RuleNumber: 100
+      Protocol: 6
+      RuleAction: allow
+      Egress: true
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+
+  CorePublicSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref CorePublicSubnet1
+      NetworkAclId: !Ref CorePublicNetworkAcl
+
+  CorePublicSubnet1NetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref CorePublicSubnet2
+      NetworkAclId: !Ref CorePublicNetworkAcl
+
+  CoreEBInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: BucketAccess
+                Effect: Allow
+                Action:
+                  - s3:Get*
+                  - s3:List*
+                  - s3:PutObject
+                Resource:
+                  - arn:aws:s3:::elasticbeanstalk-*
+                  - arn:aws:s3:::elasticbeanstalk-*/*
+
+  CoreEBEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref CoreEBInstanceRole
+
+  CoreEBRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - elasticbeanstalk.amazonaws.com
+            Action:
+              - sts:AssumeRole
+            Condition:
+              StringEquals:
+                sts:ExternalId: elasticbeanstalk
+      Path: "/"
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: HealthReporting
+                Effect: Allow
+                Action:
+                  - elasticloadbalancing:DescribeInstanceHealth
+                  - ec2:DescribeInstances
+                  - ec2:DescribeInstanceStatus
+                  - ec2:GetConsoleOutput
+                  - ec2:AssociateAddress
+                  - ec2:DescribeAddresses
+                  - ec2:DescribeSecurityGroups
+                  - sqs:GetQueueAttributes
+                  - sqs:GetQueueUrl
+                  - autoscaling:DescribeAutoScalingGroups
+                  - autoscaling:DescribeAutoScalingInstances
+                  - autoscaling:DescribeScalingActivities
+                  - autoscaling:DescribeNotificationConfigurations
+                Resource:
+                  - '*'
+              - Sid: AllowOperations
+                Effect: Allow
+                Action:
+                  - autoscaling:AttachInstances
+                  - autoscaling:CreateAutoScalingGroup
+                  - autoscaling:CreateLaunchConfiguration
+                  - autoscaling:DeleteLaunchConfiguration
+                  - autoscaling:DeleteAutoScalingGroup
+                  - autoscaling:DeleteScheduledAction
+                  - autoscaling:DescribeAccountLimits
+                  - autoscaling:DescribeAutoScalingGroups
+                  - autoscaling:DescribeAutoScalingInstances
+                  - autoscaling:DescribeLaunchConfigurations
+                  - autoscaling:DescribeLoadBalancers
+                  - autoscaling:DescribeNotificationConfigurations
+                  - autoscaling:DescribeScalingActivities
+                  - autoscaling:DescribeScheduledActions
+                  - autoscaling:DetachInstances
+                  - autoscaling:PutScheduledUpdateGroupAction
+                  - autoscaling:ResumeProcesses
+                  - autoscaling:SetDesiredCapacity
+                  - autoscaling:SuspendProcesses
+                  - autoscaling:TerminateInstanceInAutoScalingGroup
+                  - autoscaling:UpdateAutoScalingGroup
+                  - cloudwatch:PutMetricAlarm
+                  - ec2:AuthorizeSecurityGroupEgress
+                  - ec2:AuthorizeSecurityGroupIngress
+                  - ec2:CreateSecurityGroup
+                  - ec2:DeleteSecurityGroup
+                  - ec2:DescribeAccountAttributes
+                  - ec2:DescribeImages
+                  - ec2:DescribeInstances
+                  - ec2:DescribeKeyPairs
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeVpcs
+                  - ec2:RevokeSecurityGroupEgress
+                  - ec2:RevokeSecurityGroupIngress
+                  - ec2:TerminateInstances
+                  - ecs:CreateCluster
+                  - ecs:DeleteCluster
+                  - ecs:DescribeClusters
+                  - ecs:RegisterTaskDefinition
+                  - elasticbeanstalk:*
+                  - elasticloadbalancing:ApplySecurityGroupsToLoadBalancer
+                  - elasticloadbalancing:ConfigureHealthCheck
+                  - elasticloadbalancing:CreateLoadBalancer
+                  - elasticloadbalancing:DeleteLoadBalancer
+                  - elasticloadbalancing:DeregisterInstancesFromLoadBalancer
+                  - elasticloadbalancing:DescribeInstanceHealth
+                  - elasticloadbalancing:DescribeLoadBalancers
+                  - elasticloadbalancing:DescribeTargetHealth
+                  - elasticloadbalancing:RegisterInstancesWithLoadBalancer
+                  - iam:ListRoles
+                  - iam:PassRole
+                  - logs:CreateLogGroup
+                  - logs:PutRetentionPolicy
+                  - rds:DescribeDBInstances
+                  - rds:DescribeOrderableDBInstanceOptions
+                  - s3:CopyObject
+                  - s3:GetObject
+                  - s3:GetObjectAcl
+                  - s3:GetObjectMetadata
+                  - s3:ListBucket
+                  - s3:listBuckets
+                  - s3:ListObjects
+                  - sns:CreateTopic
+                  - sns:GetTopicAttributes
+                  - sns:ListSubscriptionsByTopic
+                  - sns:Subscribe
+                  - sqs:GetQueueAttributes
+                  - sqs:GetQueueUrl
+                Resource:
+                  - "*"
+              - Sid: AllowS3OperationsOnElasticBeanstalkBuckets
+                Effect: Allow
+                Action:
+                  - s3:*
+                Resource:
+                  - arn:aws:s3:::elasticbeanstalk-*
+                  - arn:aws:s3:::elasticbeanstalk-*/*
+              - Sid: AllowCloudformationOperationsOnElasticBeanstalkStacks
+                Effect: Allow
+                Action:
+                  - cloudformation:*
+                Resource:
+                  - arn:aws:cloudformation:*:*:stack/awseb-*
+                  - arn:aws:cloudformation:*:*:stack/eb-*
 
   CoreApplication:
     Type: AWS::ElasticBeanstalk::Application
@@ -548,11 +927,14 @@ Resources:
     Properties:
       ApplicationName: !Ref CoreApplication
       Description: Chatanoo Core Configuration Template
-      SolutionStackName: 64bit Amazon Linux 2015.03 v1.3.2 running PHP 5.6
+      SolutionStackName: 64bit Amazon Linux 2016.03 v2.1.7 running PHP 5.6
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
           OptionName: EnvironmentType
-          Value: SingleInstance
+          Value: LoadBalanced
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: ServiceRole
+          Value: !Ref CoreEBRole
         - Namespace: aws:autoscaling:asg
           OptionName: MinSize
           Value: '1'
@@ -567,6 +949,9 @@ Resources:
           OptionName: InstanceType
           Value: t1.micro
         - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: !GetAtt CoreEBEC2InstanceProfile.Arn
+        - Namespace: aws:autoscaling:launchconfiguration
           OptionName: SecurityGroups
           Value: !Join [',', [!Ref MemcachedClientSecurityGroup, !Ref RDSClientSecurityGroup, !Ref InstanceSecurityGroup]]
         - Namespace: aws:ec2:vpc
@@ -578,6 +963,95 @@ Resources:
         - Namespace: aws:ec2:vpc
           OptionName: ELBSubnets
           Value: !Join [',', [!Ref CorePublicSubnet1, !Ref CorePublicSubnet2]]
+        - Namespace: aws:elasticbeanstalk:healthreporting:system
+          OptionName: SystemType
+          Value: enhanced
+        - Namespace: aws:elasticbeanstalk:healthreporting:system
+          OptionName: ConfigDocument
+          Value: |
+            {
+              "CloudWatchMetrics": {
+                "Environment": {
+                  "InstancesSevere": 60,
+                  "ApplicationLatencyP90": 60,
+                  "ApplicationLatencyP99": 60,
+                  "ApplicationLatencyP95": 60,
+                  "InstancesUnknown": 60,
+                  "ApplicationLatencyP85": 60,
+                  "InstancesInfo": 60,
+                  "ApplicationRequests2xx": 60,
+                  "InstancesDegraded": 60,
+                  "InstancesWarning": 60,
+                  "ApplicationLatencyP50": 60,
+                  "ApplicationRequestsTotal": 60,
+                  "InstancesNoData": 60,
+                  "InstancesPending": 60,
+                  "ApplicationLatencyP10": 60,
+                  "ApplicationRequests5xx": 60,
+                  "ApplicationLatencyP75": 60,
+                  "InstancesOk": 60,
+                  "ApplicationRequests3xx": 60,
+                  "ApplicationRequests4xx": 60
+              },
+              "Instance": {
+                  "ApplicationLatencyP90": 60,
+                  "ApplicationLatencyP99": 60,
+                  "ApplicationLatencyP95": 60,
+                  "ApplicationLatencyP85": 60,
+                  "CPUUser": 60,
+                  "ApplicationRequests2xx": 60,
+                  "CPUIdle": 60,
+                  "ApplicationLatencyP50": 60,
+                  "ApplicationRequestsTotal": 60,
+                  "RootFilesystemUtil": 60,
+                  "LoadAverage1min": 60,
+                  "CPUIrq": 60,
+                  "CPUNice": 60,
+                  "CPUIowait": 60,
+                  "ApplicationLatencyP10": 60,
+                  "LoadAverage5min": 60,
+                  "ApplicationRequests5xx": 60,
+                  "ApplicationLatencyP75": 60,
+                  "CPUSystem": 60,
+                  "ApplicationRequests3xx": 60,
+                  "ApplicationRequests4xx": 60,
+                  "InstanceHealth": 60,
+                  "CPUSoftirq": 60
+                }
+              },
+              "Version": 1
+            }
+
+        - !If
+          - UseDNSRecord
+          - Namespace: aws:elb:listener:443
+            OptionName: ListenerProtocol
+            Value: HTTPS
+          - Namespace: aws:elb:listener
+            OptionName: ListenerProtocol
+            Value: HTTP
+        - !If
+          - UseDNSRecord
+          - Namespace: aws:elb:listener:443
+            OptionName: SSLCertificateId
+            Value: !Ref Certificate
+          - !Ref 'AWS::NoValue'
+        - !If
+          - UseDNSRecord
+          - Namespace: aws:elb:listener:443
+            OptionName: InstancePort
+            Value: 80
+          - Namespace: aws:elb:listener
+            OptionName: InstancePort
+            Value: 80
+        - !If
+          - UseDNSRecord
+          - Namespace: aws:elb:listener:443
+            OptionName: InstanceProtocol
+            Value: HTTP
+          - Namespace: aws:elb:listener
+            OptionName: InstanceProtocol
+            Value: HTTP
 
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: APPLICATION_ENV
@@ -626,9 +1100,22 @@ Resources:
         - !GetAtt CoreEnvironment.EndpointURL
     Condition: UseDNSRecord
 
+  Certificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Condition: UseDNSRecord
+    Properties:
+      DomainName: !Join ['.', [!Ref SubDomainName, !Ref DomainName]]
+      DomainValidationOptions:
+        - DomainName: !Ref DomainName
+          ValidationDomain: !Ref DomainName
+      SubjectAlternativeNames:
+        - !Ref DomainName
+      Tags:
+        - Resource Tag
+
 Outputs:
   Url:
     Value: !If
       - UseDNSRecord
-      - !Join ['', ['https://', !Ref CoreDNSRecord]]
-      - !Join ['', ['https://', !GetAtt CoreEnvironment.EndpointURL]]
+      - !Join ['', ['https://', !Ref SubDomainName, '.', !Ref DomainName]]
+      - !Join ['', ['http://', !GetAtt CoreEnvironment.EndpointURL]]

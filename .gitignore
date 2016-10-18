@@ -1,6 +1,6 @@
 .DS_Store
 vendor
-deploy
+build
 dump.rdb
 Application/etc/config.xml
 rsync-preprod.sh

@@ -1,6 +1,6 @@
 echo "Zipping sources"
 mkdir build
-git archive --format=zip HEAD > build/application.zip
+zip -r build/application.zip . -x *.git* build\*
 
 echo "Deploy $TRAVIS_TAG version to S3"
 aws s3 cp infra/core.cfn.yml s3://chatanoo-deployment.eu-west-1/infra/core/$TRAVIS_TAG.cfn.yml

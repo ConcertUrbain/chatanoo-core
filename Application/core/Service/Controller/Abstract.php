@@ -128,62 +128,62 @@
      * Notify the Chatanoo Notify Server
      */
     protected function _notify($method, $params, $content) {
-      if (!$this->_sns) {
-        $this->_sns = SnsClient::factory(array(
-          'region' => 'eu-west-1'
-        ));
-      }
-
-      $topic = Zend_Registry::get('config')->notify->topic;
-      $message = array(
-        'default' => json_encode(array(
-          'name' => $this->_notifyName,
-          'session' => Zend_Registry::get('sessionID'),
-          'data' => array(
-            'method' => $method,
-            'params' => $params,
-            'byUser' => Zend_Registry::get('userID'),
-            'result' => $content
-          )
-        ))
-      );
-
-      $this->_sns->publish(array(
-        'TopicArn' => $topic,
-        'MessageStructure' => 'json',
-        'Message' => json_encode($message)
-      ));
+      // if (!$this->_sns) {
+      //   $this->_sns = SnsClient::factory(array(
+      //     'region' => 'eu-west-1'
+      //   ));
+      // }
+      //
+      // $topic = Zend_Registry::get('config')->notify->topic;
+      // $message = array(
+      //   'default' => json_encode(array(
+      //     'name' => $this->_notifyName,
+      //     'session' => Zend_Registry::get('sessionID'),
+      //     'data' => array(
+      //       'method' => $method,
+      //       'params' => $params,
+      //       'byUser' => Zend_Registry::get('userID'),
+      //       'result' => $content
+      //     )
+      //   ))
+      // );
+      //
+      // $this->_sns->publish(array(
+      //   'TopicArn' => $topic,
+      //   'MessageStructure' => 'json',
+      //   'Message' => json_encode($message)
+      // ));
     }
 
     /**
      * Send Logs to Kinesis
      */
     protected function _logs($method, $params, $content) {
-      if (!$this->_kinesis) {
-        $this->_kinesis = KinesisClient::factory(array(
-          'region' => 'eu-west-1'
-        ));
-      }
-      if (!Zend_Registry::isRegistered('sessionID'))
-        return;
-
-      $stream = Zend_Registry::get('config')->logs->stream;
-      $message = json_encode(array(
-        'name' => $this->_notifyName,
-        'session' => Zend_Registry::get('sessionID'),
-        'data' => array(
-          'method' => $method,
-          'params' => $params,
-          'byUser' => Zend_Registry::get('userID'),
-          'result' => $content
-        )
-      ));
-
-      $this->_kinesis->putRecord(array(
-          'StreamName' => $stream,
-          'Data' => $message,
-          'PartitionKey' => Zend_Registry::get('sessionID')
-      ));
+      // if (!$this->_kinesis) {
+      //   $this->_kinesis = KinesisClient::factory(array(
+      //     'region' => 'eu-west-1'
+      //   ));
+      // }
+      // if (!Zend_Registry::isRegistered('sessionID'))
+      //   return;
+      //
+      // $stream = Zend_Registry::get('config')->logs->stream;
+      // $message = json_encode(array(
+      //   'name' => $this->_notifyName,
+      //   'session' => Zend_Registry::get('sessionID'),
+      //   'data' => array(
+      //     'method' => $method,
+      //     'params' => $params,
+      //     'byUser' => Zend_Registry::get('userID'),
+      //     'result' => $content
+      //   )
+      // ));
+      //
+      // $this->_kinesis->putRecord(array(
+      //     'StreamName' => $stream,
+      //     'Data' => $message,
+      //     'PartitionKey' => Zend_Registry::get('sessionID')
+      // ));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////

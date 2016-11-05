@@ -1068,7 +1068,7 @@ Resources:
     Properties:
       ApplicationName: !Ref CoreApplication
       Description: Chatanoo Core Configuration Template
-      SolutionStackName: 64bit Amazon Linux 2016.03 v2.1.7 running PHP 5.6
+      SolutionStackName: 64bit Amazon Linux 2016.09 v2.2.0 running PHP 5.6
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
           OptionName: EnvironmentType

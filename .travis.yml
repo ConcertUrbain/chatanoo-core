@@ -1,17 +1,40 @@
 language: php
 php:
-  - 5.4
+- 5.4
 
-install: 
-  - composer install
+env:
+  global:
+  - secure: oYlmwn8fD3Jg4F1rsW6r5Pq9WUvs3Apm1bSknxff2a8ee867G09K8Ow62UFHsZRET5HjdLzNhB2OdSy8P/nVZTYW4kjaSN1EiUrTUe3vBM7IFxE8tMJU7EoKmykvSqGoCysADzFCcyh8I5w+sKPVdUOvxZH/u8qVUUwcbZgMwuI=
+  - secure: VoJMlnB+CHa0hOuZcMar85wODVKeDjk2OVwyYm6/ytZB4D6xbgNbkNEvwyRkKg55cLC/K96BC4PlFQJPx0gxW/qLpSrEZk12zSBG3teGfqWV4UjXfOhBGZl+f++qmJPAPEsoKxe9W1mk4QDH8DQyZlL2L3Vy/x95UY0mMohcTMU=
+  - secure: gUnkga5Z3i058m4jZExDePeoJEXZVby2djBQLZQ2NRf3aVnWGSFoCCyBWcGeph6Xsmw7cP+0+O385nEynzMDmwrin08HEB7XOdTVC32nUlSUn00WWJEiq15HHhMbt2zYtLcWjuI+3ur2CaEJIlCkVUXg95AaBe39cAgRTbh+wl8=
+  - APPLICATION_ENV=test
+  - DATABASE_HOST=localhost
+  - DATABASE_USER=travis
+  - DATABASE_PASS=''
+  - DATABASE_NAME=TourATourTest
+  - MEMCACHED_HOST=localhost
+  - MEMCACHED_PORT=11211
+  - NOTIFY_TOPIC=''
+  - LOGS_STREAM=''
+
+install:
+- composer install
 
 services:
-  - redis-server
-  - memcached
+- redis-server
+- memcached
+- mysql
 
 before_script:
-  - mysql -e 'create database TourATourTest;'
-  - mysql TourATourTest < Database/structure.sql
+- mysql -e 'create database TourATourTest;'
+- mysql TourATourTest < Database/structure.sql
 
-script: 
-  - phpunit Tests/AllTests.php
+script:
+- phpunit Tests/AllTests.php
+
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  skip_cleanup: true
+  on:
+    tags: true

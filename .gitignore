@@ -2,7 +2,6 @@
 vendor
 build
 dump.rdb
-Application/etc/config.xml
 rsync-preprod.sh
 rsync-exclude
 rsync.sh

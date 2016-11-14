@@ -17,6 +17,9 @@ Metadata:
           default: DNS Configuration
         Parameters: ["SubDomainName", "VPCId", "EC2KeyName", "Route53HostedZone"]
       - Label:
+          default: Copy from an existing project ?
+        Parameters: ["DBSnapshot", "DBSnapshotUser", "DBSnapshotPassword", "ChatanooApiKeyBucketSource"]
+      - Label:
           default: Custom Resources Configuration
         Parameters: ["S3UploaderLambda", "PasswordGeneratorLambda", "SQLRequestLambda"]
 
@@ -148,6 +151,16 @@ Parameters:
       - i2.4xlarge
       - i2.8xlarge
 
+  DBSnapshot:
+    Type: String
+    Description: RDS Snapshot identifier or arn if it come from an another account
+  DBSnapshotUser:
+    Type: String
+  DBSnapshotPassword:
+    Type: String
+  ChatanooApiKeyBucketSource:
+    Type: String
+
   SubDomainName:
     Description: Subdomain Name of the website
     Type: String
@@ -198,6 +211,8 @@ Conditions:
   UseDNSAndHTTPS: !And
     - !Condition UseDNSRecord
     - !Condition UseHTTPS
+  UseDBSnapshot: !Not [!Equals [!Ref DBSnapshot, ""]]
+  DontUseDBSnapshot: !Not [!Condition UseDBSnapshot]
 
 Resources:
 
@@ -571,6 +586,7 @@ Resources:
 
   DBUsername:
     Type: Custom::Password
+    Condition: DontUseDBSnapshot
     Version: 1.0
     Properties:
       ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref PasswordGeneratorLambda]]
@@ -578,6 +594,7 @@ Resources:
 
   DBPassword:
     Type: Custom::Password
+    Condition: DontUseDBSnapshot
     Version: 1.0
     Properties:
       ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref PasswordGeneratorLambda]]
@@ -596,9 +613,10 @@ Resources:
       DBSubnetGroupName: !Ref RDSSubnetGroup
       Engine: mysql
       EngineVersion: 5.6.22
-      DBName: chatanoo
-      MasterUsername: !Ref DBUsername
-      MasterUserPassword: !Ref DBPassword
+      DBName: !If [UseDBSnapshot, !Ref "AWS::NoValue", chatanoo]
+      MasterUsername: !If [UseDBSnapshot, !Ref DBSnapshotUser, !Ref DBUsername]
+      MasterUserPassword: !If [UseDBSnapshot, !Ref DBSnapshotPassword, !Ref DBPassword]
+      DBSnapshotIdentifier: !If [UseDBSnapshot, !Ref DBSnapshot, !Ref "AWS::NoValue"]
       MultiAZ: !If [UseMultiAZ, "true", "false"]
       Port: '3306'
       PubliclyAccessible: false
@@ -614,13 +632,14 @@ Resources:
 
   DatabaseSchema:
     Type: Custom::SQLRequest
+    Condition: DontUseDBSnapshot
     Version: 1.0
     Properties:
       ServiceToken: !Join [":", ["arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref SQLRequestLambda]]
       Host: !GetAtt RDSInstance.Endpoint.Address
       Port: !GetAtt RDSInstance.Endpoint.Port
-      User: !Ref DBUsername
-      Password: !Ref DBPassword
+      User: !If [UseDBSnapshot, !Ref DBSnapshotUser, !Ref DBUsername]
+      Password: !If [UseDBSnapshot, !Ref DBSnapshotPassword, !Ref DBPassword]
       Database: chatanoo
       Engine: mysql
       Request:
@@ -1211,10 +1230,10 @@ Resources:
           Value: chatanoo
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: DATABASE_PASS
-          Value: !Ref DBPassword
+          Value: !If [UseDBSnapshot, !Ref DBSnapshotPassword, !Ref DBPassword]
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: DATABASE_USER
-          Value: !Ref DBUsername
+          Value: !If [UseDBSnapshot, !Ref DBSnapshotUser, !Ref DBUsername]
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: MEMCACHED_HOST
           Value: !GetAtt MemcachedCluster.ConfigurationEndpoint.Address
@@ -1288,12 +1307,17 @@ Resources:
     Version: 1.0
     Properties:
       ServiceToken: !Join [":", [ "arn:aws:lambda", !Ref 'AWS::Region', !Ref 'AWS::AccountId', "function", !Ref S3UploaderLambda] ]
-      Source:
-        Json:
-          api_key: []
+      Source: !If
+        - UseDBSnapshot
+        - S3:
+            Bucket: !Ref ChatanooApiKeyBucketSource
+            Key: apikeys.json
+        - Json:
+            api_key: []
       Destination:
         Bucket: !Ref ChatanooApiKeyBucket
         Key: apikeys.json
+        ACL: public-read
 
   ChatanooApiKeyEnvironment:
     Type: Custom::S3Uploader
@@ -1304,8 +1328,8 @@ Resources:
         Json:
           DBHost: !GetAtt RDSInstance.Endpoint.Address
           DBPort: !GetAtt RDSInstance.Endpoint.Port
-          DBUser: !Ref DBUsername
-          DBPass: !Ref DBPassword
+          DBUser: !If [UseDBSnapshot, !Ref DBSnapshotUser, !Ref DBUsername]
+          DBPass: !If [UseDBSnapshot, !Ref DBSnapshotPassword, !Ref DBPassword]
           DBName: chatanoo
           ApiKeysObject: !GetAtt ChatanooApiKeyList.Key
       Destination:

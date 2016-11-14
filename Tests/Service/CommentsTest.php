@@ -63,6 +63,14 @@
         Zend_Registry::set('db', $db);
 
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
+
+        $cache = Zend_Cache::factory(
+          $config->cache->frontend->adapter,
+          $config->cache->backend->adapter,
+          $config->cache->frontend->options->toArray(),
+          $config->cache->backend->options->toArray()
+        );
+        Zend_Registry::set('cache', $cache);
       }
       else
       {
@@ -72,7 +80,7 @@
 
       $redis = new Predis\Client();
       Zend_Registry::set('redis', $redis);
-      
+
       Zend_Registry::set('userID', 1);
       Zend_Registry::set('sessionID', 1);
     }
@@ -333,4 +341,3 @@
     }
 
   }
-

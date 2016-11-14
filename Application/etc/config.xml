@@ -11,6 +11,7 @@
               <username><zf:const zf:name="DATABASE_USER"/></username>
               <password><zf:const zf:name="DATABASE_PASS"/></password>
               <dbname><zf:const zf:name="DATABASE_NAME"/></dbname>
+              <charset>utf8</charset>
           </params>
       </database>
 

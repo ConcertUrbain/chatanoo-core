@@ -1385,7 +1385,7 @@ Resources:
       Code:
         S3Bucket: !Ref DeploymentBucket
         S3Key: !Ref ChatanooApiKeyKey
-      Runtime: nodejs
+      Runtime: nodejs4.3
       Timeout: 60
       VpcConfig:
         SecurityGroupIds:
